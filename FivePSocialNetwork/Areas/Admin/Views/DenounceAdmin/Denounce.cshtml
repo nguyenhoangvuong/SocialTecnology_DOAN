@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "Denounce";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="main-panel" ng-app="myApp">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Database tỉnh</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Tố cáo</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Database tố cáo</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row" ng-controller="myCtrl">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="collapse" id="search-nav">
+                                    <form class="navbar-left navbar-form nav-search mr-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <i class="fa fa-search search-icon btn btn-search pr-1"></i>
+                                            </div>
+                                            <input type="text" ng-model="txtSearch" placeholder="Search ..." class="form-control">
+                                        </div>
+                                    </form>
+                                </div>
+                                @*<button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                                    Duyệt
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#recycleBin">
+                                    Xem xét
+                                </button>*@
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Modal -->
+                            <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header no-bd">
+                                            <h5 class="modal-title">
+                                                <span class="fw-mediumbold">
+                                                    Thêm mới
+                                                </span>
+                                                <span class="fw-light">
+                                                    công nghệ
+                                                </span>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="@Url.Action("CreateProvincail","AddressAdmin")" method="post">
+                                            <div class="modal-body">
+                                                <p class="small">Điền đầy dủ thông tin công nghệ dưới đây</p>
+
+                                                @Html.AntiForgeryToken()
+                                                <div class="row">
+                                                    <div class="col-md-6 pr-0">
+                                                        <div class="form-group form-group-default">
+                                                            <label>Tên</label>
+                                                            <input name="provincial_name" id="addPosition" required="" type="text" class="form-control" placeholder="Tên..">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer no-bd">
+                                                <button type="submit" id="addRowButton" class="btn btn-primary">Thêm tỉnh</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="add-row" class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Stt</th>
+                                            <th>User tố cáo</th>
+                                            <th>User bị tố</th>
+                                            <th>Nội dung</th>
+                                            <th>Xem chi tiết</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in filteredTodos | filter: txtSearch">
+                                            <td>{{$index + 1}}</td>
+                                            <td>{{x.nameAccuser}}</td>
+                                            <td>{{x.namediscredit}}</td>
+                                            <td ng-show="x.denounce_viewStatus == false" style="font-weight:900">{{x.denounceUser_content}}</td>
+                                            <td ng-show="x.denounce_viewStatus == true">{{x.denounceUser_content}}</td>
+                                            <td ng-show="x.denounce_viewStatus == false">
+                                                <a ng-href="/Admin/DenounceAdmin/DenounceViewStatus?id={{x.denounceUser_id}}"  class="btn btn-link"><i class="fas fa-eye-slash"></i></a>
+                                            </td>
+                                            <td ng-show="x.denounce_viewStatus == true">
+                                                <a ng-href="/Admin/DenounceAdmin/DenounceViewStatus?id={{x.denounceUser_id}}" class="btn btn-link"><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <pagination ng-model="currentPage"
+                                    total-items="list.length"
+                                    max-size="maxSize"
+                                    boundary-links="true">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', ["ui.bootstrap"]);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/Admin/DenounceAdmin/DenounceJson")
+            .then(function (response) {
+                //Gia dinh
+                $scope.filteredTodos = []
+                    , $scope.currentPage = 1
+                    , $scope.numPerPage = 12
+                    , $scope.maxSize = 5;
+
+                //Xac dinh list phan trang
+                $scope.makeTodos = function () {
+                    $scope.list = response.data;
+                }
+                $scope.makeTodos();
+
+                //Phân trang
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+
+                    $scope.filteredTodos = $scope.list.slice(begin, end);
+                });
+            }, function (response) {
+                // Second function handles error
+                $scope.content = "Something went wrong";
+            });
+        $scope.denounceViewStatus = function (id) {
+            $http.get("/Admin/DenounceAdmin/DenounceViewStatus?id=" + id).then(function (response) {
+            });
+        }
+        
+    });
+</script>
+

@@ -1,0 +1,3228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FivePSocialNetWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advertisement">
+          <Key>
+            <PropertyRef Name="advertisiment_id" />
+          </Key>
+          <Property Name="advertisiment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="advertisiment_companyname" Type="nvarchar" MaxLength="300" />
+          <Property Name="advertisiment_note" Type="nvarchar(max)" />
+          <Property Name="advertisiment_activate" Type="bit" />
+          <Property Name="advertisiment_dateCreate" Type="datetime" />
+          <Property Name="advertisiment_dateEdit" Type="datetime" />
+          <Property Name="advertisiment_recycleBin" Type="bit" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="answer_id" />
+          </Key>
+          <Property Name="answer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="answer_content" Type="nvarchar(max)" />
+          <Property Name="answer_dateCreate" Type="datetime" />
+          <Property Name="answer_dateEdit" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="answer_activate" Type="bit" />
+          <Property Name="answer_userStatus" Type="bit" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="answer_totalRate" Type="int" />
+          <Property Name="answer_medalCalculate" Type="int" />
+          <Property Name="answer_recycleBin" Type="bit" />
+          <Property Name="answer_admin_recycleBin" Type="bit" />
+          <Property Name="answer_correct" Type="bit" />
+        </EntityType>
+        <EntityType Name="Comment_Answer">
+          <Key>
+            <PropertyRef Name="commentAnswer_id" />
+          </Key>
+          <Property Name="commentAnswer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="commentAnswer_content" Type="nvarchar(max)" />
+          <Property Name="commentAnswer_dateCreate" Type="datetime" />
+          <Property Name="commentAnswer_dateEdit" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="answer_id" Type="int" />
+          <Property Name="commentAnswer_recycleBin" Type="bit" />
+          <Property Name="commentAnswer_activate" Type="bit" />
+          <Property Name="commentAnswer_userStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="Commune">
+          <Key>
+            <PropertyRef Name="commune_id" />
+          </Key>
+          <Property Name="commune_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="commune_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="commune_activate" Type="bit" />
+          <Property Name="commune_dateCreate" Type="datetime" />
+          <Property Name="commune_dateEdit" Type="datetime" />
+          <Property Name="commune_recycleBin" Type="bit" />
+          <Property Name="district_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Denounce_User">
+          <Key>
+            <PropertyRef Name="denounceUser_id" />
+          </Key>
+          <Property Name="denounceUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accuser_id" Type="int" />
+          <Property Name="discredit_id" Type="int" />
+          <Property Name="denounceUser_content" Type="nvarchar" MaxLength="300" />
+          <Property Name="denounceUser_dateCreate" Type="datetime" />
+          <Property Name="denounceUser_recycleBin" Type="bit" />
+          <Property Name="denounce_viewStatus" Type="bit" />
+          <Property Name="denounce_status" Type="bit" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="district_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="district_activate" Type="bit" />
+          <Property Name="district_dateCreate" Type="datetime" />
+          <Property Name="district_dateEdit" Type="datetime" />
+          <Property Name="district_recycleBin" Type="bit" />
+          <Property Name="provincial_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="friend_id" />
+          </Key>
+          <Property Name="friend_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userRequest_id" Type="int" />
+          <Property Name="userResponse_id" Type="int" />
+          <Property Name="friend_status" Type="bit" />
+          <Property Name="friend_dateRequest" Type="datetime" />
+          <Property Name="friend_dateResponse" Type="datetime" />
+          <Property Name="friend_dateUnfriend" Type="datetime" />
+          <Property Name="friend_recycleBin" Type="bit" />
+          <Property Name="friend_follow" Type="bit" />
+          <Property Name="friend_follow2_Response" Type="bit" />
+        </EntityType>
+        <EntityType Name="Functions_User">
+          <Key>
+            <PropertyRef Name="functionsUser_id" />
+          </Key>
+          <Property Name="functionsUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="notification_question_technology" Type="bit" />
+        </EntityType>
+        <EntityType Name="Image_Advertisement">
+          <Key>
+            <PropertyRef Name="ImageAdvertisement_id" />
+          </Key>
+          <Property Name="ImageAdvertisement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageAdvertisement_image" Type="varchar(max)" />
+          <Property Name="advertisement_id" Type="int" />
+          <Property Name="ImageAdvertisement_note" Type="nvarchar(max)" />
+          <Property Name="ImageAdvertisement_activate" Type="bit" />
+          <Property Name="ImageAdvertisement_dateCreate" Type="datetime" />
+          <Property Name="ImageAdvertisement_dateEdit" Type="datetime" />
+          <Property Name="ImageAdvertisement_recycleBin" Type="bit" />
+          <Property Name="positionAdvertisement_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Letters">
+          <Key>
+            <PropertyRef Name="letters_id" />
+          </Key>
+          <Property Name="letters_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="letters_content" Type="nvarchar(max)" />
+          <Property Name="letters_status" Type="bit" />
+          <Property Name="letters_recycleBin" Type="bit" />
+          <Property Name="letters_dateCreate" Type="datetime" />
+          <Property Name="letters_dateEdit" Type="datetime" />
+          <Property Name="letters_statusSee" Type="bit" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Letters_Idea">
+          <Key>
+            <PropertyRef Name="lettersIdea_id" />
+          </Key>
+          <Property Name="lettersIdea_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lettersIdea_content" Type="nvarchar" MaxLength="300" />
+          <Property Name="lettersIdea_activate" Type="bit" />
+          <Property Name="lettersIdea_dateCreate" Type="datetime" />
+          <Property Name="lettersIdea_dateEdit" Type="datetime" />
+          <Property Name="lettersIdea_recycleBin" Type="bit" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message_content" Type="nvarchar(max)" />
+          <Property Name="messageSender_id" Type="int" />
+          <Property Name="messageRecipients_id" Type="int" />
+          <Property Name="message_dateSend" Type="datetime" />
+          <Property Name="message_recycleBin" Type="bit" />
+          <Property Name="message_status" Type="bit" />
+          <Property Name="messageRecipients_status" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notification_id" />
+          </Key>
+          <Property Name="notification_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="notification_content" Type="nvarchar" MaxLength="300" />
+          <Property Name="receiver_id" Type="int" />
+          <Property Name="impactUser_id" Type="int" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="notification_status" Type="bit" />
+          <Property Name="notification_dateCreate" Type="datetime" />
+          <Property Name="notification_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Position_Advertisement">
+          <Key>
+            <PropertyRef Name="positionAdvertisement_id" />
+          </Key>
+          <Property Name="positionAdvertisement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="positionAdvertisement_positionName" Type="nvarchar(max)" />
+          <Property Name="positionAdvertisement_note" Type="nvarchar(max)" />
+          <Property Name="positionAdvertisement_activate" Type="bit" />
+          <Property Name="positionAdvertisement_dateCreate" Type="datetime" />
+          <Property Name="positionAdvertisement_dateEdit" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="post_id" />
+          </Key>
+          <Property Name="post_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="post_content" Type="nvarchar(max)" />
+          <Property Name="post_dateCreate" Type="datetime" />
+          <Property Name="post_dateEdit" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="post_activate" Type="bit" />
+          <Property Name="post_title" Type="nvarchar" MaxLength="300" />
+          <Property Name="post_view" Type="int" />
+          <Property Name="post_totalLike" Type="int" />
+          <Property Name="post_totalDislike" Type="int" />
+          <Property Name="post_recycleBin" Type="bit" />
+          <Property Name="post_userStatus" Type="bit" />
+          <Property Name="post_admin_recycleBin" Type="bit" />
+          <Property Name="post_image" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Provincial">
+          <Key>
+            <PropertyRef Name="provincial_id" />
+          </Key>
+          <Property Name="provincial_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="provincial_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="provincial_activate" Type="bit" />
+          <Property Name="provincial_dateCreate" Type="datetime" />
+          <Property Name="provincial_dateEdit" Type="datetime" />
+          <Property Name="provincial_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_content" Type="nvarchar(max)" />
+          <Property Name="question_dateCreate" Type="datetime" />
+          <Property Name="question_dateEdit" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="question_activate" Type="bit" />
+          <Property Name="question_title" Type="nvarchar" MaxLength="300" />
+          <Property Name="question_Answer" Type="int" />
+          <Property Name="question_totalComment" Type="int" />
+          <Property Name="question_view" Type="int" />
+          <Property Name="question_totalRate" Type="int" />
+          <Property Name="question_medalCalculator" Type="int" />
+          <Property Name="question_recycleBin" Type="bit" />
+          <Property Name="question_userStatus" Type="bit" />
+          <Property Name="question_popular" Type="int" />
+          <Property Name="question_admin_recycleBin" Type="bit" />
+          <Property Name="question_keywordSearch" Type="nvarchar(max)" />
+          <Property Name="question_totalTick" Type="int" />
+        </EntityType>
+        <EntityType Name="Rate_Answer">
+          <Key>
+            <PropertyRef Name="rateAnswer_id" />
+          </Key>
+          <Property Name="rateAnswer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="answer_id" Type="int" />
+          <Property Name="rateAnswer_rateStatus" Type="bit" />
+          <Property Name="rateAnswer_dateCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Rate_Post">
+          <Key>
+            <PropertyRef Name="ratePost_id" />
+          </Key>
+          <Property Name="ratePost_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="post_id" Type="int" />
+          <Property Name="ratePost_rateStatus" Type="bit" />
+          <Property Name="ratePost_dateCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Rate_Question">
+          <Key>
+            <PropertyRef Name="rateQuestion_id" />
+          </Key>
+          <Property Name="rateQuestion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="rateQuestion_rateStatus" Type="bit" />
+          <Property Name="rateQuestion_dateCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Regulations">
+          <Key>
+            <PropertyRef Name="regulations_id" />
+          </Key>
+          <Property Name="regulations_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="regulations_name" Type="nvarchar(max)" />
+          <Property Name="regulations_activate" Type="bit" />
+          <Property Name="regulations_recycleBin" Type="bit" />
+          <Property Name="regulations_dateCreate" Type="datetime" />
+          <Property Name="regulations_dateEdit" Type="datetime" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="role_activate" Type="bit" />
+          <Property Name="role_dateCreate" Type="datetime" />
+          <Property Name="role_dateEdit" Type="datetime" />
+          <Property Name="role_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Search">
+          <Key>
+            <PropertyRef Name="search_id" />
+          </Key>
+          <Property Name="search_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="search_content" Type="nvarchar(max)" />
+          <Property Name="search_dateCreate" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Sex_User">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sex_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="sex_activate" Type="bit" />
+          <Property Name="sex_dateCreate" Type="datetime" />
+          <Property Name="sex_dateEdit" Type="datetime" />
+          <Property Name="sex_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Show_Activate_Question">
+          <Key>
+            <PropertyRef Name="showActivateQ_id" />
+          </Key>
+          <Property Name="showActivateQ_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="showActivateQ_dateCreate" Type="datetime" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tags_Question">
+          <Key>
+            <PropertyRef Name="tagsQuestion_id" />
+          </Key>
+          <Property Name="tagsQuestion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="tagsQuestion_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="tagsQuestion_dateCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Teachnology_Question">
+          <Key>
+            <PropertyRef Name="teachnologyQuestion_id" />
+          </Key>
+          <Property Name="teachnologyQuestion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="technology_id" Type="int" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="teachnologyQuestion_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Teachnology_User">
+          <Key>
+            <PropertyRef Name="technologyUser_id" />
+          </Key>
+          <Property Name="technologyUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="technology_id" Type="int" />
+          <Property Name="technology_dateCreate" Type="datetime" />
+          <Property Name="technology_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="technology_id" />
+          </Key>
+          <Property Name="technology_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="technology_name" Type="varchar" MaxLength="150" />
+          <Property Name="technology_popular" Type="int" />
+          <Property Name="technology_activate" Type="bit" />
+          <Property Name="technology_recycleBin" Type="bit" />
+          <Property Name="technology_dateCreate" Type="datetime" />
+          <Property Name="technology_dateEdit" Type="datetime" />
+          <Property Name="technology_note" Type="nvarchar" MaxLength="500" />
+          <Property Name="technology_totalQuestion" Type="int" />
+        </EntityType>
+        <EntityType Name="Tick_Question">
+          <Key>
+            <PropertyRef Name="tickQuestion_id" />
+          </Key>
+          <Property Name="tickQuestion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="tickQuestion_dateCreate" Type="datetime" />
+          <Property Name="tickQuestion_recycleBin" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_pass" Type="nvarchar" MaxLength="500" />
+          <Property Name="user_firstName" Type="nvarchar" MaxLength="80" />
+          <Property Name="user_lastName" Type="nvarchar" MaxLength="80" />
+          <Property Name="user_email" Type="varchar" MaxLength="300" />
+          <Property Name="user_token" Type="varchar(max)" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="user_code" Type="varchar(max)" />
+          <Property Name="user_avatar" Type="varchar(max)" />
+          <Property Name="user_coverImage" Type="varchar(max)" />
+          <Property Name="user_activate" Type="bit" />
+          <Property Name="user_recycleBin" Type="bit" />
+          <Property Name="user_dateCreate" Type="datetime" />
+          <Property Name="user_dateEdit" Type="datetime" />
+          <Property Name="user_dateLogin" Type="datetime" />
+          <Property Name="user_emailAuthentication" Type="bit" />
+          <Property Name="user_verifyPhoneNumber" Type="bit" />
+          <Property Name="user_loginAuthentication" Type="bit" />
+          <Property Name="provincial_id" Type="int" />
+          <Property Name="district_id" Type="int" />
+          <Property Name="commune_id" Type="int" />
+          <Property Name="user_addressRemaining" Type="nvarchar" MaxLength="600" />
+          <Property Name="sex_id" Type="int" />
+          <Property Name="user_linkFacebook" Type="varchar(max)" />
+          <Property Name="user_linkGithub" Type="varchar(max)" />
+          <Property Name="user_anotherWeb" Type="nvarchar(max)" />
+          <Property Name="user_hobbyWork" Type="nvarchar(max)" />
+          <Property Name="user_hobby" Type="nvarchar(max)" />
+          <Property Name="user_birthday" Type="date" />
+          <Property Name="user_popular" Type="int" />
+          <Property Name="user_goldMedal" Type="int" />
+          <Property Name="user_silverMedal" Type="int" />
+          <Property Name="user_brozeMedal" Type="int" />
+          <Property Name="user_vipMedal" Type="int" />
+          <Property Name="user_phone" Type="varchar" MaxLength="15" />
+          <Property Name="user_statusOnline" Type="bit" />
+          <Property Name="user_SecurityAccount" Type="bit" />
+        </EntityType>
+        <EntityType Name="User_IP">
+          <Key>
+            <PropertyRef Name="userIP_id" />
+          </Key>
+          <Property Name="userIP_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userIP_IP" Type="varchar" MaxLength="50" />
+          <Property Name="userIP_dateLogin" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="View_Post">
+          <Key>
+            <PropertyRef Name="viewPost_id" />
+          </Key>
+          <Property Name="viewPost_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="post_id" Type="int" />
+          <Property Name="viewPost_dateCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="View_Question">
+          <Key>
+            <PropertyRef Name="viewQuestion_id" />
+          </Key>
+          <Property Name="viewQuestion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="viewQuestion_dateCreate" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_Advertisement_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Advertisement">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Answer_Answer">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
+          <End Role="Comment_Answer" Type="Self.Comment_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="answer_id" />
+            </Principal>
+            <Dependent Role="Comment_Answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comment_Answer" Type="Self.Comment_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment_Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commune_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Commune" Type="Self.Commune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="Commune">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Denounce_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Denounce_User" Type="Self.Denounce_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Denounce_User">
+              <PropertyRef Name="accuser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Denounce_User_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Denounce_User" Type="Self.Denounce_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Denounce_User">
+              <PropertyRef Name="discredit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Provincial">
+          <End Role="Provincial" Type="Self.Provincial" Multiplicity="0..1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincial">
+              <PropertyRef Name="provincial_id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="provincial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Friend_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="userRequest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Friend_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="userResponse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Functions_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Functions_User" Type="Self.Functions_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Functions_User">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Image_Advertisement_Advertisement">
+          <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="0..1" />
+          <End Role="Image_Advertisement" Type="Self.Image_Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertisement">
+              <PropertyRef Name="advertisiment_id" />
+            </Principal>
+            <Dependent Role="Image_Advertisement">
+              <PropertyRef Name="advertisement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Image_Advertisement_Position_Advertisement">
+          <End Role="Position_Advertisement" Type="Self.Position_Advertisement" Multiplicity="0..1" />
+          <End Role="Image_Advertisement" Type="Self.Image_Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position_Advertisement">
+              <PropertyRef Name="positionAdvertisement_id" />
+            </Principal>
+            <Dependent Role="Image_Advertisement">
+              <PropertyRef Name="positionAdvertisement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_Idea_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Letters_Idea" Type="Self.Letters_Idea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Letters_Idea">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Letters" Type="Self.Letters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Letters">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Letters" Type="Self.Letters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Letters">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="messageSender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="messageRecipients_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="receiver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="impactUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Answer_Answer">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
+          <End Role="Rate_Answer" Type="Self.Rate_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="answer_id" />
+            </Principal>
+            <Dependent Role="Rate_Answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Answer" Type="Self.Rate_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Post_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Rate_Post" Type="Self.Rate_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="post_id" />
+            </Principal>
+            <Dependent Role="Rate_Post">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Post" Type="Self.Rate_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Rate_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Regulations_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Regulations" Type="Self.Regulations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Regulations">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Search_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Search" Type="Self.Search" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Search">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Show_Activate_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Show_Activate_Question" Type="Self.Show_Activate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Show_Activate_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Show_Activate_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Show_Activate_Question" Type="Self.Show_Activate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Show_Activate_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tags_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Tags_Question" Type="Self.Tags_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Tags_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Teachnology_Question" Type="Self.Teachnology_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Teachnology_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_Question_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Teachnology_Question" Type="Self.Teachnology_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="Teachnology_Question">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_User_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Teachnology_User" Type="Self.Teachnology_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="Teachnology_User">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Teachnology_User" Type="Self.Teachnology_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Teachnology_User">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tick_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Tick_Question" Type="Self.Tick_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Tick_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tick_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Tick_Question" Type="Self.Tick_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Tick_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Commune">
+          <End Role="Commune" Type="Self.Commune" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commune">
+              <PropertyRef Name="commune_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="commune_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_IP_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User_IP" Type="Self.User_IP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="User_IP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Provincial">
+          <End Role="Provincial" Type="Self.Provincial" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincial">
+              <PropertyRef Name="provincial_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="provincial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Sex_User">
+          <End Role="Sex_User" Type="Self.Sex_User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex_User">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Post_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="View_Post" Type="Self.View_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="post_id" />
+            </Principal>
+            <Dependent Role="View_Post">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="View_Post" Type="Self.View_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="View_Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="View_Question" Type="Self.View_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="View_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="View_Question" Type="Self.View_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="View_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FivePSocialNetWorkModelStoreContainer">
+          <EntitySet Name="Advertisement" EntityType="Self.Advertisement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment_Answer" EntityType="Self.Comment_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commune" EntityType="Self.Commune" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Denounce_User" EntityType="Self.Denounce_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Functions_User" EntityType="Self.Functions_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image_Advertisement" EntityType="Self.Image_Advertisement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Letters" EntityType="Self.Letters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Letters_Idea" EntityType="Self.Letters_Idea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position_Advertisement" EntityType="Self.Position_Advertisement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincial" EntityType="Self.Provincial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate_Answer" EntityType="Self.Rate_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate_Post" EntityType="Self.Rate_Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate_Question" EntityType="Self.Rate_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regulations" EntityType="Self.Regulations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex_User" EntityType="Self.Sex_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Show_Activate_Question" EntityType="Self.Show_Activate_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags_Question" EntityType="Self.Tags_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachnology_Question" EntityType="Self.Teachnology_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachnology_User" EntityType="Self.Teachnology_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technology" EntityType="Self.Technology" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tick_Question" EntityType="Self.Tick_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_IP" EntityType="Self.User_IP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_Post" EntityType="Self.View_Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_Question" EntityType="Self.View_Question" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Advertisement_User" Association="Self.FK_Advertisement_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Advertisement" EntitySet="Advertisement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="Self.FK_Answer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_User" Association="Self.FK_Answer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Answer_Answer" Association="Self.FK_Comment_Answer_Answer">
+            <End Role="Answer" EntitySet="Answer" />
+            <End Role="Comment_Answer" EntitySet="Comment_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Answer_User" Association="Self.FK_Comment_Answer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment_Answer" EntitySet="Comment_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commune_District" Association="Self.FK_Commune_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Commune" EntitySet="Commune" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Denounce_User_User" Association="Self.FK_Denounce_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Denounce_User" EntitySet="Denounce_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Denounce_User_User1" Association="Self.FK_Denounce_User_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Denounce_User" EntitySet="Denounce_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Provincial" Association="Self.FK_District_Provincial">
+            <End Role="Provincial" EntitySet="Provincial" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Friend_User" Association="Self.FK_Friend_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Friend" EntitySet="Friend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Friend_User1" Association="Self.FK_Friend_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Friend" EntitySet="Friend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Functions_User_User" Association="Self.FK_Functions_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Functions_User" EntitySet="Functions_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Image_Advertisement_Advertisement" Association="Self.FK_Image_Advertisement_Advertisement">
+            <End Role="Advertisement" EntitySet="Advertisement" />
+            <End Role="Image_Advertisement" EntitySet="Image_Advertisement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Image_Advertisement_Position_Advertisement" Association="Self.FK_Image_Advertisement_Position_Advertisement">
+            <End Role="Position_Advertisement" EntitySet="Position_Advertisement" />
+            <End Role="Image_Advertisement" EntitySet="Image_Advertisement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_Idea_Role_User" Association="Self.FK_Letters_Idea_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Letters_Idea" EntitySet="Letters_Idea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_Role_User" Association="Self.FK_Letters_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Letters" EntitySet="Letters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_User" Association="Self.FK_Letters_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Letters" EntitySet="Letters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User1" Association="Self.FK_Message_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Question" Association="Self.FK_Notification_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_User" Association="Self.FK_Notification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_User1" Association="Self.FK_Notification_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_User" Association="Self.FK_Post_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Answer_Answer" Association="Self.FK_Rate_Answer_Answer">
+            <End Role="Answer" EntitySet="Answer" />
+            <End Role="Rate_Answer" EntitySet="Rate_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Answer_User" Association="Self.FK_Rate_Answer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rate_Answer" EntitySet="Rate_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Post_Post" Association="Self.FK_Rate_Post_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Rate_Post" EntitySet="Rate_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Post_User" Association="Self.FK_Rate_Post_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rate_Post" EntitySet="Rate_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Question_Question" Association="Self.FK_Rate_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Rate_Question" EntitySet="Rate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Question_User" Association="Self.FK_Rate_Question_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rate_Question" EntitySet="Rate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Regulations_Role_User" Association="Self.FK_Regulations_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Regulations" EntitySet="Regulations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Search_User" Association="Self.FK_Search_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Search" EntitySet="Search" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_Activate_Question_Question" Association="Self.FK_Show_Activate_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Show_Activate_Question" EntitySet="Show_Activate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_Activate_Question_User" Association="Self.FK_Show_Activate_Question_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Show_Activate_Question" EntitySet="Show_Activate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_Question_Question" Association="Self.FK_Tags_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Tags_Question" EntitySet="Tags_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_Question_Question" Association="Self.FK_Teachnology_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Teachnology_Question" EntitySet="Teachnology_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_Question_Technology" Association="Self.FK_Teachnology_Question_Technology">
+            <End Role="Technology" EntitySet="Technology" />
+            <End Role="Teachnology_Question" EntitySet="Teachnology_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_User_Technology" Association="Self.FK_Teachnology_User_Technology">
+            <End Role="Technology" EntitySet="Technology" />
+            <End Role="Teachnology_User" EntitySet="Teachnology_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_User_User" Association="Self.FK_Teachnology_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Teachnology_User" EntitySet="Teachnology_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tick_Question_Question" Association="Self.FK_Tick_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Tick_Question" EntitySet="Tick_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tick_Question_User" Association="Self.FK_Tick_Question_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Tick_Question" EntitySet="Tick_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Commune" Association="Self.FK_User_Commune">
+            <End Role="Commune" EntitySet="Commune" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_District" Association="Self.FK_User_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_IP_User" Association="Self.FK_User_IP_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_IP" EntitySet="User_IP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Provincial" Association="Self.FK_User_Provincial">
+            <End Role="Provincial" EntitySet="Provincial" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role_User" Association="Self.FK_User_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Sex_User" Association="Self.FK_User_Sex_User">
+            <End Role="Sex_User" EntitySet="Sex_User" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Post_Post" Association="Self.FK_View_Post_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="View_Post" EntitySet="View_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Post_User" Association="Self.FK_View_Post_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="View_Post" EntitySet="View_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Question_Question" Association="Self.FK_View_Question_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="View_Question" EntitySet="View_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Question_User" Association="Self.FK_View_Question_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="View_Question" EntitySet="View_Question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FivePSocialNetWorkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Advertisement">
+          <Key>
+            <PropertyRef Name="advertisiment_id" />
+          </Key>
+          <Property Name="advertisiment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="advertisiment_companyname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="advertisiment_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="advertisiment_activate" Type="Boolean" />
+          <Property Name="advertisiment_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="advertisiment_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="advertisiment_recycleBin" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Advertisement_User" FromRole="Advertisement" ToRole="User" />
+          <NavigationProperty Name="Image_Advertisement" Relationship="Self.FK_Image_Advertisement_Advertisement" FromRole="Advertisement" ToRole="Image_Advertisement" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="answer_id" />
+          </Key>
+          <Property Name="answer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="answer_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="answer_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="answer_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="answer_activate" Type="Boolean" />
+          <Property Name="answer_userStatus" Type="Boolean" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="answer_totalRate" Type="Int32" />
+          <Property Name="answer_medalCalculate" Type="Int32" />
+          <Property Name="answer_recycleBin" Type="Boolean" />
+          <Property Name="answer_admin_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Answer_User" FromRole="Answer" ToRole="User" />
+          <NavigationProperty Name="Comment_Answer" Relationship="Self.FK_Comment_Answer_Answer" FromRole="Answer" ToRole="Comment_Answer" />
+          <NavigationProperty Name="Rate_Answer" Relationship="Self.FK_Rate_Answer_Answer" FromRole="Answer" ToRole="Rate_Answer" />
+          <Property Name="answer_correct" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Comment_Answer">
+          <Key>
+            <PropertyRef Name="commentAnswer_id" />
+          </Key>
+          <Property Name="commentAnswer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="commentAnswer_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="commentAnswer_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="commentAnswer_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="answer_id" Type="Int32" />
+          <Property Name="commentAnswer_recycleBin" Type="Boolean" />
+          <Property Name="commentAnswer_activate" Type="Boolean" />
+          <Property Name="commentAnswer_userStatus" Type="Boolean" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK_Comment_Answer_Answer" FromRole="Comment_Answer" ToRole="Answer" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comment_Answer_User" FromRole="Comment_Answer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Commune">
+          <Key>
+            <PropertyRef Name="commune_id" />
+          </Key>
+          <Property Name="commune_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="commune_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="commune_activate" Type="Boolean" />
+          <Property Name="commune_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="commune_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="commune_recycleBin" Type="Boolean" />
+          <Property Name="district_id" Type="Int32" />
+          <NavigationProperty Name="District" Relationship="Self.FK_Commune_District" FromRole="Commune" ToRole="District" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Commune" FromRole="Commune" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Denounce_User">
+          <Key>
+            <PropertyRef Name="denounceUser_id" />
+          </Key>
+          <Property Name="denounceUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accuser_id" Type="Int32" />
+          <Property Name="discredit_id" Type="Int32" />
+          <Property Name="denounceUser_content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="denounceUser_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="denounceUser_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Denounce_User_User" FromRole="Denounce_User" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Denounce_User_User1" FromRole="Denounce_User" ToRole="User" />
+          <Property Name="denounce_viewStatus" Type="Boolean" />
+          <Property Name="denounce_status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="district_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="district_activate" Type="Boolean" />
+          <Property Name="district_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="district_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="district_recycleBin" Type="Boolean" />
+          <Property Name="provincial_id" Type="Int32" />
+          <NavigationProperty Name="Communes" Relationship="Self.FK_Commune_District" FromRole="District" ToRole="Commune" />
+          <NavigationProperty Name="Provincial" Relationship="Self.FK_District_Provincial" FromRole="District" ToRole="Provincial" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_District" FromRole="District" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="friend_id" />
+          </Key>
+          <Property Name="friend_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userRequest_id" Type="Int32" />
+          <Property Name="userResponse_id" Type="Int32" />
+          <Property Name="friend_status" Type="Boolean" />
+          <Property Name="friend_dateRequest" Type="DateTime" Precision="3" />
+          <Property Name="friend_dateResponse" Type="DateTime" Precision="3" />
+          <Property Name="friend_dateUnfriend" Type="DateTime" Precision="3" />
+          <Property Name="friend_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Friend_User" FromRole="Friend" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Friend_User1" FromRole="Friend" ToRole="User" />
+          <Property Name="friend_follow" Type="Boolean" />
+          <Property Name="friend_follow2_Response" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Image_Advertisement">
+          <Key>
+            <PropertyRef Name="ImageAdvertisement_id" />
+          </Key>
+          <Property Name="ImageAdvertisement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageAdvertisement_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="advertisement_id" Type="Int32" />
+          <Property Name="ImageAdvertisement_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageAdvertisement_activate" Type="Boolean" />
+          <Property Name="ImageAdvertisement_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="ImageAdvertisement_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="ImageAdvertisement_recycleBin" Type="Boolean" />
+          <Property Name="positionAdvertisement_id" Type="Int32" />
+          <NavigationProperty Name="Advertisement" Relationship="Self.FK_Image_Advertisement_Advertisement" FromRole="Image_Advertisement" ToRole="Advertisement" />
+          <NavigationProperty Name="Position_Advertisement" Relationship="Self.FK_Image_Advertisement_Position_Advertisement" FromRole="Image_Advertisement" ToRole="Position_Advertisement" />
+        </EntityType>
+        <EntityType Name="Letter">
+          <Key>
+            <PropertyRef Name="letters_id" />
+          </Key>
+          <Property Name="letters_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="letters_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="letters_status" Type="Boolean" />
+          <Property Name="letters_recycleBin" Type="Boolean" />
+          <Property Name="letters_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="letters_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="letters_statusSee" Type="Boolean" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Letters_Role_User" FromRole="Letters" ToRole="Role_User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Letters_User" FromRole="Letters" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Letters_Idea">
+          <Key>
+            <PropertyRef Name="lettersIdea_id" />
+          </Key>
+          <Property Name="lettersIdea_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lettersIdea_content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="lettersIdea_activate" Type="Boolean" />
+          <Property Name="lettersIdea_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="lettersIdea_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="lettersIdea_recycleBin" Type="Boolean" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Letters_Idea_Role_User" FromRole="Letters_Idea" ToRole="Role_User" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="messageSender_id" Type="Int32" />
+          <Property Name="messageRecipients_id" Type="Int32" />
+          <Property Name="message_dateSend" Type="DateTime" Precision="3" />
+          <Property Name="message_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Message_User" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Message_User1" FromRole="Message" ToRole="User" />
+          <Property Name="message_status" Type="Boolean" />
+          <Property Name="messageRecipients_status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notification_id" />
+          </Key>
+          <Property Name="notification_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="notification_content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="receiver_id" Type="Int32" />
+          <Property Name="impactUser_id" Type="Int32" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="notification_status" Type="Boolean" />
+          <Property Name="notification_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="notification_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Notification_Question" FromRole="Notification" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Notification_User" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Notification_User1" FromRole="Notification" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Position_Advertisement">
+          <Key>
+            <PropertyRef Name="positionAdvertisement_id" />
+          </Key>
+          <Property Name="positionAdvertisement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="positionAdvertisement_positionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="positionAdvertisement_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="positionAdvertisement_activate" Type="Boolean" />
+          <Property Name="positionAdvertisement_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="positionAdvertisement_dateEdit" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Image_Advertisement" Relationship="Self.FK_Image_Advertisement_Position_Advertisement" FromRole="Position_Advertisement" ToRole="Image_Advertisement" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="post_id" />
+          </Key>
+          <Property Name="post_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="post_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="post_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="post_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="post_activate" Type="Boolean" />
+          <Property Name="post_title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="post_view" Type="Int32" />
+          <Property Name="post_totalLike" Type="Int32" />
+          <Property Name="post_totalDislike" Type="Int32" />
+          <Property Name="post_recycleBin" Type="Boolean" />
+          <Property Name="post_userStatus" Type="Boolean" />
+          <Property Name="post_admin_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Post_User" FromRole="Post" ToRole="User" />
+          <NavigationProperty Name="Rate_Post" Relationship="Self.FK_Rate_Post_Post" FromRole="Post" ToRole="Rate_Post" />
+          <NavigationProperty Name="View_Post" Relationship="Self.FK_View_Post_Post" FromRole="Post" ToRole="View_Post" />
+          <Property Name="post_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Provincial">
+          <Key>
+            <PropertyRef Name="provincial_id" />
+          </Key>
+          <Property Name="provincial_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="provincial_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="provincial_activate" Type="Boolean" />
+          <Property Name="provincial_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="provincial_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="provincial_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Districts" Relationship="Self.FK_District_Provincial" FromRole="Provincial" ToRole="District" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Provincial" FromRole="Provincial" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="question_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="question_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="question_activate" Type="Boolean" />
+          <Property Name="question_title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="question_Answer" Type="Int32" />
+          <Property Name="question_totalComment" Type="Int32" />
+          <Property Name="question_view" Type="Int32" />
+          <Property Name="question_totalRate" Type="Int32" />
+          <Property Name="question_medalCalculator" Type="Int32" />
+          <Property Name="question_recycleBin" Type="Boolean" />
+          <Property Name="question_userStatus" Type="Boolean" />
+          <Property Name="question_popular" Type="Int32" />
+          <Property Name="question_admin_recycleBin" Type="Boolean" />
+          <Property Name="question_keywordSearch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_Question" FromRole="Question" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Question_User" FromRole="Question" ToRole="User" />
+          <NavigationProperty Name="Rate_Question" Relationship="Self.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
+          <NavigationProperty Name="Show_Activate_Question" Relationship="Self.FK_Show_Activate_Question_Question" FromRole="Question" ToRole="Show_Activate_Question" />
+          <NavigationProperty Name="Tags_Question" Relationship="Self.FK_Tags_Question_Question" FromRole="Question" ToRole="Tags_Question" />
+          <NavigationProperty Name="Teachnology_Question" Relationship="Self.FK_Teachnology_Question_Question" FromRole="Question" ToRole="Teachnology_Question" />
+          <NavigationProperty Name="Tick_Question" Relationship="Self.FK_Tick_Question_Question" FromRole="Question" ToRole="Tick_Question" />
+          <NavigationProperty Name="View_Question" Relationship="Self.FK_View_Question_Question" FromRole="Question" ToRole="View_Question" />
+          <Property Name="question_totalTick" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Rate_Answer">
+          <Key>
+            <PropertyRef Name="rateAnswer_id" />
+          </Key>
+          <Property Name="rateAnswer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="answer_id" Type="Int32" />
+          <Property Name="rateAnswer_rateStatus" Type="Boolean" />
+          <Property Name="rateAnswer_dateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK_Rate_Answer_Answer" FromRole="Rate_Answer" ToRole="Answer" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rate_Answer_User" FromRole="Rate_Answer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rate_Post">
+          <Key>
+            <PropertyRef Name="ratePost_id" />
+          </Key>
+          <Property Name="ratePost_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="post_id" Type="Int32" />
+          <Property Name="ratePost_rateStatus" Type="Boolean" />
+          <Property Name="ratePost_dateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Rate_Post_Post" FromRole="Rate_Post" ToRole="Post" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rate_Post_User" FromRole="Rate_Post" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rate_Question">
+          <Key>
+            <PropertyRef Name="rateQuestion_id" />
+          </Key>
+          <Property Name="rateQuestion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="rateQuestion_rateStatus" Type="Boolean" />
+          <Property Name="rateQuestion_dateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Rate_Question_Question" FromRole="Rate_Question" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rate_Question_User" FromRole="Rate_Question" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Regulation">
+          <Key>
+            <PropertyRef Name="regulations_id" />
+          </Key>
+          <Property Name="regulations_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="regulations_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="regulations_activate" Type="Boolean" />
+          <Property Name="regulations_recycleBin" Type="Boolean" />
+          <Property Name="regulations_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="regulations_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Regulations_Role_User" FromRole="Regulations" ToRole="Role_User" />
+        </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="role_activate" Type="Boolean" />
+          <Property Name="role_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="role_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="role_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Letters" Relationship="Self.FK_Letters_Role_User" FromRole="Role_User" ToRole="Letters" />
+          <NavigationProperty Name="Letters_Idea" Relationship="Self.FK_Letters_Idea_Role_User" FromRole="Role_User" ToRole="Letters_Idea" />
+          <NavigationProperty Name="Regulations" Relationship="Self.FK_Regulations_Role_User" FromRole="Role_User" ToRole="Regulations" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role_User" FromRole="Role_User" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Search">
+          <Key>
+            <PropertyRef Name="search_id" />
+          </Key>
+          <Property Name="search_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="search_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="search_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Search_User" FromRole="Search" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Sex_User">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sex_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sex_activate" Type="Boolean" />
+          <Property Name="sex_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="sex_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="sex_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Sex_User" FromRole="Sex_User" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Show_Activate_Question">
+          <Key>
+            <PropertyRef Name="showActivateQ_id" />
+          </Key>
+          <Property Name="showActivateQ_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="showActivateQ_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Show_Activate_Question_Question" FromRole="Show_Activate_Question" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Show_Activate_Question_User" FromRole="Show_Activate_Question" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tags_Question">
+          <Key>
+            <PropertyRef Name="tagsQuestion_id" />
+          </Key>
+          <Property Name="tagsQuestion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="tagsQuestion_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="tagsQuestion_dateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Tags_Question_Question" FromRole="Tags_Question" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Teachnology_Question">
+          <Key>
+            <PropertyRef Name="teachnologyQuestion_id" />
+          </Key>
+          <Property Name="teachnologyQuestion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="technology_id" Type="Int32" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="teachnologyQuestion_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Teachnology_Question_Question" FromRole="Teachnology_Question" ToRole="Question" />
+          <NavigationProperty Name="Technology" Relationship="Self.FK_Teachnology_Question_Technology" FromRole="Teachnology_Question" ToRole="Technology" />
+        </EntityType>
+        <EntityType Name="Teachnology_User">
+          <Key>
+            <PropertyRef Name="technologyUser_id" />
+          </Key>
+          <Property Name="technologyUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="technology_id" Type="Int32" />
+          <Property Name="technology_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="technology_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Technology" Relationship="Self.FK_Teachnology_User_Technology" FromRole="Teachnology_User" ToRole="Technology" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Teachnology_User_User" FromRole="Teachnology_User" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="technology_id" />
+          </Key>
+          <Property Name="technology_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="technology_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="technology_popular" Type="Int32" />
+          <Property Name="technology_activate" Type="Boolean" />
+          <Property Name="technology_recycleBin" Type="Boolean" />
+          <Property Name="technology_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="technology_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="technology_note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="technology_totalQuestion" Type="Int32" />
+          <NavigationProperty Name="Teachnology_Question" Relationship="Self.FK_Teachnology_Question_Technology" FromRole="Technology" ToRole="Teachnology_Question" />
+          <NavigationProperty Name="Teachnology_User" Relationship="Self.FK_Teachnology_User_Technology" FromRole="Technology" ToRole="Teachnology_User" />
+        </EntityType>
+        <EntityType Name="Tick_Question">
+          <Key>
+            <PropertyRef Name="tickQuestion_id" />
+          </Key>
+          <Property Name="tickQuestion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="tickQuestion_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="tickQuestion_recycleBin" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Tick_Question_Question" FromRole="Tick_Question" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Tick_Question_User" FromRole="Tick_Question" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_pass" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="user_firstName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="user_lastName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="user_email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="user_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="user_code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user_avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user_coverImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user_activate" Type="Boolean" />
+          <Property Name="user_recycleBin" Type="Boolean" />
+          <Property Name="user_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="user_dateEdit" Type="DateTime" Precision="3" />
+          <Property Name="user_dateLogin" Type="DateTime" Precision="3" />
+          <Property Name="user_emailAuthentication" Type="Boolean" />
+          <Property Name="user_verifyPhoneNumber" Type="Boolean" />
+          <Property Name="user_loginAuthentication" Type="Boolean" />
+          <Property Name="provincial_id" Type="Int32" />
+          <Property Name="district_id" Type="Int32" />
+          <Property Name="commune_id" Type="Int32" />
+          <Property Name="user_addressRemaining" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="sex_id" Type="Int32" />
+          <Property Name="user_linkFacebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user_linkGithub" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user_anotherWeb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_hobbyWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_hobby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_birthday" Type="DateTime" Precision="0" />
+          <Property Name="user_popular" Type="Int32" />
+          <Property Name="user_goldMedal" Type="Int32" />
+          <Property Name="user_silverMedal" Type="Int32" />
+          <Property Name="user_brozeMedal" Type="Int32" />
+          <Property Name="user_vipMedal" Type="Int32" />
+          <Property Name="user_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK_Advertisement_User" FromRole="User" ToRole="Advertisement" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_Answer_User" FromRole="User" ToRole="Answer" />
+          <NavigationProperty Name="Comment_Answer" Relationship="Self.FK_Comment_Answer_User" FromRole="User" ToRole="Comment_Answer" />
+          <NavigationProperty Name="Commune" Relationship="Self.FK_User_Commune" FromRole="User" ToRole="Commune" />
+          <NavigationProperty Name="Denounce_User" Relationship="Self.FK_Denounce_User_User" FromRole="User" ToRole="Denounce_User" />
+          <NavigationProperty Name="Denounce_User1" Relationship="Self.FK_Denounce_User_User1" FromRole="User" ToRole="Denounce_User" />
+          <NavigationProperty Name="District" Relationship="Self.FK_User_District" FromRole="User" ToRole="District" />
+          <NavigationProperty Name="Friends" Relationship="Self.FK_Friend_User" FromRole="User" ToRole="Friend" />
+          <NavigationProperty Name="Friends1" Relationship="Self.FK_Friend_User1" FromRole="User" ToRole="Friend" />
+          <NavigationProperty Name="Letters" Relationship="Self.FK_Letters_User" FromRole="User" ToRole="Letters" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Message_User" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK_Message_User1" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_User" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="Self.FK_Notification_User1" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Post_User" FromRole="User" ToRole="Post" />
+          <NavigationProperty Name="Provincial" Relationship="Self.FK_User_Provincial" FromRole="User" ToRole="Provincial" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_User" FromRole="User" ToRole="Question" />
+          <NavigationProperty Name="Rate_Answer" Relationship="Self.FK_Rate_Answer_User" FromRole="User" ToRole="Rate_Answer" />
+          <NavigationProperty Name="Rate_Post" Relationship="Self.FK_Rate_Post_User" FromRole="User" ToRole="Rate_Post" />
+          <NavigationProperty Name="Rate_Question" Relationship="Self.FK_Rate_Question_User" FromRole="User" ToRole="Rate_Question" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_User_Role_User" FromRole="User" ToRole="Role_User" />
+          <NavigationProperty Name="Searches" Relationship="Self.FK_Search_User" FromRole="User" ToRole="Search" />
+          <NavigationProperty Name="Sex_User" Relationship="Self.FK_User_Sex_User" FromRole="User" ToRole="Sex_User" />
+          <NavigationProperty Name="Show_Activate_Question" Relationship="Self.FK_Show_Activate_Question_User" FromRole="User" ToRole="Show_Activate_Question" />
+          <NavigationProperty Name="Teachnology_User" Relationship="Self.FK_Teachnology_User_User" FromRole="User" ToRole="Teachnology_User" />
+          <NavigationProperty Name="Tick_Question" Relationship="Self.FK_Tick_Question_User" FromRole="User" ToRole="Tick_Question" />
+          <NavigationProperty Name="View_Post" Relationship="Self.FK_View_Post_User" FromRole="User" ToRole="View_Post" />
+          <NavigationProperty Name="View_Question" Relationship="Self.FK_View_Question_User" FromRole="User" ToRole="View_Question" />
+          <Property Name="user_statusOnline" Type="Boolean" />
+          <NavigationProperty Name="User_IP" Relationship="FivePSocialNetWorkModel.FK_User_IP_User" FromRole="User" ToRole="User_IP" />
+          <Property Name="user_SecurityAccount" Type="Boolean" />
+          <NavigationProperty Name="Functions_User" Relationship="FivePSocialNetWorkModel.FK_Functions_User_User" FromRole="User" ToRole="Functions_User" />
+        </EntityType>
+        <EntityType Name="View_Post">
+          <Key>
+            <PropertyRef Name="viewPost_id" />
+          </Key>
+          <Property Name="viewPost_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="post_id" Type="Int32" />
+          <Property Name="viewPost_dateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_View_Post_Post" FromRole="View_Post" ToRole="Post" />
+          <NavigationProperty Name="User" Relationship="Self.FK_View_Post_User" FromRole="View_Post" ToRole="User" />
+        </EntityType>
+        <EntityType Name="View_Question">
+          <Key>
+            <PropertyRef Name="viewQuestion_id" />
+          </Key>
+          <Property Name="viewQuestion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="viewQuestion_dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_View_Question_Question" FromRole="View_Question" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_View_Question_User" FromRole="View_Question" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Advertisement_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Advertisement">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Image_Advertisement_Advertisement">
+          <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="0..1" />
+          <End Role="Image_Advertisement" Type="Self.Image_Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertisement">
+              <PropertyRef Name="advertisiment_id" />
+            </Principal>
+            <Dependent Role="Image_Advertisement">
+              <PropertyRef Name="advertisement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Answer_Answer">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
+          <End Role="Comment_Answer" Type="Self.Comment_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="answer_id" />
+            </Principal>
+            <Dependent Role="Comment_Answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Answer_Answer">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
+          <End Role="Rate_Answer" Type="Self.Rate_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="answer_id" />
+            </Principal>
+            <Dependent Role="Rate_Answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comment_Answer" Type="Self.Comment_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment_Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commune_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Commune" Type="Self.Commune" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="Commune">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Commune">
+          <End Role="Commune" Type="Self.Commune" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commune">
+              <PropertyRef Name="commune_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="commune_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Denounce_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Denounce_User" Type="Self.Denounce_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Denounce_User">
+              <PropertyRef Name="accuser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Denounce_User_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Denounce_User" Type="Self.Denounce_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Denounce_User">
+              <PropertyRef Name="discredit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Provincial">
+          <End Role="Provincial" Type="Self.Provincial" Multiplicity="0..1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincial">
+              <PropertyRef Name="provincial_id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="provincial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Friend_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="userRequest_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Friend_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="userResponse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Image_Advertisement_Position_Advertisement">
+          <End Role="Position_Advertisement" Type="Self.Position_Advertisement" Multiplicity="0..1" />
+          <End Role="Image_Advertisement" Type="Self.Image_Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position_Advertisement">
+              <PropertyRef Name="positionAdvertisement_id" />
+            </Principal>
+            <Dependent Role="Image_Advertisement">
+              <PropertyRef Name="positionAdvertisement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Letters" Type="Self.Letter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Letters">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Letters" Type="Self.Letter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Letters">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Letters_Idea_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Letters_Idea" Type="Self.Letters_Idea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Letters_Idea">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="messageSender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="messageRecipients_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="receiver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="impactUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Post_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Rate_Post" Type="Self.Rate_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="post_id" />
+            </Principal>
+            <Dependent Role="Rate_Post">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Post_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="View_Post" Type="Self.View_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="post_id" />
+            </Principal>
+            <Dependent Role="View_Post">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Provincial">
+          <End Role="Provincial" Type="Self.Provincial" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincial">
+              <PropertyRef Name="provincial_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="provincial_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Rate_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Show_Activate_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Show_Activate_Question" Type="Self.Show_Activate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Show_Activate_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tags_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Tags_Question" Type="Self.Tags_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Tags_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Teachnology_Question" Type="Self.Teachnology_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Teachnology_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tick_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Tick_Question" Type="Self.Tick_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="Tick_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Question_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="View_Question" Type="Self.View_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="View_Question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Answer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Answer" Type="Self.Rate_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Answer">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Post" Type="Self.Rate_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rate_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Regulations_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="Regulations" Type="Self.Regulation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Regulations">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role_User">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Search_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Search" Type="Self.Search" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Search">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Sex_User">
+          <End Role="Sex_User" Type="Self.Sex_User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex_User">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Show_Activate_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Show_Activate_Question" Type="Self.Show_Activate_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Show_Activate_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_Question_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Teachnology_Question" Type="Self.Teachnology_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="Teachnology_Question">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_User_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Teachnology_User" Type="Self.Teachnology_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="Teachnology_User">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachnology_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Teachnology_User" Type="Self.Teachnology_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Teachnology_User">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tick_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Tick_Question" Type="Self.Tick_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Tick_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Post_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="View_Post" Type="Self.View_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="View_Post">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_View_Question_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="View_Question" Type="Self.View_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="View_Question">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FivePSocialNetWorkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="Comment_Answer" EntityType="Self.Comment_Answer" />
+          <EntitySet Name="Communes" EntityType="Self.Commune" />
+          <EntitySet Name="Denounce_User" EntityType="Self.Denounce_User" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Friends" EntityType="Self.Friend" />
+          <EntitySet Name="Image_Advertisement" EntityType="Self.Image_Advertisement" />
+          <EntitySet Name="Letters" EntityType="Self.Letter" />
+          <EntitySet Name="Letters_Idea" EntityType="Self.Letters_Idea" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Position_Advertisement" EntityType="Self.Position_Advertisement" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Provincials" EntityType="Self.Provincial" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Rate_Answer" EntityType="Self.Rate_Answer" />
+          <EntitySet Name="Rate_Post" EntityType="Self.Rate_Post" />
+          <EntitySet Name="Rate_Question" EntityType="Self.Rate_Question" />
+          <EntitySet Name="Regulations" EntityType="Self.Regulation" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" />
+          <EntitySet Name="Searches" EntityType="Self.Search" />
+          <EntitySet Name="Sex_User" EntityType="Self.Sex_User" />
+          <EntitySet Name="Show_Activate_Question" EntityType="Self.Show_Activate_Question" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tags_Question" EntityType="Self.Tags_Question" />
+          <EntitySet Name="Teachnology_Question" EntityType="Self.Teachnology_Question" />
+          <EntitySet Name="Teachnology_User" EntityType="Self.Teachnology_User" />
+          <EntitySet Name="Technologies" EntityType="Self.Technology" />
+          <EntitySet Name="Tick_Question" EntityType="Self.Tick_Question" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="View_Post" EntityType="Self.View_Post" />
+          <EntitySet Name="View_Question" EntityType="Self.View_Question" />
+          <AssociationSet Name="FK_Advertisement_User" Association="Self.FK_Advertisement_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Advertisement" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Image_Advertisement_Advertisement" Association="Self.FK_Image_Advertisement_Advertisement">
+            <End Role="Advertisement" EntitySet="Advertisements" />
+            <End Role="Image_Advertisement" EntitySet="Image_Advertisement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="Self.FK_Answer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_User" Association="Self.FK_Answer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Answer_Answer" Association="Self.FK_Comment_Answer_Answer">
+            <End Role="Answer" EntitySet="Answers" />
+            <End Role="Comment_Answer" EntitySet="Comment_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Answer_Answer" Association="Self.FK_Rate_Answer_Answer">
+            <End Role="Answer" EntitySet="Answers" />
+            <End Role="Rate_Answer" EntitySet="Rate_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Answer_User" Association="Self.FK_Comment_Answer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment_Answer" EntitySet="Comment_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commune_District" Association="Self.FK_Commune_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Commune" EntitySet="Communes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Commune" Association="Self.FK_User_Commune">
+            <End Role="Commune" EntitySet="Communes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Denounce_User_User" Association="Self.FK_Denounce_User_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Denounce_User" EntitySet="Denounce_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Denounce_User_User1" Association="Self.FK_Denounce_User_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Denounce_User" EntitySet="Denounce_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Provincial" Association="Self.FK_District_Provincial">
+            <End Role="Provincial" EntitySet="Provincials" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_District" Association="Self.FK_User_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Friend_User" Association="Self.FK_Friend_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Friend" EntitySet="Friends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Friend_User1" Association="Self.FK_Friend_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Friend" EntitySet="Friends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Image_Advertisement_Position_Advertisement" Association="Self.FK_Image_Advertisement_Position_Advertisement">
+            <End Role="Position_Advertisement" EntitySet="Position_Advertisement" />
+            <End Role="Image_Advertisement" EntitySet="Image_Advertisement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_Role_User" Association="Self.FK_Letters_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Letters" EntitySet="Letters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_User" Association="Self.FK_Letters_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Letters" EntitySet="Letters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters_Idea_Role_User" Association="Self.FK_Letters_Idea_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Letters_Idea" EntitySet="Letters_Idea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User1" Association="Self.FK_Message_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Question" Association="Self.FK_Notification_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_User" Association="Self.FK_Notification_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_User1" Association="Self.FK_Notification_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_User" Association="Self.FK_Post_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Post_Post" Association="Self.FK_Rate_Post_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Rate_Post" EntitySet="Rate_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Post_Post" Association="Self.FK_View_Post_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="View_Post" EntitySet="View_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Provincial" Association="Self.FK_User_Provincial">
+            <End Role="Provincial" EntitySet="Provincials" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Question_Question" Association="Self.FK_Rate_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Rate_Question" EntitySet="Rate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_Activate_Question_Question" Association="Self.FK_Show_Activate_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Show_Activate_Question" EntitySet="Show_Activate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_Question_Question" Association="Self.FK_Tags_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Tags_Question" EntitySet="Tags_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_Question_Question" Association="Self.FK_Teachnology_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Teachnology_Question" EntitySet="Teachnology_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tick_Question_Question" Association="Self.FK_Tick_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Tick_Question" EntitySet="Tick_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Question_Question" Association="Self.FK_View_Question_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="View_Question" EntitySet="View_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Answer_User" Association="Self.FK_Rate_Answer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rate_Answer" EntitySet="Rate_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Post_User" Association="Self.FK_Rate_Post_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rate_Post" EntitySet="Rate_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Question_User" Association="Self.FK_Rate_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rate_Question" EntitySet="Rate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Regulations_Role_User" Association="Self.FK_Regulations_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Regulations" EntitySet="Regulations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role_User" Association="Self.FK_User_Role_User">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Search_User" Association="Self.FK_Search_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Search" EntitySet="Searches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Sex_User" Association="Self.FK_User_Sex_User">
+            <End Role="Sex_User" EntitySet="Sex_User" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_Activate_Question_User" Association="Self.FK_Show_Activate_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Show_Activate_Question" EntitySet="Show_Activate_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_Question_Technology" Association="Self.FK_Teachnology_Question_Technology">
+            <End Role="Technology" EntitySet="Technologies" />
+            <End Role="Teachnology_Question" EntitySet="Teachnology_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_User_Technology" Association="Self.FK_Teachnology_User_Technology">
+            <End Role="Technology" EntitySet="Technologies" />
+            <End Role="Teachnology_User" EntitySet="Teachnology_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachnology_User_User" Association="Self.FK_Teachnology_User_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Teachnology_User" EntitySet="Teachnology_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tick_Question_User" Association="Self.FK_Tick_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Tick_Question" EntitySet="Tick_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Post_User" Association="Self.FK_View_Post_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="View_Post" EntitySet="View_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_View_Question_User" Association="Self.FK_View_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="View_Question" EntitySet="View_Question" />
+          </AssociationSet>
+          <EntitySet Name="User_IP" EntityType="FivePSocialNetWorkModel.User_IP" />
+          <AssociationSet Name="FK_User_IP_User" Association="FivePSocialNetWorkModel.FK_User_IP_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_IP" EntitySet="User_IP" />
+          </AssociationSet>
+          <EntitySet Name="Functions_User" EntityType="FivePSocialNetWorkModel.Functions_User" />
+          <AssociationSet Name="FK_Functions_User_User" Association="FivePSocialNetWorkModel.FK_Functions_User_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Functions_User" EntitySet="Functions_User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User_IP">
+          <Key>
+            <PropertyRef Name="userIP_id" />
+          </Key>
+          <Property Name="userIP_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userIP_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userIP_dateLogin" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="FivePSocialNetWorkModel.FK_User_IP_User" FromRole="User_IP" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_IP_User">
+          <End Type="FivePSocialNetWorkModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="FivePSocialNetWorkModel.User_IP" Role="User_IP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="User_IP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Functions_User">
+          <Key>
+            <PropertyRef Name="functionsUser_id" />
+          </Key>
+          <Property Name="functionsUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="notification_question_technology" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="FivePSocialNetWorkModel.FK_Functions_User_User" FromRole="Functions_User" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Functions_User_User">
+          <End Type="FivePSocialNetWorkModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="FivePSocialNetWorkModel.Functions_User" Role="Functions_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Functions_User">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FivePSocialNetWorkModelStoreContainer" CdmEntityContainer="FivePSocialNetWorkEntities">
+          <EntitySetMapping Name="Advertisements">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Advertisement">
+              <MappingFragment StoreEntitySet="Advertisement">
+                <ScalarProperty Name="advertisiment_id" ColumnName="advertisiment_id" />
+                <ScalarProperty Name="advertisiment_companyname" ColumnName="advertisiment_companyname" />
+                <ScalarProperty Name="advertisiment_note" ColumnName="advertisiment_note" />
+                <ScalarProperty Name="advertisiment_activate" ColumnName="advertisiment_activate" />
+                <ScalarProperty Name="advertisiment_dateCreate" ColumnName="advertisiment_dateCreate" />
+                <ScalarProperty Name="advertisiment_dateEdit" ColumnName="advertisiment_dateEdit" />
+                <ScalarProperty Name="advertisiment_recycleBin" ColumnName="advertisiment_recycleBin" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="answer_correct" ColumnName="answer_correct" />
+                <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+                <ScalarProperty Name="answer_content" ColumnName="answer_content" />
+                <ScalarProperty Name="answer_dateCreate" ColumnName="answer_dateCreate" />
+                <ScalarProperty Name="answer_dateEdit" ColumnName="answer_dateEdit" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="answer_activate" ColumnName="answer_activate" />
+                <ScalarProperty Name="answer_userStatus" ColumnName="answer_userStatus" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="answer_totalRate" ColumnName="answer_totalRate" />
+                <ScalarProperty Name="answer_medalCalculate" ColumnName="answer_medalCalculate" />
+                <ScalarProperty Name="answer_recycleBin" ColumnName="answer_recycleBin" />
+                <ScalarProperty Name="answer_admin_recycleBin" ColumnName="answer_admin_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment_Answer">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Comment_Answer">
+              <MappingFragment StoreEntitySet="Comment_Answer">
+                <ScalarProperty Name="commentAnswer_id" ColumnName="commentAnswer_id" />
+                <ScalarProperty Name="commentAnswer_content" ColumnName="commentAnswer_content" />
+                <ScalarProperty Name="commentAnswer_dateCreate" ColumnName="commentAnswer_dateCreate" />
+                <ScalarProperty Name="commentAnswer_dateEdit" ColumnName="commentAnswer_dateEdit" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+                <ScalarProperty Name="commentAnswer_recycleBin" ColumnName="commentAnswer_recycleBin" />
+                <ScalarProperty Name="commentAnswer_activate" ColumnName="commentAnswer_activate" />
+                <ScalarProperty Name="commentAnswer_userStatus" ColumnName="commentAnswer_userStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Communes">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Commune">
+              <MappingFragment StoreEntitySet="Commune">
+                <ScalarProperty Name="commune_id" ColumnName="commune_id" />
+                <ScalarProperty Name="commune_name" ColumnName="commune_name" />
+                <ScalarProperty Name="commune_activate" ColumnName="commune_activate" />
+                <ScalarProperty Name="commune_dateCreate" ColumnName="commune_dateCreate" />
+                <ScalarProperty Name="commune_dateEdit" ColumnName="commune_dateEdit" />
+                <ScalarProperty Name="commune_recycleBin" ColumnName="commune_recycleBin" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Denounce_User">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Denounce_User">
+              <MappingFragment StoreEntitySet="Denounce_User">
+                <ScalarProperty Name="denounce_status" ColumnName="denounce_status" />
+                <ScalarProperty Name="denounce_viewStatus" ColumnName="denounce_viewStatus" />
+                <ScalarProperty Name="denounceUser_id" ColumnName="denounceUser_id" />
+                <ScalarProperty Name="accuser_id" ColumnName="accuser_id" />
+                <ScalarProperty Name="discredit_id" ColumnName="discredit_id" />
+                <ScalarProperty Name="denounceUser_content" ColumnName="denounceUser_content" />
+                <ScalarProperty Name="denounceUser_dateCreate" ColumnName="denounceUser_dateCreate" />
+                <ScalarProperty Name="denounceUser_recycleBin" ColumnName="denounceUser_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="district_activate" ColumnName="district_activate" />
+                <ScalarProperty Name="district_dateCreate" ColumnName="district_dateCreate" />
+                <ScalarProperty Name="district_dateEdit" ColumnName="district_dateEdit" />
+                <ScalarProperty Name="district_recycleBin" ColumnName="district_recycleBin" />
+                <ScalarProperty Name="provincial_id" ColumnName="provincial_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Friend">
+              <MappingFragment StoreEntitySet="Friend">
+                <ScalarProperty Name="friend_follow2_Response" ColumnName="friend_follow2_Response" />
+                <ScalarProperty Name="friend_follow" ColumnName="friend_follow" />
+                <ScalarProperty Name="friend_id" ColumnName="friend_id" />
+                <ScalarProperty Name="userRequest_id" ColumnName="userRequest_id" />
+                <ScalarProperty Name="userResponse_id" ColumnName="userResponse_id" />
+                <ScalarProperty Name="friend_status" ColumnName="friend_status" />
+                <ScalarProperty Name="friend_dateRequest" ColumnName="friend_dateRequest" />
+                <ScalarProperty Name="friend_dateResponse" ColumnName="friend_dateResponse" />
+                <ScalarProperty Name="friend_dateUnfriend" ColumnName="friend_dateUnfriend" />
+                <ScalarProperty Name="friend_recycleBin" ColumnName="friend_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image_Advertisement">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Image_Advertisement">
+              <MappingFragment StoreEntitySet="Image_Advertisement">
+                <ScalarProperty Name="ImageAdvertisement_id" ColumnName="ImageAdvertisement_id" />
+                <ScalarProperty Name="ImageAdvertisement_image" ColumnName="ImageAdvertisement_image" />
+                <ScalarProperty Name="advertisement_id" ColumnName="advertisement_id" />
+                <ScalarProperty Name="ImageAdvertisement_note" ColumnName="ImageAdvertisement_note" />
+                <ScalarProperty Name="ImageAdvertisement_activate" ColumnName="ImageAdvertisement_activate" />
+                <ScalarProperty Name="ImageAdvertisement_dateCreate" ColumnName="ImageAdvertisement_dateCreate" />
+                <ScalarProperty Name="ImageAdvertisement_dateEdit" ColumnName="ImageAdvertisement_dateEdit" />
+                <ScalarProperty Name="ImageAdvertisement_recycleBin" ColumnName="ImageAdvertisement_recycleBin" />
+                <ScalarProperty Name="positionAdvertisement_id" ColumnName="positionAdvertisement_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Letters">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Letter">
+              <MappingFragment StoreEntitySet="Letters">
+                <ScalarProperty Name="letters_id" ColumnName="letters_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="letters_content" ColumnName="letters_content" />
+                <ScalarProperty Name="letters_status" ColumnName="letters_status" />
+                <ScalarProperty Name="letters_recycleBin" ColumnName="letters_recycleBin" />
+                <ScalarProperty Name="letters_dateCreate" ColumnName="letters_dateCreate" />
+                <ScalarProperty Name="letters_dateEdit" ColumnName="letters_dateEdit" />
+                <ScalarProperty Name="letters_statusSee" ColumnName="letters_statusSee" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Letters_Idea">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Letters_Idea">
+              <MappingFragment StoreEntitySet="Letters_Idea">
+                <ScalarProperty Name="lettersIdea_id" ColumnName="lettersIdea_id" />
+                <ScalarProperty Name="lettersIdea_content" ColumnName="lettersIdea_content" />
+                <ScalarProperty Name="lettersIdea_activate" ColumnName="lettersIdea_activate" />
+                <ScalarProperty Name="lettersIdea_dateCreate" ColumnName="lettersIdea_dateCreate" />
+                <ScalarProperty Name="lettersIdea_dateEdit" ColumnName="lettersIdea_dateEdit" />
+                <ScalarProperty Name="lettersIdea_recycleBin" ColumnName="lettersIdea_recycleBin" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="messageRecipients_status" ColumnName="messageRecipients_status" />
+                <ScalarProperty Name="message_status" ColumnName="message_status" />
+                <ScalarProperty Name="message_id" ColumnName="message_id" />
+                <ScalarProperty Name="message_content" ColumnName="message_content" />
+                <ScalarProperty Name="messageSender_id" ColumnName="messageSender_id" />
+                <ScalarProperty Name="messageRecipients_id" ColumnName="messageRecipients_id" />
+                <ScalarProperty Name="message_dateSend" ColumnName="message_dateSend" />
+                <ScalarProperty Name="message_recycleBin" ColumnName="message_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="notification_id" ColumnName="notification_id" />
+                <ScalarProperty Name="notification_content" ColumnName="notification_content" />
+                <ScalarProperty Name="receiver_id" ColumnName="receiver_id" />
+                <ScalarProperty Name="impactUser_id" ColumnName="impactUser_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="notification_status" ColumnName="notification_status" />
+                <ScalarProperty Name="notification_dateCreate" ColumnName="notification_dateCreate" />
+                <ScalarProperty Name="notification_recycleBin" ColumnName="notification_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Position_Advertisement">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Position_Advertisement">
+              <MappingFragment StoreEntitySet="Position_Advertisement">
+                <ScalarProperty Name="positionAdvertisement_id" ColumnName="positionAdvertisement_id" />
+                <ScalarProperty Name="positionAdvertisement_positionName" ColumnName="positionAdvertisement_positionName" />
+                <ScalarProperty Name="positionAdvertisement_note" ColumnName="positionAdvertisement_note" />
+                <ScalarProperty Name="positionAdvertisement_activate" ColumnName="positionAdvertisement_activate" />
+                <ScalarProperty Name="positionAdvertisement_dateCreate" ColumnName="positionAdvertisement_dateCreate" />
+                <ScalarProperty Name="positionAdvertisement_dateEdit" ColumnName="positionAdvertisement_dateEdit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="post_image" ColumnName="post_image" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="post_content" ColumnName="post_content" />
+                <ScalarProperty Name="post_dateCreate" ColumnName="post_dateCreate" />
+                <ScalarProperty Name="post_dateEdit" ColumnName="post_dateEdit" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="post_activate" ColumnName="post_activate" />
+                <ScalarProperty Name="post_title" ColumnName="post_title" />
+                <ScalarProperty Name="post_view" ColumnName="post_view" />
+                <ScalarProperty Name="post_totalLike" ColumnName="post_totalLike" />
+                <ScalarProperty Name="post_totalDislike" ColumnName="post_totalDislike" />
+                <ScalarProperty Name="post_recycleBin" ColumnName="post_recycleBin" />
+                <ScalarProperty Name="post_userStatus" ColumnName="post_userStatus" />
+                <ScalarProperty Name="post_admin_recycleBin" ColumnName="post_admin_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincials">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Provincial">
+              <MappingFragment StoreEntitySet="Provincial">
+                <ScalarProperty Name="provincial_id" ColumnName="provincial_id" />
+                <ScalarProperty Name="provincial_name" ColumnName="provincial_name" />
+                <ScalarProperty Name="provincial_activate" ColumnName="provincial_activate" />
+                <ScalarProperty Name="provincial_dateCreate" ColumnName="provincial_dateCreate" />
+                <ScalarProperty Name="provincial_dateEdit" ColumnName="provincial_dateEdit" />
+                <ScalarProperty Name="provincial_recycleBin" ColumnName="provincial_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="question_totalTick" ColumnName="question_totalTick" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="question_content" ColumnName="question_content" />
+                <ScalarProperty Name="question_dateCreate" ColumnName="question_dateCreate" />
+                <ScalarProperty Name="question_dateEdit" ColumnName="question_dateEdit" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="question_activate" ColumnName="question_activate" />
+                <ScalarProperty Name="question_title" ColumnName="question_title" />
+                <ScalarProperty Name="question_Answer" ColumnName="question_Answer" />
+                <ScalarProperty Name="question_totalComment" ColumnName="question_totalComment" />
+                <ScalarProperty Name="question_view" ColumnName="question_view" />
+                <ScalarProperty Name="question_totalRate" ColumnName="question_totalRate" />
+                <ScalarProperty Name="question_medalCalculator" ColumnName="question_medalCalculator" />
+                <ScalarProperty Name="question_recycleBin" ColumnName="question_recycleBin" />
+                <ScalarProperty Name="question_userStatus" ColumnName="question_userStatus" />
+                <ScalarProperty Name="question_popular" ColumnName="question_popular" />
+                <ScalarProperty Name="question_admin_recycleBin" ColumnName="question_admin_recycleBin" />
+                <ScalarProperty Name="question_keywordSearch" ColumnName="question_keywordSearch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rate_Answer">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Rate_Answer">
+              <MappingFragment StoreEntitySet="Rate_Answer">
+                <ScalarProperty Name="rateAnswer_id" ColumnName="rateAnswer_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+                <ScalarProperty Name="rateAnswer_rateStatus" ColumnName="rateAnswer_rateStatus" />
+                <ScalarProperty Name="rateAnswer_dateCreate" ColumnName="rateAnswer_dateCreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rate_Post">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Rate_Post">
+              <MappingFragment StoreEntitySet="Rate_Post">
+                <ScalarProperty Name="ratePost_id" ColumnName="ratePost_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="ratePost_rateStatus" ColumnName="ratePost_rateStatus" />
+                <ScalarProperty Name="ratePost_dateCreate" ColumnName="ratePost_dateCreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rate_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Rate_Question">
+              <MappingFragment StoreEntitySet="Rate_Question">
+                <ScalarProperty Name="rateQuestion_id" ColumnName="rateQuestion_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="rateQuestion_rateStatus" ColumnName="rateQuestion_rateStatus" />
+                <ScalarProperty Name="rateQuestion_dateCreate" ColumnName="rateQuestion_dateCreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regulations">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Regulation">
+              <MappingFragment StoreEntitySet="Regulations">
+                <ScalarProperty Name="regulations_id" ColumnName="regulations_id" />
+                <ScalarProperty Name="regulations_name" ColumnName="regulations_name" />
+                <ScalarProperty Name="regulations_activate" ColumnName="regulations_activate" />
+                <ScalarProperty Name="regulations_recycleBin" ColumnName="regulations_recycleBin" />
+                <ScalarProperty Name="regulations_dateCreate" ColumnName="regulations_dateCreate" />
+                <ScalarProperty Name="regulations_dateEdit" ColumnName="regulations_dateEdit" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_User">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Role_User">
+              <MappingFragment StoreEntitySet="Role_User">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="role_activate" ColumnName="role_activate" />
+                <ScalarProperty Name="role_dateCreate" ColumnName="role_dateCreate" />
+                <ScalarProperty Name="role_dateEdit" ColumnName="role_dateEdit" />
+                <ScalarProperty Name="role_recycleBin" ColumnName="role_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Searches">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Search">
+              <MappingFragment StoreEntitySet="Search">
+                <ScalarProperty Name="search_id" ColumnName="search_id" />
+                <ScalarProperty Name="search_content" ColumnName="search_content" />
+                <ScalarProperty Name="search_dateCreate" ColumnName="search_dateCreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sex_User">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Sex_User">
+              <MappingFragment StoreEntitySet="Sex_User">
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="sex_name" ColumnName="sex_name" />
+                <ScalarProperty Name="sex_activate" ColumnName="sex_activate" />
+                <ScalarProperty Name="sex_dateCreate" ColumnName="sex_dateCreate" />
+                <ScalarProperty Name="sex_dateEdit" ColumnName="sex_dateEdit" />
+                <ScalarProperty Name="sex_recycleBin" ColumnName="sex_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Show_Activate_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Show_Activate_Question">
+              <MappingFragment StoreEntitySet="Show_Activate_Question">
+                <ScalarProperty Name="showActivateQ_id" ColumnName="showActivateQ_id" />
+                <ScalarProperty Name="showActivateQ_dateCreate" ColumnName="showActivateQ_dateCreate" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Tags_Question">
+              <MappingFragment StoreEntitySet="Tags_Question">
+                <ScalarProperty Name="tagsQuestion_id" ColumnName="tagsQuestion_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="tagsQuestion_name" ColumnName="tagsQuestion_name" />
+                <ScalarProperty Name="tagsQuestion_dateCreate" ColumnName="tagsQuestion_dateCreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachnology_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Teachnology_Question">
+              <MappingFragment StoreEntitySet="Teachnology_Question">
+                <ScalarProperty Name="teachnologyQuestion_id" ColumnName="teachnologyQuestion_id" />
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="teachnologyQuestion_recycleBin" ColumnName="teachnologyQuestion_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachnology_User">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Teachnology_User">
+              <MappingFragment StoreEntitySet="Teachnology_User">
+                <ScalarProperty Name="technologyUser_id" ColumnName="technologyUser_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="technology_dateCreate" ColumnName="technology_dateCreate" />
+                <ScalarProperty Name="technology_recycleBin" ColumnName="technology_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technologies">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Technology">
+              <MappingFragment StoreEntitySet="Technology">
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="technology_name" ColumnName="technology_name" />
+                <ScalarProperty Name="technology_popular" ColumnName="technology_popular" />
+                <ScalarProperty Name="technology_activate" ColumnName="technology_activate" />
+                <ScalarProperty Name="technology_recycleBin" ColumnName="technology_recycleBin" />
+                <ScalarProperty Name="technology_dateCreate" ColumnName="technology_dateCreate" />
+                <ScalarProperty Name="technology_dateEdit" ColumnName="technology_dateEdit" />
+                <ScalarProperty Name="technology_note" ColumnName="technology_note" />
+                <ScalarProperty Name="technology_totalQuestion" ColumnName="technology_totalQuestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tick_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Tick_Question">
+              <MappingFragment StoreEntitySet="Tick_Question">
+                <ScalarProperty Name="tickQuestion_id" ColumnName="tickQuestion_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="tickQuestion_dateCreate" ColumnName="tickQuestion_dateCreate" />
+                <ScalarProperty Name="tickQuestion_recycleBin" ColumnName="tickQuestion_recycleBin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="user_SecurityAccount" ColumnName="user_SecurityAccount" />
+                <ScalarProperty Name="user_statusOnline" ColumnName="user_statusOnline" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_pass" ColumnName="user_pass" />
+                <ScalarProperty Name="user_firstName" ColumnName="user_firstName" />
+                <ScalarProperty Name="user_lastName" ColumnName="user_lastName" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_token" ColumnName="user_token" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_code" ColumnName="user_code" />
+                <ScalarProperty Name="user_avatar" ColumnName="user_avatar" />
+                <ScalarProperty Name="user_coverImage" ColumnName="user_coverImage" />
+                <ScalarProperty Name="user_activate" ColumnName="user_activate" />
+                <ScalarProperty Name="user_recycleBin" ColumnName="user_recycleBin" />
+                <ScalarProperty Name="user_dateCreate" ColumnName="user_dateCreate" />
+                <ScalarProperty Name="user_dateEdit" ColumnName="user_dateEdit" />
+                <ScalarProperty Name="user_dateLogin" ColumnName="user_dateLogin" />
+                <ScalarProperty Name="user_emailAuthentication" ColumnName="user_emailAuthentication" />
+                <ScalarProperty Name="user_verifyPhoneNumber" ColumnName="user_verifyPhoneNumber" />
+                <ScalarProperty Name="user_loginAuthentication" ColumnName="user_loginAuthentication" />
+                <ScalarProperty Name="provincial_id" ColumnName="provincial_id" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="commune_id" ColumnName="commune_id" />
+                <ScalarProperty Name="user_addressRemaining" ColumnName="user_addressRemaining" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="user_linkFacebook" ColumnName="user_linkFacebook" />
+                <ScalarProperty Name="user_linkGithub" ColumnName="user_linkGithub" />
+                <ScalarProperty Name="user_anotherWeb" ColumnName="user_anotherWeb" />
+                <ScalarProperty Name="user_hobbyWork" ColumnName="user_hobbyWork" />
+                <ScalarProperty Name="user_hobby" ColumnName="user_hobby" />
+                <ScalarProperty Name="user_birthday" ColumnName="user_birthday" />
+                <ScalarProperty Name="user_popular" ColumnName="user_popular" />
+                <ScalarProperty Name="user_goldMedal" ColumnName="user_goldMedal" />
+                <ScalarProperty Name="user_silverMedal" ColumnName="user_silverMedal" />
+                <ScalarProperty Name="user_brozeMedal" ColumnName="user_brozeMedal" />
+                <ScalarProperty Name="user_vipMedal" ColumnName="user_vipMedal" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Post">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.View_Post">
+              <MappingFragment StoreEntitySet="View_Post">
+                <ScalarProperty Name="viewPost_id" ColumnName="viewPost_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="viewPost_dateCreate" ColumnName="viewPost_dateCreate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Question">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.View_Question">
+              <MappingFragment StoreEntitySet="View_Question">
+                <ScalarProperty Name="viewQuestion_id" ColumnName="viewQuestion_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="viewQuestion_dateCreate" ColumnName="viewQuestion_dateCreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_IP">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.User_IP">
+              <MappingFragment StoreEntitySet="User_IP">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="userIP_dateLogin" ColumnName="userIP_dateLogin" />
+                <ScalarProperty Name="userIP_IP" ColumnName="userIP_IP" />
+                <ScalarProperty Name="userIP_id" ColumnName="userIP_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Functions_User">
+            <EntityTypeMapping TypeName="FivePSocialNetWorkModel.Functions_User">
+              <MappingFragment StoreEntitySet="Functions_User">
+                <ScalarProperty Name="notification_question_technology" ColumnName="notification_question_technology" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="functionsUser_id" ColumnName="functionsUser_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

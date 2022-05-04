@@ -1,0 +1,112 @@
+﻿<style>
+    .navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
+        max-height: 100% !important;
+    }
+</style>
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light" id="sidenav-main" style="background-color:#f0f3f8">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <a class="navbar-brand mt--4"  style="color:orangered" href="/">
+                <img src="~/assets/Center/img/brand/logocu__1_-removebg-preview.png"/>
+            </a>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("IndexCenter","Center")">
+                            <i class="far fa-question-circle text-orange"></i>
+                            <span class="nav-link-text">Câu hỏi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Member","View")">
+                            <i class="fas fa-users text-yellow"></i>
+                            <span class="nav-link-text">Thành viên</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Technology","View")">
+                            <i class="fab fa-react text-primary"></i>
+                            <span class="nav-link-text">Công nghệ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Post","View")">
+                            <i class="far fa-newspaper text-info"></i>
+                            <span class="nav-link-text">Bài viết</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="examples/tables.html">
+                            <i class="far fa-newspaper text-info"></i>
+                            <span class="nav-link-text">
+                                Status
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="examples/tables.html">
+                            <i class="fas fa-briefcase text-pink"></i>
+                            <span class="nav-link-text">
+                                công việc
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Divider -->
+                <hr class="my-3">
+                @if (Request.Cookies["user_id"] != null)
+                {
+                    <!-- Heading -->
+                    <h6 class="navbar-heading p-0 text-muted">
+                        <span class="docs-normal">Quản lý cá nhân</span>
+                    </h6>
+                    <!-- Navigation -->
+            <ul class="navbar-nav mb-md-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("PageUser","UserManagement")">
+                        <i class="far fa-question-circle"></i>
+                        <span class="nav-link-text">Câu hỏi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ManagementFriend","UserManagement")">
+                        <i class="fas fa-user-friends"></i>
+                        <span class="nav-link-text">Bạn bè</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ManagementTick","UserManagement")">
+                        <i class="ni ni-book-bookmark"></i>
+                        <span class="nav-link-text">Đánh dấu</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ManagementNotification","UserManagement")">
+                        <i class="far fa-bell"></i>
+                        <span class="nav-link-text">Thông báo</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ManagementAcceptAnswer","UserManagement")">
+                        <i class="fas fa-reply-all"></i>
+                        <span class="nav-link-text">Câu trả lời đã dyệt</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ManagementPost","UserManagement")">
+                        <i class="far fa-newspaper"></i>
+                        <span class="nav-link-text">Bài viết</span>
+                    </a>
+                </li>
+            </ul>
+                }
+            </div>
+        </div>
+    </div>
+</nav>

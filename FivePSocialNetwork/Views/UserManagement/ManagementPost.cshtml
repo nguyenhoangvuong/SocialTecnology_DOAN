@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "ManagementPost";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Quản lý bài viết</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Quản lý bài viết</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="@Url.Action("PostQuestion","Question")" class="btn btn-sm btn-neutral"><i class="far fa-paper-plane"></i> Đặt câu hỏi?</a>
+                    <a href="#" class="btn btn-sm btn-neutral"><i class="far fa-edit"></i> Đăng bài viết </a>
+                </div>
+            </div>
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                Quảng cáo
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Câu hỏi</h5>
+                                    <span class="h2 font-weight-bold mb-0">..</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Trả lời</h5>
+                                    <span class="h2 font-weight-bold mb-0">..</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                        <i class="ni ni-curved-next"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Comment</h5>
+                                    <span class="h2 font-weight-bold mb-0">..</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                        <i class="far fa-comments"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                <span class="text-nowrap">Since last month</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6" ng-app="myApp">
+    <div class="row" ng-controller="myCtrl">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0"><i class="fas fa-list"></i> Danh sách bài viết </h3>
+                </div>
+
+                <div class="float-right" style="padding: 10px;">
+                    <a href="#" style="margin-left: 5px;">Nổi tiếng &nbsp;&nbsp;&nbsp; </a>
+                    <a href="#" style="margin-left: 5px;">Trả lời &nbsp;&nbsp;&nbsp;</a>
+                    <span style="margin-left: 5px;"> Sắp xếp :</span>
+                    <a href="#" style="margin-left: 5px;">&nbsp;&nbsp;&nbsp; <i class="fas fa-undo-alt"></i></a>
+
+                </div>
+
+                <div class="form-group mb-0">
+                    <div class="input-group input-group-alternative input-group-merge">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input class="form-control" placeholder="Tìm ..." type="text">
+                    </div>
+                </div>
+
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">Tiêu đề</th>
+                                <th scope="col" class="sort border-left" data-sort="budget">Trả lời</th>
+                                <th scope="col" class="sort" data-sort="status">Đánh giá</th>
+                                <th scope="col"> Lượt xem</th>
+                                <th scope="col" class="sort" data-sort="completion"> Trạng thái</th>
+                                <th scope="col"> Tùy chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+
+                            <tr>
+                                <td scope="row">
+                                    <div class="media align-items-center">
+                                        <a class="mr-2">
+
+                                            <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
+                                            <center>
+
+                                                ..
+                                            </center>
+                                            <center><i class="fa fa-chevron-down" style="font-size:200%"></i></center>
+
+
+                                        </a>
+                                        <div class="media-body">
+                                            <div>
+                                                ...
+                                            </div>
+                                            <span class="name mb-0 text-sm">
+                                                ...
+                                            </span>
+
+                                            <div class="d-flex align-items-center">
+
+                                                <span class="completion mr-2">Tỉ lệ vow tốt : ..</span>
+                                                <div>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:20%"></div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td class="budget border-left">
+                                    <i class="fas fa-reply"></i> ..
+                                </td>
+                                <td class="budget">
+                                    <i class="far fa-star"></i> ..
+                                </td>
+                                <td class="budget">
+                                    <i class="far fa-eye"></i> ..
+                                </td>
+
+
+                                <td>
+                                    <label class="custom-toggle">
+                                        <input type="checkbox">
+                                        <span class="custom-toggle-slider rounded-circle"></span>
+                                    </label>
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="@Url.Action("IndexDetailQuestion","DetailQuestion")"><i class="fas fa-info-circle"></i> Chi tiết</a>
+                                            <a class="dropdown-item" href="@Url.Action("RecycleBinPost","Display")"><i class="far fa-trash-alt"></i> Xóa</a>
+                                            <a class="dropdown-item" href="@Url.Action("IndexPostQuestion","PostQuestion")"><i class="fas fa-edit"></i>Sữa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            phân trang
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/View/ListMenber")
+            .then(function (response) {
+                // First function handles success
+                $scope.listMember = response.data;
+            }, function (response) {
+                // Second function handles error
+                $scope.listMember = "Something went wrong";
+            });
+    });
+</script>

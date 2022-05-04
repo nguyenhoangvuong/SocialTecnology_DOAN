@@ -1,0 +1,6 @@
+﻿@using FivePSocialNetwork.Models;
+@model List<District>
+@foreach (var item in Model)
+{
+    <option value="@item.district_id">@item.district_name</option>
+}

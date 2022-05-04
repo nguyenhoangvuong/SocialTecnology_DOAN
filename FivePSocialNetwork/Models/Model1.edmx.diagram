@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a611d0c99724b6dac0bf00aa2e97b40" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Advertisement" Width="1.5" PointX="8.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Answer" Width="1.5" PointX="10.5" PointY="40.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Comment_Answer" Width="1.5" PointX="13.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Commune" Width="1.5" PointX="3.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Denounce_User" Width="1.5" PointX="8.25" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.District" Width="1.5" PointX="1.5" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Friend" Width="1.5" PointX="8.25" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Image_Advertisement" Width="1.5" PointX="10.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Letter" Width="1.5" PointX="3" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Letters_Idea" Width="1.5" PointX="3" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Message" Width="1.5" PointX="8.25" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Notification" Width="1.5" PointX="13.5" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Position_Advertisement" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Post" Width="1.5" PointX="8.25" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Provincial" Width="1.5" PointX="1.5" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Question" Width="1.5" PointX="8.25" PointY="50" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Rate_Answer" Width="1.5" PointX="15.75" PointY="39.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Rate_Post" Width="1.5" PointX="10.5" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Rate_Question" Width="1.5" PointX="10.5" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Regulation" Width="1.5" PointX="3" PointY="40.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Role_User" Width="1.5" PointX="0.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Search" Width="1.5" PointX="8.25" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Sex_User" Width="1.5" PointX="3.75" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Show_Activate_Question" Width="1.5" PointX="13.5" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Tags_Question" Width="1.5" PointX="10.5" PointY="58.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Teachnology_Question" Width="1.5" PointX="10.5" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Teachnology_User" Width="1.5" PointX="11.25" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Technology" Width="1.5" PointX="9" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Tick_Question" Width="1.5" PointX="16.5" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.User" Width="1.5" PointX="6" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.View_Post" Width="1.5" PointX="13.5" PointY="39.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.View_Question" Width="1.5" PointX="16.5" PointY="45.75" IsExpanded="true" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Advertisement_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Image_Advertisement_Advertisement" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Answer_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Answer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Comment_Answer_Answer" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Answer_Answer" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Comment_Answer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Commune_District" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_Commune" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Denounce_User_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Denounce_User_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_District_Provincial" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_District" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Friend_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Friend_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Image_Advertisement_Position_Advertisement" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Letters_Role_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Letters_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Letters_Idea_Role_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Message_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Message_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Notification_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Notification_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Notification_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Post_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_View_Post_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_Provincial" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Question_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Show_Activate_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Tags_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Teachnology_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Tick_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_View_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Answer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Rate_Question_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Regulations_Role_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_Role_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Search_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_Sex_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Show_Activate_Question_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Teachnology_Question_Technology" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Teachnology_User_Technology" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Teachnology_User_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Tick_Question_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_View_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_View_Question_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.User_IP" Width="1.5" PointX="8.25" PointY="41.5" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_User_IP_User" />
+        <EntityTypeShape EntityType="FivePSocialNetWorkModel.Functions_User" Width="1.5" PointX="8.25" PointY="15.75" />
+        <AssociationConnector Association="FivePSocialNetWorkModel.FK_Functions_User_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

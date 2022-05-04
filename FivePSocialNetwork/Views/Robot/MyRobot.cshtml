@@ -1,0 +1,112 @@
+﻿@using FivePSocialNetwork.Models;
+@{
+    ViewBag.Title = "MyRobot";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+
+    int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+    FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
+    Functions_User functions_User = db.Functions_User.FirstOrDefault(n => n.user_id == user_id);
+    string selected = "selected";
+
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+<style>
+    .custom-toggle-slider:before {
+        bottom: 1.7px;
+        left: 2px;
+        width: 17px;
+        height: 15px;
+    }
+    .ui.fluid.dropdown {
+        height: 90px;
+    }
+</style>
+<div class="main-content" id="panel">
+    <!-- Page content -->
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+                    <span class="alert-inner--text"><strong>Thông báo!</strong> điều này sẽ thông báo real time trực tiếp trên thông báo của bạn.</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5 order-xl-2 mt-3">
+                <div style="height:60px"></div>
+                <div>
+                    <h2>
+                        Hãy để <span class="text-warning">Robot facetech</span> <img src="~/Image/Robot/F-removebackgrod.png" style="width:18%" /> gửi bạn những câu hỏi bạn quan tâm.
+                    </h2>
+                </div>
+                <div>
+                    @if (functions_User != null && functions_User.notification_question_technology == true)
+                    {
+                        <label class="custom-toggle">
+                            <input type="checkbox" checked id="getNotification">
+                            <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="custom-toggle">
+                            <input type="checkbox" id="getNotification">
+                            <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                    }
+                    <small>Bật / Tắt.</small>
+                </div>
+                <hr />
+                <div>
+                    <i class="fas fa-info-circle"></i> Thông tin trending của bạn.
+                </div>
+                @{
+                    List<Technology> technology = db.Technologies.Where(n => n.technology_activate == true && n.technology_recycleBin == false).ToList();
+                    List<Teachnology_User> teachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id).ToList();
+                }
+                <div class="mt-4">
+                    <form method="post" action="@Url.Action("TechnologyUser","Account")">
+                        @Html.AntiForgeryToken()
+                        <select name="technology_id" class="form-control ui fluid search dropdown" id="" multiple="multiple">
+                            @foreach (var item in technology)
+                            {
+                                <option value="@item.technology_id" @foreach (var item2 in teachnology_User) { if (item.technology_id == item2.technology_id) { @selected } }>@item.technology_name</option>
+                            }
+                        </select>
+                        <span>
+                            <button type="submit" class="btn btn-success mt-2 w-50">Lưu <i class="far fa-save"></i></button>
+                        </span>
+                        <span class="float-right mt-4"><a href="/Account/SettingAccount">Quay lại cài đặt cá nhân <i class="fas fa-angle-right"></i></a></span>
+                    </form>
+                </div>
+                <!--Link trung tâm-->
+            </div>
+            <div class="col-xl-7 order-xl-1">
+
+                <img src="~/Image/Robot/robot.png" class="figure-img w-100 h-100" />
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+    //Nhận thông báo các câu hỏi liên quan đến công nghệ của bạn
+    $(document).ready(function () {
+        $("#getNotification").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/Account/GetNotification"
+            })
+        })
+    })
+</script>
+
+

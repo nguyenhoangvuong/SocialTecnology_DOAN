@@ -1,0 +1,200 @@
+﻿@using FivePSocialNetwork.Models;
+@{
+    FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
+
+}
+<div class="card">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> <i class="far fa-question-circle"></i> Đặt câu hỏi</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="far fa-newspaper"></i> Đăng bài viết </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active p-3" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <img class="rounded-circle" style="width: 38px; height: 38px;" src="~/Image/Users/Man.png" alt="">
+            <a href="#" data-toggle="modal" data-target="#question">
+                <input type="text" class="form-control border-0 float-right" style="width:94%" placeholder="bạn có thắc mắc gì không ?" />
+            </a>
+
+        </div>
+        <div class="tab-pane fade p-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <img class="rounded-circle " style="width: 38px; height: 38px;" src="~/Image/Users/Man.png" alt="">
+            <a href="#" data-toggle="modal" data-target="#post">
+                <input type="text" class="form-control border-0 float-right" style="width:94%" placeholder="bạn nghĩ gì?" />
+
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal question-->
+@if (Request.Cookies["user_id"] != null)
+{
+    <div class="modal fade" id="question" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@*Bạn có thắc mắc gì?*@</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt--6">
+                        <div class="card-body">
+                            <form action="@Url.Action("PostQuestion","Question")" class="ui form" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="pl-lg-1">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3 text-center">
+                                            <h1><span class="badge badge-pill badge-warning text-uppercase">Đặt câu hỏi của bạn dưới đây <i class="fas fa-question-circle"></i></span></h1>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group field">
+                                                <label class="form-control-label text-center" for="input-address"><i class="fas fa-pen-alt"></i> Tiêu để câu hỏi</label>
+                                                <input value="" name="question_title" class="form-control" placeholder="................................" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group field">
+                                                <label class="form-control-label text-center" for="input-address"><i class="far fa-edit"></i> Chi tiết</label>
+                                                <textarea class="form-control" id="editor" name="question_content" placeholder="................................"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group text-center">
+                                                <label class="form-control-label" for="input-address"><i class="fas fa-tags"></i> Seo</label>
+                                                <div class="ui fluid multiple search selection dropdown field">
+                                                    <input name="strTagsQuestion" type="hidden">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Skills</div>
+                                                    <div class="menu">
+                                                        <div class="item" data-value="angular">Angular</div>
+                                                        <div class="item" data-value="css">CSS</div>
+                                                        <div class="item" data-value="design">Graphic Design</div>
+                                                        <div class="item" data-value="ember">Ember</div>
+                                                        <div class="item" data-value="html">HTML</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4 text-center">
+                                            <label class="form-control-label" for="input-address"><i class="fas fa-laptop-code"></i> Công nghệ</label>
+
+                                            @{
+
+                                                List<Technology> technologies = db.Technologies.Where(n => n.technology_activate == true && n.technology_recycleBin == false).ToList();
+                                            }
+                                            <div class="form-group field">
+                                                <select class="ui fluid search dropdown" name="technologyQuestion" multiple="">
+                                                    @foreach (var item in technologies)
+                                                    {
+                                                        <option value="@item.technology_id">@item.technology_name</option>
+
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-secondary w-100 submit" style="font-weight:700"><i class="far fa-paper-plane"></i> Đăng câu hỏi</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal post-->
+    <div class="modal fade" id="post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt--6">
+                        <div class="card-body">
+                            <form class="ui form" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="pl-lg-1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group field">
+                                                <label class="form-control-label" for="input-address"><i class="fas fa-pen-alt"></i> Tiêu để bài viết?</label>
+                                                <input value="" name="question_title" class="form-control" placeholder="................................" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group field">
+                                                <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Nội dung bài viết</label>
+                                                <textarea class="form-control" id="editorPost" name="question_content" placeholder="................................"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group field">
+                                                <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Ảnh bài viết</label>
+                                                <input type="file" class="form-control" id="#" name="question_content" placeholder="................................" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-secondary w-100 submit"><i class="far fa-paper-plane"></i> Đăng bài viết</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mb-2">
+    <h4>Công nghệ phổ biến___</h4>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-3" ng-repeat="x in listTechnologyPopular">
+        <a ng-href="/Center/ShowFollowTechnology?id={{x.technology_id}}" class="btn btn-outline-warning btn-round p-2 mb-3 w-100">{{x.technology_name}}</a>
+    </div>
+</div>
+<br />
+<div class="row border-bottom">
+    <div class="col-lg-4 col-4">
+        @if (Request.Cookies["user_id"] != null)
+        {
+            <span class="text-left">
+                <a href="@Url.Action("ForUser","Center")"><i class="far fa-hand-point-right"></i> Dành cho bạn</a>.
+            </span>
+        }
+
+    </div>
+    <div class="col-lg-8 col-8">
+        <div class="text-right">
+            <span><i class="fas fa-filter"></i><u> Sắp xếp theo</u> : </span>
+            <a href="@Url.Action("FilterReward","Center")">Thưởng</a> \
+            <a href="@Url.Action("FilterQuestionNew","Center")">Mới nhất</a> \
+            <a href="@Url.Action("FilterQuestionVote","Center")">Vote</a> \
+            <a href="@Url.Action("FilterQuestionView","Center")">Xem</a> .
+        </div>
+    </div>
+
+</div>

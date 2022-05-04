@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewBag.Title = "ShowActivate";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+
+<div class="main-panel" ng-app="myApp">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Database user</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Users</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Database user</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row" ng-controller="myCtrl">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="collapse" id="search-nav">
+                                    <form class="navbar-left navbar-form nav-search mr-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <i class="fa fa-search search-icon btn btn-search pr-1"></i>
+                                            </div>
+                                            <input type="text" ng-model="txtSearch" placeholder="Search ..." class="form-control">
+                                        </div>
+                                    </form>
+                                </div>
+                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                                    <i class="fa fa-plus"></i> Thêm user
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#recycleBin">
+                                    <i class="far fa-trash-alt"></i> Thùng rác
+                                </button>
+                                <div class="modal fade" id="recycleBin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideout modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách tỉnh đã xóa</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">Stt</th>
+                                                            <th scope="col">Tên</th>
+                                                            <th scope="col">Ngày sửa</th>
+                                                            <th scope="col">Tùy chọn</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="x in listRecycleBin">
+                                                            <th scope="row">{{$index + 1}}</th>
+                                                            <td>{{x.provincial_name}}</td>
+                                                            <td>{{x.provincial_dateEdit}}</td>
+                                                            <td><a href="#" ng-click="restore($index,x.provincial_id)"><i class="fas fa-undo-alt"></i></a> | <a href="#"><i class="fas fa-times-circle"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="add-row" class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Stt</th>
+                                            <th>tiêu đề</th>
+                                            <th>User</th>
+                                            <th>Tùy chọn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in filteredTodos | filter: txtSearch">
+                                            <td>{{$index + 1}}</td>
+                                            <td>{{x.question_title}}</td>
+                                            <td>{{x.user_firstName + " " + x.user_lastName}}</td>
+                                            <td ng-show="x.provincial_activate == true">
+                                                <a href="#">
+                                                    <div class="col-auto">
+                                                        <label class="colorinput">
+                                                            <input name="color" type="checkbox" ng-click="activateProvincial(x.provincial_id)" value="dark" checked class="colorinput-input">
+                                                            <span class="colorinput-color bg-dark"></span>
+                                                        </label>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td ng-show="x.provincial_activate == false">
+                                                <a href="#">
+                                                    <div class="col-auto">
+                                                        <label class="colorinput">
+                                                            <input name="color" ng-click="activateProvincial(x.provincial_id)" type="checkbox" value="dark" class="colorinput-input">
+                                                            <span class="colorinput-color bg-dark"></span>
+                                                        </label>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <button type="button" data-toggle="modal" data-target="#editRowModal{{x.provincial_id}}" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" ng-click="recycleBinProvincial($index,x.provincial_id)" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </div>
+                                                <!--Sửa-->
+                                                <div class="modal fade" id="editRowModal{{x.provincial_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header no-bd">
+                                                                <h5 class="modal-title">
+                                                                    <span class="fw-mediumbold">
+                                                                        Sửa
+                                                                    </span>
+                                                                    <span class="fw-light">
+                                                                        công nghệ
+                                                                    </span>
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="@Url.Action("EditProvincial","AddressAdmin")" method="post">
+                                                                @Html.AntiForgeryToken()
+                                                                <div class="modal-body">
+                                                                    <p class="small">Điền đầy dủ thông tin công nghệ dưới đây</p>
+                                                                    <input type="hidden" name="provincial_id" value="{{x.provincial_id}}" />
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 pr-0">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Tên</label>
+                                                                                <input name="provincial_name" id="addPosition" required="" value="{{x.provincial_name}}" type="text" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer no-bd">
+                                                                    <button type="submit" id="addRowButton" class="btn btn-primary">Sửa tỉnh</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <pagination ng-model="currentPage"
+                                    total-items="list.length"
+                                    max-size="maxSize"
+                                    boundary-links="true">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', ["ui.bootstrap"]);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/Admin/QuestionsAdmin/QuestionJson")
+            .then(function (response) {
+                //Gia dinh
+                $scope.filteredTodos = []
+                    , $scope.currentPage = 1
+                    , $scope.numPerPage = 12
+                    , $scope.maxSize = 5;
+
+                //Xac dinh list phan trang
+                $scope.makeTodos = function () {
+                    $scope.list = response.data;
+                }
+                $scope.makeTodos();
+
+                //Phân trang
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+
+                    $scope.filteredTodos = $scope.list.slice(begin, end);
+                });
+            }, function (response) {
+                // Second function handles error
+                $scope.content = "Something went wrong";
+            });
+
+        $scope.activateProvincial = function (id) {
+            $http.get("/Admin/AddressAdmin/ActivateProvincail?id=" + id).then(function (response) {
+                $scope.myData = response.data.records;
+            });
+
+        }
+        $http.get("/Admin/AddressAdmin/RecycleBinProvincialJson").then(function (response) {
+            $scope.listRecycleBin = response.data;
+        });
+    });
+</script>

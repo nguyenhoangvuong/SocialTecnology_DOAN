@@ -1,0 +1,828 @@
+﻿@using FivePSocialNetwork.Models;
+@{
+    ViewBag.Title = "SettingAccount";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    if (Request.Cookies["user_id"] == null)
+    {
+        Response.Redirect("/Center/IndexCenter");
+    }
+    int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+    FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
+    User user = db.Users.Find(user_id);
+    Functions_User functions_User = db.Functions_User.FirstOrDefault(n => n.user_id == user_id);
+    string selected = "selected";
+}
+<style>
+    .custom-toggle-slider:before {
+        bottom: 1.7px;
+        left: 2px;
+        width: 17px;
+        height: 15px;
+    }
+    .ui.fluid.dropdown {
+        height: 90px;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<style>
+    .file-upload {
+        background-color: #ffffff;
+        width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-btn {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        background: #1FB264;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #15824B;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .file-upload-btn:hover {
+            background: #1AA059;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+    .file-upload-content {
+        display: none;
+        text-align: center;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 4px dashed #1FB264;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            background-color: #1FB264;
+            border: 4px dashed #ffffff;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: #222;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: #15824B;
+            padding: 60px 0;
+        }
+
+    .file-upload-image {
+        max-height: 200px;
+        max-width: 200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .remove-image {
+        width: 200px;
+        margin: 0;
+        color: #fff;
+        background: #cd4535;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #b02818;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .remove-image:hover {
+            background: #c13b2a;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .remove-image:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+</style>
+<div class="main-content" id="panel">
+    <!-- Page content -->
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col-xl-4 order-xl-2 mt-3">
+                <div class="card-profile">
+                    <a href="#!" data-toggle="modal" data-target="#changeCoverImage">
+                        <img src="~/Image/Users/@user.user_coverImage" alt="Image placeholder" class="card-img-top">
+                    </a>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 order-lg-2">
+                            <div class="card-profile-image">
+                                <a href="#!" data-toggle="modal" data-target="#changeAvata">
+                                    <img src="~/Image/Users/@user.user_avatar" class="rounded-circle" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!----------------------------------Đổi avata------------------------->
+                    <div class="modal fade" id="changeAvata" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="@Url.Action("ChangeAvatar","Account")" enctype="multipart/form-data" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <div class="file-upload">
+                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Thêm ảnh đại diện <i class="far fa-image"></i></button>
+
+                                        <div class="image-upload-wrap">
+                                            <input class="file-upload-input" name="user_avatar" type='file' onchange="readURL(this);" accept="image/*" />
+                                            <div class="drag-text">
+                                                <h3>Kéo và thả tệp hoặc chọn thêm hình ảnh <i class="far fa-image"></i></h3>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload-content">
+                                            <img class="file-upload-image" src="#" alt="your image" />
+                                            <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-2" style="font-weight:700;font-size:16px;color:#1fb264"><i class="far fa-save"></i> Lưu ảnh</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!----------------------------------Đổi ảnh bìa------------------------->
+                    <div class="modal fade" id="changeCoverImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="@Url.Action("ChangeCoverImage","Account")" enctype="multipart/form-data" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <div class="file-upload">
+                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Thêm ảnh bìa <i class="far fa-image"></i></button>
+
+                                        <div class="image-upload-wrap">
+                                            <input class="file-upload-input" name="user_coverImage" type='file' onchange="readURL2(this);" accept="image/*" />
+                                            <div class="drag-text">
+                                                <h3>Kéo và thả tệp hoặc chọn thêm hình ảnh <i class="far fa-image"></i></h3>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload-content">
+                                            <img class="file-upload-image" src="#" alt="your image" />
+                                            <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload2()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-2" style="font-weight:700;font-size:16px;color:#1fb264"><i class="far fa-save"></i> Lưu ảnh</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0 mt-6">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card-profile-stats d-flex justify-content-center">
+                                    <div>
+                                        @{
+                                            List<Friend> friends = db.Friends.Where(n => (n.userRequest_id == user_id || n.userResponse_id == user_id) && n.friend_status == true).ToList();
+                                        }
+                                        <span class="heading">@friends.Count()</span>
+                                        <span class="description">Bạn bè</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">@user.user_popular <i class="fas fa-fire" style="color:red"></i></span>
+                                        <span class="description">Nổi tiếng</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">@(user.user_vipMedal + user.user_goldMedal + user.user_silverMedal + user.user_brozeMedal)</span>
+                                        <span class="description">Huy hiệu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <center>
+                                @if (user.user_statusOnline == true)
+                                {
+                                    <label class="custom-toggle" data-toggle="tooltip" data-placement="bottom" title="Trạng thái hoạt động">
+                                        <input type="checkbox" checked id="statusUser">
+                                        <span class="custom-toggle-slider rounded-circle"></span>
+                                    </label>
+                                }
+                                else if (user.user_statusOnline == false)
+                                {
+                                    <label class="custom-toggle" data-toggle="tooltip" data-placement="bottom" title="Trạng thái hoạt động">
+                                        <input type="checkbox" id="statusUser">
+                                        <span class="custom-toggle-slider rounded-circle"></span>
+                                    </label>
+                                }
+                            </center>
+                        </div>
+                        <div class="text-center">
+                            <div class="h7 text-muted">@user.user_vipMedal <i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>  &nbsp; @user.user_goldMedal <i class="fas fa-award" style="color:yellow;font-size:11px"></i>  &nbsp; @user.user_silverMedal <i class="fas fa-award" style="color:silver;font-size:11px"></i>&nbsp; @user.user_brozeMedal <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>
+                            <div class="h5 font-weight-300">
+
+                                <i class="ni location_pin mr-2"></i>
+                                <span style="padding:1%">@user.user_phone</span>
+                            </div>
+                            <div class="h5 mt-4">
+                                <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; Email : @user.user_email
+                            </div>
+
+                            <!--đổi mật khẩu-->
+                            <div class="h5 font-weight-300">
+                                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-0">
+                                                <div class="card bg-secondary shadow border-0 mb-0">
+                                                    <div class="card-body px-lg-5 py-lg-5">
+                                                        <form role="form" onsubmit="return CheckformChangePass()" action="@Url.Action("ChangePassword","UserManager")" method="post">
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" name="oldPass" id="oldPass" placeholder="Mật khẩu cũ" type="password">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" name="user_pass" id="user_pass" placeholder="Mật khẩu mới" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="input-group input-group-alternative">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                                                    </div>
+                                                                    <input class="form-control" id="retypePass" placeholder="Nhập lại mật khẩu" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-primary my-4"><i class="far fa-edit"></i> Đổi mật khẩu</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                @{
+                                    List<Question> questions = db.Questions.Where(n => n.user_id == user_id).ToList();
+                                }
+                                Số câu hỏi : @questions.Count()
+                            </div>
+                            <div class="text-center">
+                                @{
+                                    List<Answer> answers = db.Answers.Where(n => n.user_id == user_id).ToList();
+                                }
+                                Số trả lời : @answers.Count()
+                            </div>
+                            <div class="text-left">
+                                <a data-toggle="collapse" href="#C_avatar"><i class="fas fa-image"></i> Đổi ảnh bìa</a>
+                                <div class="collapse" id="C_avatar">
+                                    <div class="">
+                                        <form action="@Url.Action("ChangeCoverImage","Account")" enctype="multipart/form-data" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="file" name="user_coverImage" />
+                                            <br />
+                                            <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <a data-toggle="collapse" href="#C_coverImage"><i class="fas fa-image"></i> Đổi ảnh đại diện</a>
+                                <div class="collapse" id="C_coverImage">
+                                    <div class="">
+                                        <form action="@Url.Action("ChangeAvatar","Account")" enctype="multipart/form-data" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="file" name="user_avatar" />
+                                            <br />
+                                            <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Link trung tâm-->
+            </div>
+            <div class="col-xl-8 order-xl-1">
+                @if (Session["checkPass"] != null)
+                {
+                    <div class="col-md-12">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+                            <span class="alert-inner--text"><strong>Thông báo!</strong> Mật khẩu củ không đúng! Vui lòng nhập lại mật khẩu .</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    Session["checkPass"] = null;
+                }
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0"><i class="fas fa-user-cog"></i> Cá nhân </h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <a href="#!" data-toggle="modal" data-target="#post" class="btn btn-sm btn-primary"><i class="fas fa-key"></i> Đổi mật khẩu</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!----------------------------------Đồi mật khẩu------------------------->
+                    <div class="modal fade" id="post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form class="ui form" action="@Url.Action("ChangePassword","Account")" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mt--3">
+                                        <div class="field">
+                                            <span class="title"><i class="fas fa-key"></i> Nhập mật khẩu cũ</span>
+                                            <input type="password" name="user_pass" required placeholder="..." class="form-control border-top-0 border-left-0" />
+                                            <br />
+                                        </div>
+                                        <div class="field">
+                                            <span class="title mt-2"><i class="fas fa-key"></i> Nhập mật khẩu mới</span>
+                                            <input type="password" name="newPass" id="newPass" required placeholder="..." class="form-control border-top-0 border-left-0" />
+                                            <br />
+                                        </div>
+                                        <div class="field">
+                                            <span class="title mt-2"><i class="fas fa-key"></i> Nhập lại mật khẩu mới</span>
+                                            <input type="password" name="retypePass" id="retypePass" required placeholder="..." class="form-control border-top-0 border-left-0" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-success submit"><i class="fas fa-fist-raised"></i> Hoàn thành</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fas fa-signature"></i> Tên : @user.user_firstName @user.user_lastName
+                                        @if (user.user_firstName == null || user.user_lastName == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_FirstName"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_FirstName">
+                                        <div class="">
+                                            <form action="@Url.Action("SettingAccount","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="text" name="user_firstName" class="form-control" placeholder="Tên của bạn .." value="@user.user_firstName" /><br />
+                                                <input type="text" name="user_lastName" class="form-control" placeholder="Họ của bạn .." value="@user.user_lastName" /><br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fas fa-mars"></i> Giới tính : @if (user.sex_id != null)
+                                        {@user.Sex_User.sex_name <span style="color:green;font-size:20px">*</span>}
+                                    else
+                                    {<span style="color:red;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_Sex"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_Sex">
+                                        @{
+                                            List<Sex_User> sex_User = db.Sex_User.Where(n => n.sex_activate == true && n.sex_recycleBin == false).ToList();
+                                        }
+                                        <div class="">
+                                            <form action="@Url.Action("SexUser","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <select name="user_sex" class="form-control">
+                                                    <option value="0">
+                                                        Chọn giới tính...
+                                                    </option>
+                                                    @foreach (var item in sex_User)
+                                                    {
+                                                        <option value="@item.sex_id" @if (item.sex_id == user.sex_id) { @selected }>@item.sex_name</option>
+                                                    }
+                                                </select><br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fas fa-birthday-cake"></i> Ngày sinh : @user.user_birthday
+                                        @if (user.user_birthday == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_BirthDay"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_BirthDay">
+                                        <div class="">
+                                            <form action="@Url.Action("BrithDay","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="date" name="user_birthday" class="form-control" placeholder="Ngày sinh .." value="@String.Format("{0:yyyy-MM-dd}", user.user_birthday)" /><br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="far fa-thumbs-up"></i> Sở thích công việc : @user.user_hobbyWork
+                                        @if (user.user_hobbyWork == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_LoveWork"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_LoveWork">
+                                        <div class="">
+                                            <form action="@Url.Action("HobbyWork","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <textarea name="user_hobbyWork" class="form-control" placeholder="Sở thích công việc ..">@user.user_hobbyWork</textarea>
+                                                <br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="far fa-heart"></i> Sở thích cá nhân : @user.user_hobby @if (user.user_hobby == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_Love"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_Love">
+                                        <div class="">
+                                            <form action="@Url.Action("Hobby","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <textarea name="user_hobby" class="form-control" placeholder="Sở thích cá nhân ..">@user.user_hobby</textarea><br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    @{
+                                        List<Technology> technology = db.Technologies.Where(n => n.technology_activate == true && n.technology_recycleBin == false).ToList();
+                                        List<Teachnology_User> teachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id).ToList();
+                                    }
+                                    <span class="float-left">
+                                        <i class="fab fa-react"></i> Công nghệ của bạn :
+                                        @if (teachnology_User != null)
+                                        {
+                                            foreach (var item in teachnology_User)
+                                            {
+                                                <span>@item.Technology.technology_name</span>
+                                            }
+                                            <span style="color:green;font-size:20px">*</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;font-size:20px">*</span>
+                                        }
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_MyTechnology"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_MyTechnology">
+                                        <div class="">
+                                            <form method="post" action="@Url.Action("TechnologyUser","Account")">
+                                                @Html.AntiForgeryToken()
+                                                <select name="technology_id" class="form-control ui fluid search dropdown" id="" multiple="multiple">
+                                                    @foreach (var item in technology)
+                                                    {
+                                                        <option value="@item.technology_id" @foreach (var item2 in teachnology_User) { if (item.technology_id == item2.technology_id) { @selected } }>@item.technology_name</option>
+                                                    }
+                                                </select>
+                                                <button type="submit" class="btn btn-success float-right mt-3"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fas fa-map-marked-alt"></i> Địa chỉ :
+                                        @user.user_addressRemaining /
+                                        @if (user.commune_id != null)
+                                        {
+                                            <span>@user.Commune.commune_name</span>
+                                            <span style="color:green;font-size:20px">*</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;font-size:20px">*</span>
+                                        }
+                                        @if (user.district_id != null)
+                                        {
+                                            <span>@user.District.district_name</span>
+                                            <span style="color:green;font-size:20px">*</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;font-size:20px">*</span>
+                                        }
+                                        @if (user.provincial_id != null)
+                                        {
+                                            <span>@user.Provincial.provincial_name</span>
+                                            <span style="color:green;font-size:20px">*</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;font-size:20px">*</span>
+                                        }
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_address"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_address">
+                                        <div class="">
+                                            <form action="@Url.Action("Address","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">TP or (Tỉnh..)</label>
+                                                    @{
+                                                        List<Provincial> provincials = db.Provincials.Where(n => n.provincial_activate == true && n.provincial_recycleBin == false).ToList();
+                                                    }
+                                                    <select class="form-control" name="provincial_id" style="width:100%" id="provincial">
+                                                        @foreach (var item in provincials)
+                                                        {
+                                                            <option value="@item.provincial_id" @if (user.provincial_id == item.provincial_id) { @selected }>@item.provincial_name</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Quận or (Huyện..)</label>
+                                                    <select class="form-control" name="district_id" style="width:100%" id="district">
+                                                        @if (user.district_id != null)
+                                                        {
+                                                            <option value="@user.district_id">
+                                                                @user.District.district_name
+                                                            </option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Xã</label>
+                                                    <select class="form-control" name="commune_id" style="width:100%" id="commune">
+                                                        @if (user.commune_id != null)
+                                                        {
+                                                            <option value="@user.commune_id">
+                                                                @user.Commune.commune_name
+                                                            </option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Địa chỉ cụ thể</label>
+                                                    <textarea class="form-control" placeholder="Địa chỉ dưới xã .." name="user_addressRemaining">@if (user.user_addressRemaining != null) { @user.user_addressRemaining }</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fab fa-facebook-f"></i> Link Facebook : @user.user_linkFacebook @if (user.user_linkFacebook == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_facebook"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_facebook">
+                                        <div class="">
+                                            <form action="@Url.Action("LinkFacebook","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="text" name="linkFacebook" class="form-control" value="@user.user_linkFacebook" placeholder="Facebook của bạn" />
+                                                <br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fab fa-github"></i> Link github : @user.user_linkGithub @if (user.user_linkGithub == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_github"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_github">
+                                        <div class="">
+                                            <form action="@Url.Action("LinkGithub","Account")" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="text" name="linkGithub" class="form-control" value="@user.user_linkGithub" placeholder="Github của bạn" />
+                                                <br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-3">
+                                    <span class="float-left">
+                                        <i class="fas fa-link"></i>Link khác : @user.user_anotherWeb @if (user.user_anotherWeb == null)
+                                        {<span style="color:red;font-size:20px">*</span> }
+                                        else
+                                        {<span style="color:green;font-size:20px">*</span>}
+                                    </span>
+                                    <span class="float-right"><a data-toggle="collapse" href="#C_linkother"><i class="fas fa-user-edit"></i> Sữa</a></span>
+                                    <div class="collapse mt-5" id="C_linkother">
+                                        <div class="">
+                                            <form method="post" action="@Url.Action("LinkWebAnother","Account")">
+                                                @Html.AntiForgeryToken()
+                                                <textarea name="linkWebAnother" class="form-control" placeholder="Website khác của bạn">@user.user_anotherWeb</textarea>
+                                                <br />
+                                                <button type="submit" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Scripts/CheckForm/CheckFormChangePass.js"></script>
+<script>
+    $('.ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+    $("#selectTechnology").select2({
+        placeholder: 'Nhập công nghệ (tối đa 3 công nghệ)..',
+        maximumSelectionLength: 3,
+        allowClear: true
+    });
+    $(document).ready(function () {
+        $("#provincial").click(function () {
+            let searchText = $(this).val();
+            $.ajax({
+                type: "post",
+                url: "/Account/District?id=" + searchText,
+                contentType: "html",
+                success: function (response) {
+                    $("#district").html(response);
+                }
+            })
+        })
+    })
+    $(document).ready(function () {
+        $("#district").click(function () {
+            let searchText = $(this).val();
+            $.ajax({
+                type: "post",
+                url: "/Account/Commune?id=" + searchText,
+                contentType: "html",
+                success: function (response) {
+                    $("#commune").html(response);
+                }
+            })
+        })
+    })
+    //Nhận thông báo các câu hỏi liên quan đến công nghệ của bạn
+    $(document).ready(function () {
+        $("#getNotification").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/Account/GetNotification"
+            })
+        })
+    })
+    // TRạng thái hoạt động user
+    $(document).ready(function () {
+        $("#statusUser").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/Message/StatusUser"
+            })
+        })
+    })
+</script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+                $('.image-title').html(input.files[0].name);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
+<script>
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+                $('.image-title').html(input.files[0].name);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload2();
+        }
+    }
+
+    function removeUpload2() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>

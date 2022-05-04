@@ -1,0 +1,96 @@
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+@if (Request.Cookies["user_id"] != null || Request.Cookies["admin_id"] != null)
+{
+    Response.Redirect("/Center/IndexCenter");
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Working Signin form Responsive Widget Template :: W3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+          content="Working Signin form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <!-- //Meta tag Keywords -->
+    <link href="~/assets/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/assets/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <link href="//fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+    <!--/Style-CSS -->
+    <link rel="stylesheet" href="~/assets/Login/css/style.css" type="text/css" media="all" />
+    <!--//Style-CSS -->
+
+</head>
+
+<body>
+
+    <!-- form section start -->
+    <section class="w3l-workinghny-form">
+        <!-- /form -->
+        <div class="workinghny-form-grid">
+            <div class="wrapper">
+                <div class="logo">
+                    <h1><a class="brand-logo" href="index.html"><span>Đăng ký</span></a></h1>
+                    <!-- if logo is image enable this
+                        <a class="brand-logo" href="#index.html">
+                            <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                        </a> -->
+                </div>
+                <div class="workinghny-block-grid">
+                    <div class="workinghny-left-img align-end">
+                        <img src="~/assets/Login/images/2.png" class="img-responsive" alt="img" />
+                    </div>
+                    <div class="form-right-inf">
+
+                        <div class="login-form-content">
+                            <h2>Where to?</h2>
+                            <form class="ui form signin-form" asp-antiforgery="false" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="one-frm field">
+                                    <label>Email</label>
+                                    <input type="text" name="user_email" placeholder="">
+                                    <div style="color:#ff6392;font-weight:600;font-size:20px">
+                                        @ViewBag.checkEmail
+                                    </div>
+                                </div>
+                                <div class="one-frm field">
+                                    <label>Mật khẩu</label>
+                                    <input type="password" name="user_pass" id="user_pass" placeholder="">
+                                </div>
+                                <div class="one-frm field">
+                                    <label>Nhập lại mật khẩu</label>
+                                    <input type="password" name="Pass_retype" id="Pass_retype" placeholder="">
+                                </div>
+                                <button type="submit" class="btn btn-style mt-3 submit">Thành viên 5P </button>
+                                <p class="already"> <a href="@Url.Action("Login","Account")"> Đăng nhập</a></p>
+                                <p class="already"> <a href="@Url.Action("ForgotPassword","Account")"> Quên mật khẩu?</a></p>
+
+                                <div class="ui error message"></div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //form -->
+        <!-- copyright-->
+        <div class="copyright text-center">
+            <div class="wrapper">
+                <p class="copy-footer-29">
+                    © 2020 Working Sign In. All rights reserved | Design by <a href="https://w3layouts.com">W3layouts</a>
+                </p>
+            </div>
+        </div>
+        <!-- //copyright-->
+    </section>
+    <!-- //form section start -->
+    <script src="~/Scripts/CheckForm/CheckFormRegister.js"></script>
+</body>
+
+</html>

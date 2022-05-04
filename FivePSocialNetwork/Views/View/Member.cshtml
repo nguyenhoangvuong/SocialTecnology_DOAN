@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "Member";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<div class="header pb-6" style="">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-12 col-12">
+                    <h6 class="h2 text-dark d-inline-block mb-0"> Thành viên</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Thành viên</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-xl-12">
+                    <div class="col-xl-7">
+                        <p class="">Đây là tất cả các thành viên nhiệt huyết của 5P, đóng góp cho sự phát triển của 5P và của xã hội và những con người ham học hỏi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6" ng-app="myApp">
+    <div class="row">
+        <div class=col-xl-12>   
+            <div class="row">
+                <div class="col-xl-7 mt--3">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative input-group-merge ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="background-color:#f8f9fe"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input class="form-control" style="background-color:#f8f9fe;" ng-model="txtSearch" placeholder="Tìm ............................." type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 text-right">
+                    <span><a href="#"><i class="far fa-snowflake text-white"></i> Pro</a></span> /
+                    <span><a href="#">Mới</a></span> /
+                    <span><a href="#">Chung công nghệ</a></span> /
+                    <span><a href="#">Huy chương</a></span> .
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 card mt--3">
+
+            <div class="row" ng-controller="myCtrl">
+
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-2 p-3 cardlist col-4" ng-repeat="x in filteredTodos| filter: txtSearch">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a ng-href="/UserManagement/PageUser?id={{x.user_id}}" class="w-100">
+                                        <img src="~/Image/Users/{{x.user_avatar}}" class="mx-auto d-block mb-1 addcartimg" style="width:50px;height:50px" />
+                                    </a>
+                                </div>
+                                <div class="col-8" style="font-size:14px">
+                                    <div class="d-block text-truncate mb-1">
+                                        <a ng-href="/UserManagement/PageUser?id={{x.user_id}}" class="cartproname">{{x.user_firstName + " " + x.user_lastName}}</a>
+                                    </div>
+                                    <div class="seller d-block">
+                                        <span>Nổi:{{x.user_popular}}<i class="fas fa-fire" style="color:red"></i> </span>
+                                    </div>
+                                    <div class="cartviewprice d-block">
+                                        <span ng-repeat="y in listTechnologyUser" ng-show="x.user_id == y.user_id">{{y.technology_name + ","}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <pagination ng-model="currentPage"
+                            total-items="list.length"
+                            max-size="maxSize"
+                            boundary-links="true">
+                </pagination>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    var app = angular.module('myApp', ["ui.bootstrap"]);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/View/ListMenber")
+            .then(function (response) {
+                //Gia dinh
+                $scope.filteredTodos = []
+                    , $scope.currentPage = 1
+                    , $scope.numPerPage = 18
+                    , $scope.maxSize = 5;
+
+                //Xac dinh list phan trang
+                $scope.makeTodos = function () {
+                    $scope.list = response.data;
+                }
+                $scope.makeTodos();
+
+                //Phân trang
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+
+                    $scope.filteredTodos = $scope.list.slice(begin, end);
+                });
+            }, function (response) {
+                // Second function handles error
+                $scope.content = "Something went wrong";
+            });
+        //Show công nghệ user
+        $http.get("/UserManagement/ListTechnologyUser")
+            .then(function (response) {
+                // First function handles success
+                $scope.listTechnologyUser = response.data;
+            }, function (response) {
+                // Second function handles error
+                $scope.listTechnologyUser = "Something went wrong";
+            });
+    });
+</script>

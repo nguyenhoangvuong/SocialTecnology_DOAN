@@ -1,0 +1,85 @@
+﻿<div class="form-group border-0">
+    <div class="input-group input-group-alternative input-group-merge ">
+        <div class="input-group-prepend  border-bottom">
+            <span class="input-group-text" style="background-color:#f8f9fe"><i class="fas fa-search"></i></span>
+        </div>
+        <input class="form-control border-bottom" style="background-color:#f8f9fe;" placeholder="Tìm ............................." type="text">
+    </div>
+</div>
+<div class="scroll_text" id="listFirend">
+
+    
+        
+
+</div>
+<script type="text/javascript">
+
+
+    // tin nhắn
+    $(function () {
+
+        // Proxy created on the fly
+        var cus = $.connection.statusOnline;
+
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayChat = function () {
+            getData6();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData6();
+    });
+
+    function getData6() {
+        var $tbl = $('#listFirend');
+        $.ajax({
+            url: '/ShareView/StatusOnlineFriend',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.listChat, function (i, model) {
+                    if (model.user_statusOnline == true) {
+                        $tbl.append
+                            (
+                                '<div class="row" >'
+                                + '<div class="col-2">'
+                                + '<img class="rounded-circle" style="width:38px;height:38px;" src="/Image/Users/' + model.user_avatar + '" alt="">'
+                                + '</div >'
+                                + '<div class="col-8">'
+                                + '<a href="/UserManagement/PageUser?id=' + model.user_id + '" class="h5 m-0">'
+                                + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i>'
+                                + '</a>'
+                                + '<div class="h7 text-muted">' + model.user_vipMedal + '<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>' + model.user_goldMedal + '<i class="fas fa-award" style="color:yellow;font-size:11px"></i>' + model.user_silverMedal + '<i class="fas fa-award" style="color:silver;font-size:11px"></i>  ' + model.user_brozeMedal + '<i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>'
+                                + '</div>'
+                                + '<div class="col-2">'
+                                + ' <a href="/Message/Index?id=' + model.user_id + '"><i class="fab fa-facebook-messenger mt-4"></i></a>'
+                                + ' </div></div>'
+                            );
+                    }
+                    else {
+                        $tbl.append
+                            (
+                                '<div class="row" >'
+                                + '<div class="col-2">'
+                                + '<img class="rounded-circle" style="width:38px;height:38px;" src="/Image/Users/' + model.user_avatar + '" alt="">'
+                                + '</div >'
+                                + '<div class="col-8">'
+                                + '<a href="/UserManagement/PageUser?id=' + model.user_id + '" class="h5 m-0">'
+                                + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px"></i>'
+                                + '</a>'
+                                + '<div class="h7 text-muted">' + model.user_vipMedal + '<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>' + model.user_goldMedal + '<i class="fas fa-award" style="color:yellow;font-size:11px"></i>' + model.user_silverMedal + '<i class="fas fa-award" style="color:silver;font-size:11px"></i>  ' + model.user_brozeMedal + '<i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>'
+                                + '</div>'
+                                + '<div class="col-2">'
+                                + ' <a href="/Message/Index?id=' + model.user_id + '"><i class="fab fa-facebook-messenger mt-4"></i></a>'
+                                + ' </div></div>'
+                            );
+                    }
+                    
+                });
+            }
+        });
+    }
+
+</script>

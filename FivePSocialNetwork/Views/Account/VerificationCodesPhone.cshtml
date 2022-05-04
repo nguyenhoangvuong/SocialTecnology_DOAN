@@ -1,0 +1,78 @@
+﻿
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/TestAuthentication/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/style.css">
+    <title>Authentication Option</title>
+</head>
+<body>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2">
+                    <img src="~/assets/TestAuthentication/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3><i class="fas fa-code"></i> Nhập mã <strong><span id="time">03:00</span></strong> </h3>
+                                <p class="mb-4">Nhập vào ô bên dưới "mã" hệ thống đã gửi về "số điện thoại" của bạn. Qua 3' mã mất hiệu lực.</p>
+                            </div>
+                            <form method="post">
+                                <div class="form-group first">
+                                    <label for="username">010***</label>
+                                    <input type="text" name="verificationCode" class="form-control" id="username">
+                                </div>
+                                <button type="submit" class="btn text-white btn-block btn-primary">Kiểm tra & Xác thực <i class="far fa-paper-plane"></i></button>
+                                @if (ViewBag.verificationCodesPhone != null)
+                                {
+                                    <span class="d-block text-left my-4" style="color:#dc3545"><i class="fas fa-exclamation-triangle"></i> Sai mã xác thực!</span>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var fiveMinutes = 60 * 3,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
+    <script src="~/assets/TestAuthentication/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/popper.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/bootstrap.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/main.js"></script>
+</body>
+</html>

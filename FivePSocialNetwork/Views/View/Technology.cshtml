@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Technology";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<style>
+
+    .text {
+        margin: 15px 0px;
+    }
+
+    .fa {
+        color: #4183D7;
+    }
+
+    .same {
+        padding: 12px;
+    }
+</style>
+<div class="header pb-6" style="">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-12 col-12">
+                    <h6 class="h2 text-dark d-inline-block mb-0"> Công nghệ</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Công nghệ</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-xl-12">
+                    <div class="col-xl-7">
+                        <p style="">Thẻ là một từ khóa hoặc nhãn phân loại câu hỏi của bạn với các câu hỏi tương tự khác. Việc sử dụng các thẻ phù hợp giúp người khác tìm và trả lời câu hỏi của bạn dễ dàng hơn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6" ng-app="myApp" ng-controller="myCtrl">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-7">
+                    <div class="form-group mt--3">
+                        <div class="input-group input-group-alternative input-group-merge ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="background-color:#f8f9fe"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input class="form-control" style="background-color:#f8f9fe;" ng-model="txtSearch" placeholder="Tìm ............................." type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 text-right">
+                    <div class="">
+                        <a class="#"><i class="far fa-snowflake text-white"></i> Hot</a> /
+                        <a class="#">Nhiều thành viên</a> /
+                        <a class="#">Hỏi nhiều</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 mt--3">
+            <div class="row" id="AllQuestionPage">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 same" ng-repeat="x in filteredTodos| filter: txtSearch">
+
+                    <div class="text-left border" style="background-color:#f8f9fe;padding:10px">
+
+                        <div class="title">
+                            <a ng-href="/Center/ShowFollowTechnology?id={{x.technology_id}}" class="badge badge-pill badge-info text-uppercase"><i class="fas fa-tag"></i>{{x.technology_name}}</a>
+                        </div>
+
+                        <div class="text">
+                            <span>{{x.technology_note}}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-5">
+                                <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">{{x.technology_totalQuestion}} Câu hỏi</p>
+                            </div>
+                            <div class="col-xl-7">
+
+                                <p class="text-left text-muted mb-0" style="font-size:12px;font-family:Arial">{{x.technology_popular}} nổi tiếng</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-12">
+                    <pagination ng-model="currentPage"
+                                total-items="list.length"
+                                max-size="maxSize"
+                                boundary-links="true">
+                    </pagination>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', ["ui.bootstrap"]);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/View/ListTechnology")
+            .then(function (response) {
+                //Gia dinh
+                $scope.filteredTodos = []
+                    , $scope.currentPage = 1
+                    , $scope.numPerPage = 12
+                    , $scope.maxSize = 5;
+
+                //Xac dinh list phan trang
+                $scope.makeTodos = function () {
+                    $scope.list = response.data;
+                }
+                $scope.makeTodos();
+
+                //Phân trang
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+
+                    $scope.filteredTodos = $scope.list.slice(begin, end);
+                });
+            }, function (response) {
+                // Second function handles error
+                $scope.content = "Something went wrong";
+            });
+    });
+</script>

@@ -1,0 +1,26 @@
+﻿<div class="form-group border-0">
+    <div class="input-group input-group-alternative input-group-merge ">
+        <div class="input-group-prepend  border-bottom">
+            <span class="input-group-text" style="background-color:#f8f9fe"><i class="fas fa-search"></i></span>
+        </div>
+        <input class="form-control border-bottom" ng-model="txtSearch" style="background-color:#f8f9fe;" placeholder="Tìm ............................." type="text">
+    </div>
+</div>
+<div class="scroll_text">
+
+    <div class="row" ng-repeat="x in listUsers| filter: txtSearch">
+        <div class="col-2">
+            <img class="rounded-circle" style="width: 38px; height: 38px;" src="~/Image/Users/{{x.user_avatar}}" alt="">
+        </div>
+        <div class="col-8">
+            <a ng-href="/UserManagement/PageUser?id={{x.user_id}}" class="h5 m-0">
+                {{x.user_firstName +" "+ x.user_lastName}} <i ng-show="x.user_statusOnline == false" class="fas fa-circle" style="font-size:6px"></i><i ng-show="x.user_statusOnline == true" class="fas fa-circle" style="font-size:6px;color:greenyellow"></i>
+            </a>
+            <div class="h7 text-muted">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>  {{x.user_goldMedal}}<i class="fas fa-award" style="color:yellow;font-size:11px"></i>  {{x.user_silverMedal}}<i class="fas fa-award" style="color:silver;font-size:11px"></i>   {{x.user_brozeMedal}}<i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>
+        </div>
+        <div class="col-2">
+            <a ng-href="/Message/Index?id={{x.user_id}}"><i class="fab fa-facebook-messenger mt-4"></i></a>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+﻿@using FivePSocialNetwork.Models;
+@{ 
+    User user = (User)Session["user"];
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/assets/TestAuthentication/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/assets/TestAuthentication/css/style.css">
+
+    <title>Authentication Option</title>
+</head>
+<body>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2">
+                    <img src="~/assets/TestAuthentication/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3>Tùy chọn <strong>xác thực</strong></h3>
+                                <p class="mb-4">Việc bạn chọn 1 kiểu xác thực, hệ thống sẽ gửi mã xác thực về cho bạn.</p>
+                            </div>
+                            <form method="post">
+                                <div class="form-group first">
+                                    <select name="authenticationOption" class="form-control">
+                                        <option value="phone"> Số điện thoại của bạn (@user.user_phone.Substring(0,4) ***)</option>
+                                        <option value="email">Email của bạn.. (@user.user_email.Substring(0, 4) ***)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn text-white btn-block btn-primary">Gửi mã <i class="far fa-paper-plane"></i></button>
+                                @if (ViewBag.AuthenticationOption != null)
+                                {
+                                    <span class="d-block text-left my-4" style="color:#dc3545"><i class="fas fa-exclamation-triangle"></i> Lựa chọn chưa xác thực!</span>
+                                }
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/TestAuthentication/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/popper.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/bootstrap.min.js"></script>
+    <script src="~/assets/TestAuthentication/js/main.js"></script>
+</body>
+</html>
+
+
+

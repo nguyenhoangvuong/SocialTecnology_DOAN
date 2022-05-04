@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="~/Content/Add/MessGroup.css" rel="stylesheet" />
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Tất cả bài viết</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tất cả bài viết</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="@Url.Action("PostQuestion","Question")" class="btn btn-sm btn-neutral"><i class="far fa-paper-plane"></i> Đặt câu hỏi?</a>
+                    <a href="#" class="btn btn-sm btn-neutral"><i class="far fa-edit"></i> Đăng bài viết </a>
+                </div>
+            </div>
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <img src="~/Image/Advertisement/TB1yBdxr9slXu8jSZFuXXXg7FXa.jpg" class="w-100 h-75 card" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--8" ng-app="myApp" ng-controller="myCtrl">
+
+    <div class="row">
+
+        <div class="col-xl-8">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="btn-group float-right" role="group" aria-label="Basic example">
+                        <a href="@Url.Action("Hot", "Center")" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Kiếm điểm nổi tiếng nào?" data-container="body" data-animation="true">Thưởng<i class="far fa-snowflake text-danger"></i></a>
+                        <a href="@Url.Action("Week","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Câu hỏi được trả lời nhiều trong tháng" data-container="body" data-animation="true">Tháng</a>
+                        <a href="@Url.Action("View","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xếp theo lượt xem cao đến thấp" data-container="body" data-animation="true">Lượt xem</a>
+                        <a href="@Url.Action("Reply","Center")" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xếp theo trả lời cao đến thấp" data-container="body" data-animation="true">Trả lời</a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Post Begins -->
+            <section class="card">
+
+                <div class="border p-2">
+                    <!-- post header -->
+
+                    <div class="row">
+                        <div class="col-2">
+                            <center>
+                                <i class="far fa-thumbs-up" style="font-size:150%;">4</i>
+
+                            </center>
+                            <center class="mt-4 mb-4">
+
+                                <i class="fas fa-eye" style="font-size:150%;">6</i>
+                            </center>
+                            <center>
+
+                                <i class="far fa-thumbs-down" style="font-size:150%;">3</i>
+                            </center>
+                        </div>
+                        <div class="col-10">
+                            <div class="row m-0">
+                                <div class="">
+                                    <a class="text-decoration-none" href="">
+                                        <img class="" src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png" width="50" height="50" alt="...">
+
+                                        <img class="profile-pic" src="~/Content/LayoutCenter/ImgUser/.." width="50" height="50" alt="...">
+
+
+                                    </a>
+                                </div>
+                                <div class="flex-grow-1 pl-2">
+                                    <a class="text-decoration-none" href="">
+                                        <h2 class="text-capitalize h5 mb-0">..</h2>
+                                    </a>
+                                    <p class="small text-dark m-0 mt-1">..<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> ..<i class="fas fa-medal" style="color:yellow"></i>..<i class="fas fa-medal" style="color:silver"></i>.l<i class="fas fa-medal" style="color:#e88d15"></i>  </p>
+
+                                </div>
+
+                                <div class="dropdown">
+                                    <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item text-primary" href="#"><i class="far fa-edit"></i> Sửa câu hỏi</a>
+                                        <a class="dropdown-item text-primary" href="#"><i class="fas fa-eraser"></i> Xóa câu hỏi</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- post body -->
+                            <div class="">
+                                <p class="my-2" style="font-weight:600">
+                                    <h1....</h1>
+                                </p>
+                            </div>
+                            <div class="">
+                                <p class="my-2">
+                                    ..
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <div class="fb-like" data-href="https://localhost:44351/DetailQuestion/IndexDetailQuestion/MTEwNw%3d%3d" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                            </div>
+                            <div class="text-right">
+                                <p>...... <i class="far fa-calendar-alt"></i></p>
+                            </div>
+
+                            <div>
+                                <span class="badge badge-primary">...</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- post footer begins -->
+                </div>
+            </section>
+            <!-- Post Ends -->
+            <!--TRả lời-->
+            phân trang
+            <!-- Post Ends -->
+        </div>
+        <div class="col-xl-4">
+            <div class="message-box">
+                <div class="head-box-1">
+
+                    <ul class="msg-box list-inline text-left d-inline-block float-left">
+                        <li> <i class="fas fa-arrow-left" id="back"></i> </li>
+                        <li> <img src="https://i.ibb.co/fCzfFJw/person.jpg" alt="" width="40px"> <span> Vikas chaurasia </span> <br> <small class="timee"> 12:45 Pm </small> </li>
+                    </ul>
+
+                    <ul class="flat-icon list-inline text-right d-inline-block float-right">
+                        <li> <a href="JavaScript:Void(0);" id="video_chat"> <i class="fas fa-video"></i> </a> </li>
+                        <li> <a href="JavaScript:Void(0);" id="open_camera"> <i class="fas fa-camera"></i> </a> </li>
+                        <li>
+                            <a href="JavaScript:Void(0);" id="dset"> <i class="fas fa-ellipsis-v"></i> </a>
+                            <div class="setting-drop">
+                                <ul class="list-inline">
+                                    <li> <a href="#"> My Profile</a> </li>
+                                    <li> <a href="#"> Setting </a> </li>
+                                    <li> <a href="#"> Privacy Policy </a> </li>
+                                    <li> <a href="#"> Logout </a> </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="msg_history">
+                    <div class="incoming_msg">
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>Lorem Ipsum is simply dummy text</p>
+                                <span class="time_date"> 11:01 AM    |    June 9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>Lorem Ipsum is simply dummy text</p>
+                            <span class="time_date"> 11:01 AM    |    June 9</span>
+                        </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>Lorem Ipsum is simply dummy text</p>
+                                <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p> ok </p>
+                            <span class="time_date"> 11:01 AM    |    Today</span>
+                        </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p> Lorem Ipsum is simply dummy text</p>
+                                <span class="time_date"> 11:01 AM    |    Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video_box" id="video_section">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="video-chat-top">
+                                <div class="video_section">
+                                    <img src="https://i.ibb.co/2vtJ3XR/user.png" height="280px" width="280px" />
+                                </div>
+                                <div class="video_chat_box">
+                                    <ul>
+                                        <li><i class="fa fa-phone" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-phone close_video_chat" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-microphone-slash" aria-hidden="true"></i></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="send-message">
+                    <form action="" method="">
+                        <input type="text" class="form-control" name="" valu="" id="" placeholder="Type your message here ..." />
+
+                        <ul class="list-inline">
+                            <li>
+                                <a href="JavaScript:Void(0);" id="attach">  <i class="fas fa-paperclip"></i> </a>
+
+                            </li>
+                            <li> <i class="fas fa-paper-plane"></i> </li>
+                        </ul>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6">
+                <div class="copyright text-center  text-lg-left  text-muted">
+                    &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                    <li class="nav-item">
+                        <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#dset").click(function () {
+            $(".setting-drop").toggle('1000');
+        });
+        $("#video_chat").click(function () {
+            $("#video_section").toggle('slow');
+            $(".msg_history").toggle(' ');
+        });
+    });
+    var app = angular.module('myApp', ['ngSanitize']);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http.get("/Center/QuestionsJson")
+            .then(function (response) {
+                // First function handles success
+                $scope.listQuestions = response.data;
+            }, function (response) {
+                // Second function handles error
+                $scope.listQuestions = "Something went wrong";
+            });
+
+</script>

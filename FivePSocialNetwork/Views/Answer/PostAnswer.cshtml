@@ -1,0 +1,149 @@
+﻿@using FivePSocialNetwork.Models;
+@model Answer
+@{
+    ViewBag.Title = "PostAnswer";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+
+<style>
+    .ck.ck-editor__editable_inline > :last-child {
+        margin-bottom: 120px;
+    }
+
+    body {
+        font-family: Arial
+    }
+</style>
+<script src="~/assets/ckeditor5/build/ckeditor.js"></script>
+<div class="header pb-6" style="">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-dark d-inline-block mb-0">Câu trả lời</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/Home/Index">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Câu trả lời</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    @*<a href="#" class="btn btn-sm btn-neutral"><i class="far fa-edit"></i> Đăng bài viết </a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6" ng-app="myApp">
+    <div class="row" ng-controller="myCtrl">
+
+        <div class="col-xl-4 order-xl-2">
+            <div class="card p-3">
+                <div class="">
+                    <h2>Trích.</h2>
+                </div>
+                <div>
+                    <i>Câu trả lời nên chi tiết, có code hướng dẫn,để dễ tìm kiếm, được check làm biểu tượng cho bài viết này, từ đó điểm nổi tiếng và huy chương sẽ được tăng cao.</i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0"> Góp ý của bạn là gì cho bài viết này. <i class="far fa-meh-rolling-eyes"></i></h3>
+                        </div>
+                        <div class="col-4 text-right">
+                            @*<a href="#!" class="btn btn-sm btn-primary">Quản lý câu hỏi</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="@Url.Action("EditAnser","Answer")" class="ui form" method="post">
+                        @Html.AntiForgeryToken()
+                        @if (Model != null)
+                        {
+                            <input type="hidden" name="answer_id" value="@Model.answer_id" />
+                        }
+                        <h6 class="heading-small text-muted mb-4">Trả lời bài viết : @if (Model != null)
+                        {@Model.Question.question_title} </h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group field">
+                                        <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Nội dung</label>
+                                        <textarea class="form-control" id="editor" name="answer_content" placeholder="................................">@if (Model != null) { @Model.answer_content} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success w-100 submit"><i class="far fa-paper-plane"></i> Đăng câu trả lời</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+    $('.ui.form')
+        .form({
+            fields: {
+
+                question_content: {
+                    identifier: 'question_content',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập nội dung!'
+                        },
+                        {
+                            type: 'minLength[15]',
+                            prompt: 'Nội dung câu hỏi tối thiểu 15 ký tự!'
+                        }
+                    ]
+                },
+            },
+            inline: true,
+            on: 'blur'
+        })
+        ;
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: ['heading', '|', 'codeBlock', 'code', '|', 'bold', 'italic', 'Link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'ImageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo']
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        //show User
+        $http.get("/Message/ListUsers")
+            .then(function (response) {
+                // First function handles success
+                $scope.listUsers = response.data;
+            }, function (response) {
+                // Second function handles error
+                $scope.listUsers = "Something went wrong";
+            });
+    });
+
+</script>
+

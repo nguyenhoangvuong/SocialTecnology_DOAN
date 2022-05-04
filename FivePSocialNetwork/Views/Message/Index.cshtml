@@ -1,0 +1,432 @@
+﻿@using FivePSocialNetwork.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+    FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
+    var id = int.Parse(TempData["id"].ToString());
+    var friend = db.Users.Find(id);
+    string friendLastName = friend.user_lastName;
+    string friendFirstName = friend.user_firstName;
+
+}
+<link href="~/Content/Add/Mess.css" rel="stylesheet" />
+<style>
+    .custom-toggle-slider:before {
+        bottom: 1.7px;
+        left: 2px;
+        width: 17px;
+        height: 15px;
+    }
+</style>
+<div class="messaging mt-2" ng-app="myApp">
+    <div class="inbox_msg" ng-controller="myCtrl">
+        <div class="inbox_people">
+            <div class="headind_srch">
+                <div class="recent_heading">
+                    <h4>Người liên hệ </h4>
+                </div>
+                <div class="srch_bar">
+                    <div class="stylish-input-group">
+                        <input type="text" class="search-bar" ng-model="txtSearch" placeholder="Tìm bạn ..">
+                        <span class="input-group-addon">
+                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="inbox_chat" id="listFiend">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 border-bottom">
+                <img src="~/Image/Users/Man.png" style="width:10%" class="" />
+                @friendFirstName @friendLastName <span id="statusFriend"></span>
+            </div>
+            <div class="col-xl-6">
+                @if (db.Users.Find(user_id).user_statusOnline == true)
+                {
+                    <label class="custom-toggle float-right" data-toggle="tooltip" data-placement="bottom" title="Trạng thái hoạt động">
+                        <input type="checkbox" checked ng-click="statusUser()">
+                        <span class="custom-toggle-slider rounded-circle"></span>
+                    </label>
+                }
+                else
+                {
+                    <label class="custom-toggle float-right" data-toggle="tooltip" data-placement="bottom" title="Trạng thái hoạt động">
+                        <input type="checkbox" ng-click="statusUser()">
+                        <span class="custom-toggle-slider rounded-circle"></span>
+                    </label>
+                }
+
+            </div>
+        </div>
+        <div class="mesgs">
+            <div class="msg_history" >
+                <div class="scrolling-element-inside" style="display: none" id="statusReply">
+                    <img src="~/Image/Users/DangSoan.gif" style="width:30%;height:50px" />
+                </div>
+                <div id="contentMsg" class="scrolling-element-inside"></div>
+            </div>
+            <div class="type_msg">
+                <div class="input_msg_write">
+                    <form id="formMessage">
+                        <input type="hidden" name="messageRecipients_id" value="@ViewBag.id" />
+                        <input type="text" id="txtMessage" ng-click="statusMessage()" name="message_content" required class="write_msg" placeholder="@(friendFirstName +" "+ friendLastName) ....." />
+                        <button type="button" class="msg_send_btn" id="btnSend"><i class="far fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // lưu tin nhắn
+    var count = 0;
+    $(document).ready(function () {
+        var input = document.getElementById("txtMessage");
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                var data = $("#formMessage").serialize();
+                var values = input.value;
+                $.ajax({
+                    type: "POST",
+                    url: "/Message/SaveMessage",
+                    data: data,
+                    beforeSend: function () {
+                        $("#contentMsg").append(
+                            '<div class="outgoing_msg">'
+                            + '<div class= "sent_msg"><p>'
+                            + values + '</p><span class="time_date" id="statusValue' + count + '"> '
+                            + 'đang gửi..'
+                            + '</span></div ></div >'
+                        );
+                        input.value = '';
+                    },
+                    statusCode: {
+                        404: function () {
+                            document.getElementById('statusValue' + count).innerHTML = '<span style="color:red;">Không gửi được!</span>';
+                        }
+                    },
+                    complete: function () {
+                        count++;
+                    }
+                })
+            }
+        });
+    })
+</script>
+<script>
+    //trạng thái dang chat
+    $(function () {
+        var chat = $.connection.chat;
+        loadClient(chat)
+        $.connection.hub.start().done(function () {
+            $('#txtMessage').keyup(function () {
+                var user_friend_id = @(ViewBag.idFriend);
+                var id = @user_id;
+                chat.server.message(id, user_friend_id);
+            });
+        });
+    });
+    function loadClient(chat) {
+        chat.client.message = function (id, user_friend_id) {
+            if (@user_id != id && @(ViewBag.idFriend) == user_friend_id) {
+                let statusReply = document.getElementById('statusReply');
+                statusReply.style.display = 'block';
+                setTimeout(function () { statusReply.style.display = 'none' }, 2500);
+            }
+        }
+    }
+</script>
+<script>
+    // Trạng thái tin nhắn
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.statusMessage = function () {
+            $http.get("/Message/StatusMessage?messageRecipients_id=" + @ViewBag.id)
+                .then(function () {
+                    // First function handles success
+                }, function () {
+                    // Second function handles error
+                });
+        }
+        $scope.statusUser = function () {
+            $http.get("/Message/StatusUser");
+        }
+    });
+</script>
+<script type="text/javascript">
+    // real time tin nhắn
+    $(function () {
+
+        // Proxy created on the fly
+        var cus = $.connection.hubMess;
+
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayChat = function () {
+            getData5();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData5();
+    });
+
+    function getData5() {
+        var $tbl = $('#contentMsg');
+        $.ajax({
+            url: '/Message/GetMessage?id='+@id,
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.listChat, function (i, model) {
+                    if (@user_id == model.messageSender_id) {
+                        $tbl.append
+                            (
+                                '<div class="outgoing_msg">'
+                                + '<div class= "sent_msg"><p>'
+                                + model.message_content + '</p><span class="time_date"> '
+                                + model.messageRecipients_status + ' _______ ' + model.message_dateSend + ' | <a href="#" onclick="MessageRetrieval(' + model.message_id+')">Thu hồi</a>'
+                                + '</span></div ></div >'
+                            );
+                    }
+                    else {
+                        $tbl.append
+                            (
+                                '<div class="incoming_msg"><div class= "incoming_msg_img"> <img src="/Image/Users/' + model.messageSender_avatar +'"> </div><div class="received_msg"><div class="received_withd_msg"><p>'
+                                + model.message_content + '</p><span class="time_date">'
+                                + model.message_dateSend
+                                + '</span></div></div>'
+                            );
+                    }
+
+                });
+            }
+        });
+    }
+    function MessageRetrieval(id) {
+        $.ajax({
+            url: '/Message/MessageRetrieval?id='+id,
+            type: 'GET',
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    // real time danh sách bạn bè
+    $(function () {
+
+        // Proxy created on the fly
+        var cus = $.connection.listFriendInMess;
+
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayChat = function () {
+            getData8();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData8();
+    });
+
+    function getData8() {
+        var $tbl = $('#listFiend');
+        $.ajax({
+            url: '/Message/ListFirend',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.listChat, function (i, model) {
+                    if (model.message_status == false) {
+                        if (model.user_statusOnline == false) {
+                            if (model.hoursSend == 66) {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list" style="background-color:#eff0f1">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p style="font-weight:800;color:black;font-family:Arial">'
+                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                            }
+                            else {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list" style="background-color:#eff0f1">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p style="font-weight:800;color:black;font-family:Arial">'
+                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.'
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                                var value = model.hoursSend;
+                                setInterval(function () { document.getElementById('timeSendMess' + i).innerHTML = value++; }, 60000);
+                            }
+                        }
+                        else {
+                            if (model.hoursSend == 66) {
+
+                            }
+                            else {
+
+                            }
+                            $tbl.append
+                                (
+                                    '<div class="chat_list" style="background-color:#eff0f1">'
+                                    + '<div class= "chat_people" >'
+                                    + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                    + ' <div class="chat_ib">'
+                                    + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                    + '  <p style="font-weight:800;color:black;font-family:Arial">'
+                                    + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                    + '   </p>'
+                                    + '  </div>'
+                                    + '  </div>'
+                                    + ' </div >'
+                                );
+                            var value = model.hoursSend;
+                            setInterval(function () { document.getElementById('timeSendMess' + i).innerHTML = value++; }, 60000);
+                        }
+
+                    }
+                    else {
+                        if (model.user_statusOnline == false) {
+                            if (model.hoursSend == 66) {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list ">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p>'
+                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                            }
+                            else {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list ">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p>'
+                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                                var value = model.hoursSend;
+                                setInterval(function () { document.getElementById('timeSendMess' + i).innerHTML = value++; }, 60000);
+                            }
+
+                        }
+                        else {
+                            if (model.hoursSend == 66) {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list ">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '   <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p>'
+                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                            }
+                            else {
+                                $tbl.append
+                                    (
+                                        '<div class="chat_list ">'
+                                        + '<div class= "chat_people" >'
+                                        + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
+                                        + ' <div class="chat_ib">'
+                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '   <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + '  <p>'
+                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                        + '   </p>'
+                                        + '  </div>'
+                                        + '  </div>'
+                                        + ' </div >'
+                                    );
+                                var value = model.hoursSend;
+                                setInterval(function () { document.getElementById('timeSendMess' + i).innerHTML = value++; }, 60000);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    // real time tin nhắn
+    $(function () {
+
+        // Proxy created on the fly
+        var cus = $.connection.statusFriendInMess;
+
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displayChat = function () {
+            getData9();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData9();
+    });
+
+    function getData9() {
+        var $tbl = $('#statusFriend');
+        $.ajax({
+            url: '/Message/StatusFriend?id='+@id,
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.statusFriend, function (i, model) {
+                    if (model.user_statusOnline == false) {
+                        $tbl.append
+                            (
+                                ' /  Không hoạt động <i class="fas fa-circle" style="font-size:6px"></i>'
+                            );
+                    }
+                    else {
+                        $tbl.append
+                            (
+                                ' /  Đang hoạt động <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i>'
+                            );
+                    }
+
+                });
+            }
+        });
+    }
+
+</script>

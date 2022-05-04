@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "AuthenticationSecurityAccount";
+    Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+}
+<div class="row">
+    <div class="col-xl-12 p-9">
+        <h2><i class="fas fa-code"></i> Mã code của bạn sẽ hết hạn sau 3p! ( Nhập mã hệ thống gửi về cho bạn! )</h2>
+        <u class="text-danger">@ViewBag.statusCode</u>
+        <form method="post">
+            <input type="text" name="codeAuthentication" class="form-control" placeholder="Nhập mã.." required="" />
+            <button type="submit" class="btn btn-primary mt-2 w-100"><i class="far fa-paper-plane"></i> Xác thực</button>
+        </form>
+    </div>
+</div>

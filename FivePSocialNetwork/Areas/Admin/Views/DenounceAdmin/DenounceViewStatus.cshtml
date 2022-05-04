@@ -1,0 +1,92 @@
+﻿@using FivePSocialNetwork.Models;
+@model Denounce_User
+@{
+    ViewBag.Title = "DenounceViewStatus";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Database tỉnh</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Tố cáo</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Database tố cáo</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <div>
+                            Người tố
+                        </div>
+                        <div>
+                            @Model.User.user_firstName @Model.User.user_lastName
+                        </div>
+                        <hr />
+                        <div>
+                            Người bị tố
+                        </div>
+                        <div>
+                            @Model.User1.user_firstName @Model.User1.user_lastName
+
+                        </div>
+                        <hr />
+                        <div>
+                            Nội dung
+                        </div>
+                        <div>
+                            @Model.denounceUser_content
+                        </div>
+                        <hr />
+                        <div>
+                            Ngày tố
+                        </div>
+                        <div>
+                            @Model.denounceUser_dateCreate
+                        </div>
+                        <hr />
+                        <div>
+                            @if(Model.denounce_status == true)
+                            {
+                                @:Đã duyệt
+                            }
+                            else
+                            {
+                                @:Đang xem xét
+                            }
+                        </div>
+                        <hr />
+                        <div class="float-right">
+                            @if (Model.denounce_status == false)
+                            {
+                                <a href="@Url.Action("LockAccount","DenounceAdmin", new { user_id = Model.discredit_id , denounce_id = Model.denounceUser_id})" class="btn btn-warning" name="">Duyệt</a>
+                            }
+                            <a href="@Url.Action("ViewStatus","DenounceAdmin", new { id = Model.denounceUser_id})" class="btn btn-danger">Đặt lại chưa xem</a>
+                            @if (Model.User1.user_activate == false)
+                            {
+                                <a href="@Url.Action("OpenAccount","DenounceAdmin", new { id = Model.discredit_id})" class="btn btn-danger">Mở tài khoản</a>
+                            }
+                            <a href="@Url.Action("DeleteDenounce","DenounceAdmin", new { id = Model.denounceUser_id})" class="btn btn-danger">Xóa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
