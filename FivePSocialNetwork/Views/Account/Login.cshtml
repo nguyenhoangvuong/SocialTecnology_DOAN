@@ -34,16 +34,16 @@ Author URL: http://w3layouts.com
                         <div class="col-md-8">
                             <div class="mb-4">
                                 <h3>Đăng nhập</h3>
-                                <p class="mb-4">Five-P nơi bạn chia sẽ, học hỏi, phô chương kiến thức của mình.</p>
+                                <p class="mb-4">OverSea nơi bạn chia sẻ, học hỏi, phô trương kiến thức của mình.</p>
                             </div>
                             <form method="post">
                                 @Html.AntiForgeryToken()
-                                <div class="form-group first">
-                                    <label for="username">abc@gmail.com / 09467****</label>
+                                <div class="form-group first" style="height:60px">
+                                    <label for="username">Email hoặc Số điện thoại</label>
                                     <input type="text" class="form-control" name="user_email" id="username" required>
                                 </div>
-                                <div class="form-group last mb-4">
-                                    <label for="password">Mật khẩu của bạn ***</label>
+                                <div class="form-group last mb-4" style="height:60px">
+                                    <label for="password">Mật khẩu</label>
                                     <input type="password" class="form-control" name="user_pass" id="password" required>
                                 </div>
                                 @if (ViewBag.checkLogin != null)
@@ -67,9 +67,6 @@ Author URL: http://w3layouts.com
                                 <div class="social-login">
                                     <a href="#" class="facebook">
                                         <span class="icon-facebook mr-3"></span>
-                                    </a>
-                                    <a href="#" class="twitter">
-                                        <span class="icon-twitter mr-3"></span>
                                     </a>
                                     <a href="#" class="google">
                                         <span class="icon-google mr-3"></span>
