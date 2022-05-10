@@ -99,16 +99,16 @@
                                         @{
                                             List<Friend> friends = db.Friends.Where(n => (n.userRequest_id == Model.user_id || n.userResponse_id == Model.user_id) && n.friend_status == true).ToList();
                                         }
-                                        <span class="heading">@friends.Count()</span>
-                                        <span class="description">Bạn bè</span>
+                                        <span class="heading" style="font-size:17px">@friends.Count()</span>
+                                        <span class="description" style="font-size:17px">Bạn bè</span>
                                     </div>
                                     <div>
-                                        <span class="heading">@Model.user_popular</span>
-                                        <span class="description">Nổi tiếng</span>
+                                        <span class="heading" style="font-size:17px">@Model.user_popular</span>
+                                        <span class="description" style="font-size:17px">Nổi tiếng</span>
                                     </div>
                                     <div>
-                                        <span class="heading">@(Model.user_vipMedal + Model.user_goldMedal + Model.user_silverMedal + Model.user_brozeMedal)</span>
-                                        <span class="description">Huy hiệu</span>
+                                        <span class="heading" style="font-size:17px">@(Model.user_vipMedal + Model.user_goldMedal + Model.user_silverMedal + Model.user_brozeMedal)</span>
+                                        <span class="description" style="font-size:17px">Huy hiệu</span>
                                     </div>
                                 </div>
                             </div>
@@ -154,53 +154,106 @@
                                 }
 
                             }
-                            <div class="h9 text-muted">@Model.user_firstName @Model.user_lastName , @Model.user_popular<i class="fas fa-fire" style="color:red"></i></div>
+                            <div class="h9" style="color:red;font-size:18px;font-weight:bold;font-family:Georgia;text-shadow:2px 2px 3px #999">@Model.user_firstName @Model.user_lastName (@Model.user_popular<i class="fas fa-fire" style="color:red"></i>)</div>
                             <div class="h7 text-muted">@Model.user_vipMedal <i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>  &nbsp; @Model.user_goldMedal <i class="fas fa-award" style="color:yellow;font-size:11px"></i>  &nbsp; @Model.user_silverMedal <i class="fas fa-award" style="color:silver;font-size:11px"></i>&nbsp; @Model.user_brozeMedal <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>
                             <div class="h5 font-weight-300">
-
                                 <i class="ni location_pin mr-2"></i>
                                 <span style="padding:1%">@Model.user_phone</span>
                             </div>
-                            <div class="h5 mt-2">
+                            <div class="h5 mt-2 mb-3" style="font-size:16px">
                                 <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; Email : @Model.user_email
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="far fa-calendar-alt"></i>&nbsp; Ngày sinh: @Model.user_birthday
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Ngày sinh: @Model.user_birthday
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-mobile-alt"></i>&nbsp; Số điện thoại : @Model.user_phone
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Số điện thoại : @Model.user_phone
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-map-marked-alt"></i>&nbsp; Địa chỉ: @Model.user_addressRemaining , @if (Model.commune_id != null)
-                                {@Model.Commune.commune_name} , @if (Model.district_id != null)
-                                {@Model.District.district_name} , @if (Model.provincial_id != null)
-                                {@Model.Provincial.provincial_name}
-
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Địa chỉ: @Model.user_addressRemaining , @if (Model.commune_id != null)
+                                        {@Model.Commune.commune_name} , @if (Model.district_id != null)
+                                        {@Model.District.district_name} , @if (Model.provincial_id != null)
+                                        {@Model.Provincial.provincial_name}
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-venus-mars"></i>&nbsp; gới tính : @if (Model.sex_id != null)
-                                {@Model.Sex_User.sex_name}
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fas fa-venus-mars"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Giới tính : @if (Model.sex_id != null)
+                                        {@Model.Sex_User.sex_name}
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fab fa-facebook-f"></i>&nbsp; Facebook: @Model.user_linkFacebook
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Facebook: @Model.user_linkFacebook
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fab fa-github"></i>&nbsp; Github: @Model.user_linkGithub
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Github: @Model.user_linkGithub
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="fas fa-briefcase"></i>&nbsp; Sở thích công việc: @Model.user_hobbyWork
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Sở thích công việc: @Model.user_hobbyWork
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-left">
-                                <i class="ni education_hat mr-2"></i><i class="far fa-grin-hearts"></i>&nbsp; Sở thích cá nhân: @Model.user_hobby
+                                <div class="row text-left">
+                                    <div class="col-1">
+                                        <i class="far fa-grin-hearts"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        Sở thích cá nhân: @Model.user_hobby
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div class="">
                         <div class="card-body">
-                            <h4 class="card-title">Gợi ý kết bạn</h4>
+                            <h4 class="card-title" style="font-size:16px">Gợi ý kết bạn</h4>
                             <div class="scroll_text">
-
                                 <div class="row" ng-repeat="x in listSuggestiotMakeFriends">
                                     <div class="col-2">
                                         <img class="rounded-circle" style="width: 38px; height: 38px;" src="~/Image/Users/{{x.user_avatar}}" alt="">
@@ -261,7 +314,7 @@
                                     <div class="input-group-prepend  border-bottom">
                                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                                     </div>
-                                    <input class="form-control border-bottom" ng-model="txtSearch1" placeholder="Tìm ............................." type="text">
+                                    <input class="form-control border-bottom" ng-model="txtSearch1" placeholder="Tìm kiếm" type="text">
                                 </div>
                             </div>
                             <div ng-repeat="x in listQuestions| filter: txtSearch1" class="bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
@@ -342,7 +395,7 @@
                                     <div class="input-group-prepend  border-bottom">
                                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                                     </div>
-                                    <input class="form-control border-bottom" ng-model="txtSearch2" placeholder="Tìm ............................." type="text">
+                                    <input class="form-control border-bottom" ng-model="txtSearch2" placeholder="Tìm kiếm." type="text">
                                 </div>
                             </div>
                             <div ng-repeat="x in listQuestionsUserAnswer| filter: txtSearch2" class="bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">

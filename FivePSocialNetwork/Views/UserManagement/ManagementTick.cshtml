@@ -79,18 +79,18 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input class="form-control" ng-model="txtSearch" placeholder="Tìm ..." type="text">
+                            <input class="form-control" ng-model="txtSearch" placeholder="Tìm kiếm ..." type="text">
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="sort" data-sort="name">Câu hỏi</th>
-                                    <th scope="col">
+                                    <th scope="col" class="sort" data-sort="name" style="font-size:15px;font-weight:bold">Câu hỏi</th>
+                                    <th scope="col" style="font-size:15px;font-weight:bold">
                                         Bỏ đánh dấu
                                     </th>
-                                    <th scope="col" class="text-right"> Stt</th>
+                                    <th scope="col" class="text-right" style="font-size:15px;font-weight:bold"> Stt</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -100,33 +100,33 @@
                                             <a class="mr-2">
                                                 <center><i class="fa fa-chevron-up" style="font-size:200%"></i></center>
                                                 <center>
-                                                    <p>{{x.question_totalRate}}</p>
+                                                    <p style="color:red;font-size:22px;margin-bottom:5px;font-weight:bold">{{x.question_totalRate}}</p>
                                                 </center>
                                                 <center><i class="fa fa-chevron-down mt--3" style="font-size:200%"></i></center>
                                             </a>
-                                            <div class="media-body">
+                                            <div class="media-body"  style="margin-left:20px">
                                                 <div>
                                                     <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         <p class="mb--2" ng-show="x.question_title.length > 50">
                                                             {{x.question_title.substring(0, 50) + "..."}}
                                                         </p>
-                                                        <p class="mb--2" ng-show="x.question_title.length < 51">
+                                                        <p class="mb--2" style="font-size:18px;font-weight:bold" ng-show="x.question_title.length < 51">
                                                             {{x.question_title}}
                                                         </p>
                                                     </a>
 
                                                 </div>
                                                 <div class="d-flex align-items-center mt-2">
-                                                    <i class="fas fa-reply"></i> {{x.question_Answer}} &nbsp;&nbsp; <i class="far fa-comment-dots"></i> {{x.question_totalComment}}&nbsp;&nbsp; <i class="far fa-eye"></i> {{x.question_view}}
+                                                    <i class="fas fa-reply"></i> &nbsp;{{x.question_Answer}} &nbsp;&nbsp; <i class="far fa-comment-dots"></i>&nbsp;{{x.question_totalComment}}&nbsp;&nbsp; <i class="far fa-eye"></i>&nbsp;{{x.question_view}}
                                                 </div>
                                             </div>
 
                                         </div>
                                     </td>
                                     <td class="budget">
-                                        <a href="#" onclick="return window.confirm('Bạn có chắc muốn bỏ đánh dấu bài viết này!')" ng-click="unTick(x.tickQuestion_id,$index)" data-toggle="tooltip" data-placement="top" title="Bỏ đánh dấu"><i class="far fa-check-circle" style="font-size:23px"></i></a>
+                                        <a href="#" onclick="return window.confirm('Bạn có chắc muốn bỏ đánh dấu bài viết này!')" ng-click="unTick(x.tickQuestion_id,$index)" data-toggle="tooltip" data-placement="top" title="Bỏ đánh dấu"><i class="far fa-check-circle" style="font-size: 23px; margin-left: 20%"></i></a>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-right" style="font-size:18px">
                                         {{$index+1}}
                                     </td>
                                 </tr>
@@ -142,7 +142,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <small>Liên hệ <i class="fas fa-phone"></i></small>
+            <small style="font-size:15px">Liên hệ <i class="fas fa-phone"></i></small>
             @Html.Action("FriendIndexCenterRealTime", "ShareView")
         </div>
     </div>
