@@ -46,14 +46,14 @@ namespace FivePSocialNetwork.Controllers
             }
             user_pass = strBuilder.ToString();
             //kiểm tra tài khoản có đang bị khóa không.
-            User userActivate = db.Users.Where(n => n.user_activate == false).SingleOrDefault(n => n.user_email == user_email && n.user_pass == user_pass);
+            User userActivate = db.Users.Where(n => n.user_activate == false).FirstOrDefault(n => n.user_email == user_email && n.user_pass == user_pass);
             if(userActivate != null)
             {
                 ViewBag.checkLogin = "Tài khoản đã bị khóa!";
                 return View(userActivate);
             }
             //kiểm tra admin
-            User admin = db.Users.Where(n => n.user_recycleBin == false && n.role_id == 3).SingleOrDefault(n => n.user_email == user_email && n.user_pass == user_pass);
+            User admin = db.Users.Where(n => n.user_recycleBin == false && n.role_id == 3).FirstOrDefault(n => n.user_email == user_email && n.user_pass == user_pass);
             if (admin != null)
             {
                 admin.user_dateLogin = DateTime.Now;
@@ -64,7 +64,7 @@ namespace FivePSocialNetwork.Controllers
                 return Redirect("/Admin/HomeAdmin/IndexAdmin");
             }
             //kiểm tra trong data người dùng bth và nhà văn
-            User user = db.Users.Where(n => n.user_recycleBin == false).SingleOrDefault(n => (n.user_email == user_email || n.user_phone == user_email) && n.user_pass == user_pass);
+            User user = db.Users.Where(n => n.user_recycleBin == false).FirstOrDefault(n => (n.user_email == user_email || n.user_phone == user_email) && n.user_pass == user_pass);
             if(user != null && user.user_loginAuthentication == true && (user.user_emailAuthentication == true || user.user_verifyPhoneNumber == true))
             {
                 Session["user"] = user;
@@ -73,7 +73,7 @@ namespace FivePSocialNetwork.Controllers
             else if(user != null)
             {
                 var ipuser = Request.UserHostAddress;
-                User_IP user_IP = db.User_IP.SingleOrDefault(n => n.user_id == user.user_id && n.userIP_IP == ipuser);
+                User_IP user_IP = db.User_IP.FirstOrDefault(n => n.user_id == user.user_id && n.userIP_IP == ipuser);
                 if(user_IP == null)
                 {
                     db.User_IP.Add(new User_IP
@@ -92,13 +92,13 @@ namespace FivePSocialNetwork.Controllers
                     //Gửi gmail với giao thức bảo mật.
                     WebMail.EnableSsl = true;
                     //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                    WebMail.UserName = "cuongembaubang@gmail.com";
-                    WebMail.Password = "trung2010203";
+                    WebMail.UserName = "hoangvuong1225@gmail.com";
+                    WebMail.Password = "Hoangvuong1";
                     // Nội dung gửi.
-                    WebMail.From = "cuongembaubang@gmail.com";
+                    WebMail.From = "hoangvuong1225@gmail.com";
                     string strTitle = "Có một địa chỉ lạ vừa đăng nhập vào tài khoản của bạn, có địa chỉ IP là : " + ipuser;
                     //Gửi gmail.
-                    WebMail.Send(to: user.user_email, subject: "Five_P xin chào :", body: strTitle, isBodyHtml: true);
+                    WebMail.Send(to: user.user_email, subject: "Oversea xin chào :", body: strTitle, isBodyHtml: true);
                 }
                 if(user_IP == null && user.user_verifyPhoneNumber == true)
                 {
@@ -369,7 +369,7 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult Register([Bind(Include = "user_id,user_pass,user_firstName,user_lastName,user_email,user_token,role_id,user_code,user_avatar,user_coverImage,user_activate,user_recycleBin,user_dateCreate,user_dateEdit,user_dateLogin,user_emailAuthentication,user_verifyPhoneNumber,user_loginAuthentication,provincial_id,district_id,commune_id,user_addressRemaining,sex_id,user_linkFacebook,user_linkGithub,user_anotherWeb,user_hobbyWork,user_hobby,user_birthday,user_popular,user_goldMedal,user_silverMedal,user_brozeMedal,user_vipMedal,user_phone,user_SecurityAccount")] User user)
         {
             //kiểm tra email đã được đăng ký chưa
-            User checkEmail = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
+            User checkEmail = db.Users.FirstOrDefault(n => n.user_email == user.user_email);
             if(checkEmail != null)
             {
                 ViewBag.checkEmail = "Email đã được sử dụng, vui lòng nhập email mới!";
@@ -413,7 +413,7 @@ namespace FivePSocialNetwork.Controllers
             user.user_brozeMedal = 0;
             db.Users.Add(user);
             db.SaveChanges();
-            User sUser = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
+            User sUser = db.Users.FirstOrDefault(n => n.user_email == user.user_email);
             //Lưu ip người dùng
             db.User_IP.Add(new User_IP
             {
@@ -913,7 +913,7 @@ namespace FivePSocialNetwork.Controllers
             // khi tồn tại cookies
             int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             //kiểm tra sdt này đã tồn tại chưa
-            User checkPhone = db.Users.SingleOrDefault(n => n.user_phone == user_phone && n.user_id != user_id);
+            User checkPhone = db.Users.FirstOrDefault(n => n.user_phone == user_phone && n.user_id != user_id);
             if(checkPhone != null)
             {
                 Session["checkPhone"] = "Số điện thoại này đã được đăng ký! Vui lòng điền số khác.";
@@ -1352,8 +1352,8 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult ForgotPassword(FormCollection f)
         {
             String strSend = f["send"].ToString();
-            User userPhone = db.Users.SingleOrDefault(n => n.user_phone == strSend && n.user_verifyPhoneNumber == true);
-            User userEmail = db.Users.SingleOrDefault(n => n.user_email == strSend && n.user_emailAuthentication == true);
+            User userPhone = db.Users.FirstOrDefault(n => n.user_phone == strSend && n.user_verifyPhoneNumber == true);
+            User userEmail = db.Users.FirstOrDefault(n => n.user_email == strSend && n.user_emailAuthentication == true);
             if(userPhone !=null)
             {
                 var userphone = strSend;
