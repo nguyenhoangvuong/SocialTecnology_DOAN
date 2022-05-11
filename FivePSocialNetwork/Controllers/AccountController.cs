@@ -93,7 +93,7 @@ namespace FivePSocialNetwork.Controllers
                     WebMail.EnableSsl = true;
                     //Tài khoản dùng để đăng nhập vào gmail để gửi.
                     WebMail.UserName = "hoangvuong1225@gmail.com";
-                    WebMail.Password = "Hoangvuong1";
+                    WebMail.Password = "abcxut";
                     // Nội dung gửi.
                     WebMail.From = "hoangvuong1225@gmail.com";
                     string strTitle = "Có một địa chỉ lạ vừa đăng nhập vào tài khoản của bạn, có địa chỉ IP là : " + ipuser;
