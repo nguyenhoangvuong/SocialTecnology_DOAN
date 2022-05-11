@@ -56,6 +56,17 @@
         <div class="header-body">
             <div class="row py-4">
                 <div class="col-xl-12">
+                    @if (Session["detectSentiment"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="alert-icon"><i class="ni ni-bell-55"></i></span>
+                            <span class="alert-text">@Session["detectSentiment"]</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        Session["detectSentiment"] = null;
+                    }
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
                         <span class="alert-icon"><i class="ni ni-like-2"></i></span>
                         <span class="alert-text"><strong>Danh tiếng!</strong> Các bạn trả lời bài viết này, câu trả lời của bạn được <span style="font-size:15px">+4 vote</span> , điểm danh tiếng của các bạn sẽ tăng lên <span style="font-size:17px;color:red"> @Model.question_popular</span> <i class="fas fa-fire" style="color:red"></i></span>
@@ -95,7 +106,7 @@
                                 </center>
                                 <center>
                                     <div style="text-align: center">
-                                        <p style="margin-top:6px;font-size:15px;" id="totalRateQuestion"  data-toggle="tooltip" data-placement="right" title="Điểm vote">@Model.question_totalRate</p>
+                                        <p style="margin-top:6px;font-size:15px;" id="totalRateQuestion" data-toggle="tooltip" data-placement="right" title="Điểm vote">@Model.question_totalRate</p>
                                     </div>
                                 </center>
                                 <center>
@@ -110,7 +121,7 @@
                                     </form>
                                 </center>
                                 <center>
-                                    <span id="totalTickQuestion" class="text-center border-bottom" style="font-size:11px"  data-toggle="tooltip" data-placement="right" title="Lượt đánh dấu">@Model.question_totalTick</span>
+                                    <span id="totalTickQuestion" class="text-center border-bottom" style="font-size:11px" data-toggle="tooltip" data-placement="right" title="Lượt đánh dấu">@Model.question_totalTick</span>
                                 </center>
                                 <!--show hoạt động-->
                                 <center>
@@ -294,17 +305,17 @@
 
                                         <center>
                                             <form ng-submit="rateAnswerT(@(item.answer_id))" class="changSizeButtonRatePost">
-                                                <button type="submit" onclick="btnRateAnswerT@(item.answer_id)()" class="btn btn-sm"  data-toggle="tooltip" data-placement="right" title="Vote câu trả lời"><i id="imgRateAnswerT@(item.answer_id)" class="fa fa-chevron-up" style="font-size:200%;color:@if (checkRate_Answer != null && checkRate_Answer.rateAnswer_rateStatus == true) { @varColororangered} else { @varColorMain}"></i></button>
+                                                <button type="submit" onclick="btnRateAnswerT@(item.answer_id)()" class="btn btn-sm" data-toggle="tooltip" data-placement="right" title="Vote câu trả lời"><i id="imgRateAnswerT@(item.answer_id)" class="fa fa-chevron-up" style="font-size:200%;color:@if (checkRate_Answer != null && checkRate_Answer.rateAnswer_rateStatus == true) { @varColororangered} else { @varColorMain}"></i></button>
                                             </form>
                                         </center>
                                         <center>
                                             <div style="text-align: center">
-                                                <p style="margin-top:6px;font-size:15px;" id="totalRateAnswer@(item.answer_id)"  data-toggle="tooltip" data-placement="right" title="Trung bình vote">@item.answer_totalRate</p>
+                                                <p style="margin-top:6px;font-size:15px;" id="totalRateAnswer@(item.answer_id)" data-toggle="tooltip" data-placement="right" title="Trung bình vote">@item.answer_totalRate</p>
                                             </div>
                                         </center>
                                         <center>
                                             <form ng-submit="rateAnswerF(@(item.answer_id))" class="changSizeButtonRatePost">
-                                                <button type="submit" onclick="btnRateAnswerF@(item.answer_id)()" class="btn btn-sm"  data-toggle="tooltip" data-placement="right" title="Vote câu trả lời"><i id="imgRateAnswerF@(item.answer_id)" class="fa fa-chevron-down" style="font-size:200%;color:@if (checkRate_Answer != null && checkRate_Answer.rateAnswer_rateStatus == false) { @varColororangered} else { @varColorMain}"></i></button>
+                                                <button type="submit" onclick="btnRateAnswerF@(item.answer_id)()" class="btn btn-sm" data-toggle="tooltip" data-placement="right" title="Vote câu trả lời"><i id="imgRateAnswerF@(item.answer_id)" class="fa fa-chevron-down" style="font-size:200%;color:@if (checkRate_Answer != null && checkRate_Answer.rateAnswer_rateStatus == false) { @varColororangered} else { @varColorMain}"></i></button>
                                             </form>
                                         </center>
                                         <!--show hoạt động
@@ -312,7 +323,7 @@
                                         <center>
                                             <form action="@Url.Action("ShowActivateQuestion", "FunctionAtDetailQuestion")" method="post" class="changSizeButtonRatePost">
                                                 <input type="hidden" name="question_id" value="@Model.question_id" />
-                                                <button type="submit" class="btn btn-sm mt-2"  data-toggle="tooltip" data-placement="right" title="Đánh dấu hoạt động"><i class="ni ni-compass-04" style="font-size:200%;color:@if (checkShow_Activate_Question != null) {@varColororangered } else { @varColorMain}"></i></button>
+                                                <button type="submit" class="btn btn-sm mt-2" data-toggle="tooltip" data-placement="right" title="Đánh dấu hoạt động"><i class="ni ni-compass-04" style="font-size:200%;color:@if (checkShow_Activate_Question != null) {@varColororangered } else { @varColorMain}"></i></button>
                                             </form>
                                         </center>
                                         <script>
@@ -643,6 +654,7 @@
             </div>
         </footer>
     </div>
+
     @if (Session["doneReply"] != null)
     {
         <script>
