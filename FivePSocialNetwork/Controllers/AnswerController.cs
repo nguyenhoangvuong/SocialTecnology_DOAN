@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FivePSocialNetwork.Models;
 using FivePSocialNetwork.Models.Json;
+using Newtonsoft.Json;
 
 namespace FivePSocialNetwork.Controllers
 {
+    public class OutputFromAPI
+    {
+        public int prediction { get; set; }
+        public double[] score { get; set; }
+    }
     public class AnswerController : Controller
     {
         FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
@@ -16,7 +26,7 @@ namespace FivePSocialNetwork.Controllers
         {
             int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             Answer answer = db.Answers.SingleOrDefault(n => n.answer_id == id && n.user_id == user_id);
-            if(answer != null)
+            if (answer != null)
             {
                 return View(answer);
             }
@@ -24,7 +34,7 @@ namespace FivePSocialNetwork.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult EditAnser(int? answer_id , string answer_content)
+        public ActionResult EditAnser(int? answer_id, string answer_content)
         {
             db.Answers.Find(answer_id).answer_content = answer_content;
             db.SaveChanges();
@@ -42,11 +52,26 @@ namespace FivePSocialNetwork.Controllers
             db.SaveChanges();
             return Redirect(Request.UrlReferrer.ToString());
         }
+        private async Task<bool> checkSentiment(string input)
+        {
+            HttpClient client = new HttpClient();
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                new { col0 = Regex.Replace(input, "<.*?>", String.Empty) });
+            var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("https://utc2api.azurewebsites.net/predict", data);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var deserialized = JsonConvert.DeserializeObject<OutputFromAPI>(responseString);
+            if (deserialized.prediction == 0 && deserialized.score[0] >= 0.7)
+            {
+                return true;
+            }
+            return false;
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [ValidateInput(false)]
-        public ActionResult PostAnswer([Bind(Include = "answer_id,answer_content,answer_dateCreate,answer_dateEdit,user_id,answer_activate,answer_userStatus,question_id,answer_totalRate,answer_medalCalculate,answer_recycleBin,answer_admin_recycleBin,answer_correct")] Answer answer,Notification notification)
+        public async Task<ActionResult> PostAnswer([Bind(Include = "answer_id,answer_content,answer_dateCreate,answer_dateEdit,user_id,answer_activate,answer_userStatus,question_id,answer_totalRate,answer_medalCalculate,answer_recycleBin,answer_admin_recycleBin,answer_correct")] Answer answer, Notification notification)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             if (Request.Cookies["user_id"] == null)
@@ -57,7 +82,12 @@ namespace FivePSocialNetwork.Controllers
             int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             Answer checkAnswer = db.Answers.FirstOrDefault(n => n.user_id == user_id && n.question_id == answer.question_id);
-            if(checkAnswer != null)
+            if (await checkSentiment(answer.answer_content))
+            {
+                Session["detectSentiment"] = "Phát hiện bình luận mang tính thô tục! Vui lòng thử lại";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            if (checkAnswer != null)
             {
                 Session["doneReply"] = "Đã trả lời, nếu có ý tưởng mới xin hay cập nhập vào câu trả lời trước!";
                 return Redirect(Request.UrlReferrer.ToString());
@@ -77,7 +107,7 @@ namespace FivePSocialNetwork.Controllers
             db.Questions.Find(answer.question_id).question_popular++;
             //Thông báo 
             List<Show_Activate_Question> show_Activate_Questions = db.Show_Activate_Question.Where(n => n.question_id == answer.question_id).ToList();
-            if(show_Activate_Questions != null)
+            if (show_Activate_Questions != null)
             {
                 foreach (var item in show_Activate_Questions)
                 {
@@ -96,7 +126,7 @@ namespace FivePSocialNetwork.Controllers
             }
             //tự động đánh dấu hoạt động cho người trả lời bài viết để dc thông báo!
             Show_Activate_Question checkUser = db.Show_Activate_Question.SingleOrDefault(n => n.user_id == user_id && n.question_id == answer.question_id);
-            if(checkUser == null)
+            if (checkUser == null)
             {
                 db.Show_Activate_Question.Add(new Show_Activate_Question
                 {
@@ -136,7 +166,7 @@ namespace FivePSocialNetwork.Controllers
         // danh sách đáp án
         public JsonResult AnswerJson(int? id)
         {
-            List<Answer> answers = db.Answers.Where(n => (n.answer_activate == true && n.answer_admin_recycleBin== false)||(n.answer_activate == true && n.answer_userStatus == true && n.answer_recycleBin == false && n.answer_admin_recycleBin == false)).ToList();
+            List<Answer> answers = db.Answers.Where(n => (n.answer_activate == true && n.answer_admin_recycleBin == false) || (n.answer_activate == true && n.answer_userStatus == true && n.answer_recycleBin == false && n.answer_admin_recycleBin == false)).ToList();
             List<ListAnswer> listAnswers = answers.Select(n => new ListAnswer
             {
                 answer_id = n.answer_id,
@@ -333,7 +363,7 @@ namespace FivePSocialNetwork.Controllers
                     db.Users.Find(answer.user_id).user_vipMedal--;
                 }
                 //Lưu đánh giá trả lời bài viết
-                
+
                 db.Rate_Answer.Find(checkRateAnswer.rateAnswer_id).rateAnswer_rateStatus = null;
                 db.SaveChanges();
                 return View();
@@ -397,7 +427,7 @@ namespace FivePSocialNetwork.Controllers
 
                 //Lưu huy chương
                 answer.answer_medalCalculate += 2;
-                answer.answer_totalRate+=2;
+                answer.answer_totalRate += 2;
                 db.SaveChanges();
                 var replyPostCalculateMedal = answer.answer_medalCalculate;
                 if (replyPostCalculateMedal == 4 || replyPostCalculateMedal == 5)
@@ -529,7 +559,7 @@ namespace FivePSocialNetwork.Controllers
                     db.Users.Find(answer.user_id).user_goldMedal--;
                 }
                 //Lưu đánh giá
-                
+
                 db.Rate_Answer.Find(check.rateAnswer_id).rateAnswer_rateStatus = null;
                 db.SaveChanges();
                 return View();
@@ -593,7 +623,7 @@ namespace FivePSocialNetwork.Controllers
 
                 //Lưu huy chương
                 answer.answer_medalCalculate -= 2;
-                answer.answer_totalRate-=2;
+                answer.answer_totalRate -= 2;
                 var idRepLyPost = answer_id;
                 var idPost = db.Answers.Find(idRepLyPost).question_id.Value;
                 db.Questions.Find(idPost).question_popular -= 2;
@@ -601,7 +631,7 @@ namespace FivePSocialNetwork.Controllers
                 var replyPostCalculateMedal = answer.answer_medalCalculate;
                 if (replyPostCalculateMedal == 3 || replyPostCalculateMedal == 2)
                 {
-                    db.Users.Find(answer.user_id).user_popular -= db.Questions.Find(answer.question_id).question_popular +1;
+                    db.Users.Find(answer.user_id).user_popular -= db.Questions.Find(answer.question_id).question_popular + 1;
                     db.Users.Find(answer.user_id).user_brozeMedal--;
                 }
                 else if (replyPostCalculateMedal == 7 || replyPostCalculateMedal == 6)
@@ -620,7 +650,7 @@ namespace FivePSocialNetwork.Controllers
                     db.Users.Find(answer.user_id).user_goldMedal++;
                 }
                 //Lưu đánh giá
-                
+
                 db.Rate_Answer.Find(check.rateAnswer_id).rateAnswer_rateStatus = false;
                 db.SaveChanges();
                 return View();
