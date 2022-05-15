@@ -21,40 +21,38 @@
             <div class="col-xl-8">
                 @Html.Action("DefaultIndexCenter", "ShareView")
                 <div class="mt-4">
-                    <h2>Câu hỏi gần đây</h2>
+                    <h2><i class="ni ni-air-baloon mr-1" style="color:tomato"></i>Câu hỏi gần đây</h2>
                 </div>
                 <div class="row">
                     <div ng-repeat="x in listQuestionNew" class="hov col-lg-12 bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
                         <div style="padding: 10px">
                             <div class="row">
-                                <div class="col-lg-2 col-2">
-                                    <center>
-                                        <div class="font-weight-bold" style="float: right; font-size: 25px">
-                                            <div>
-                                                <i class="fa fa-angle-up"></i>
-                                            </div>
-                                            <div class="text-warning">
-                                                {{x.question_totalRate}}
-                                            </div>
-                                            <div>
-                                                <i class="fa fa-angle-down"></i>
-                                            </div>
-                                            <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
-                                            </div>
-                                            <div>
-                                                <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
-                                            </div>
+                                <div class="col-lg-2 col-2 text-center">
+                                    <div class="font-weight-bold" style="float: right; font-size: 25px">
+                                        <div>
+                                            <i class="fa fa-angle-up"></i>
                                         </div>
-                                    </center>
+                                        <div class="text-warning">
+                                            {{x.question_totalRate}}
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-angle-down"></i>
+                                        </div>
+                                        <div>
+                                            <small style="font-size:14px">{{x.question_view}} lượt xem</small>
+                                        </div>
+                                        <div>
+                                            <small style="font-size:13px">{{x.question_Answer}} đáp án</small>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-lg-10 col-10">
                                     <div style="padding: 10px">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <h2 class="w-100 text-info">
-                                                    <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
-                                                    <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
+                                                    <span class="bg-info text-white" style="border-radius:5px"> <small class="p-1">+{{x.question_popular}}</small></span>
+                                                    <a style="word-break:break-word" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                        {{x.question_title}} 
                                                     </a>
                                                 </h2>
@@ -66,15 +64,15 @@
                                                     {{x.question_content}}
                                                 </p>
                                             </div>
-                                            <div class="col-lg-8 mt-3">
+                                            <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a class="badge bg-info text-white mr-1" ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}}</a>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5 text-right">
                                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-                                                    <b style="font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                                    <b style="font-size:16px;font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -89,13 +87,8 @@
                     </div>
                 </div>
                 <br />
-                <div class="">
-                    <center>
-                        <i class="fas fa-book-reader"></i>
-                    </center>
-                </div>
                 <div>
-                    <h2>Câu hỏi từ bạn bè</h2>
+                    <h2><i class="ni ni-air-baloon mr-1" style="color:tomato"></i>Câu hỏi từ bạn bè</h2>
                 </div>
                 <div class="row">
                     <div ng-repeat="x in listQuestionOfFriend" class="hov col-lg-12 bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
@@ -114,10 +107,10 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                <small style="font-size:13px">{{x.question_Answer}} đáp án</small>
                                             </div>
                                         </div>
                                     </center>
@@ -128,7 +121,7 @@
                                             <div class="col-lg-12">
                                                 <h2 class="w-100 text-info">
                                                     <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
-                                                    <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
+                                                    <a style="word-break:break-word" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         {{x.question_title}}
                                                     </a>
                                                 </h2>
@@ -141,13 +134,13 @@
                                             </div>
                                             <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a class="badge bg-info text-white mr-1" ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}}</a>
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 text-right">
                                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-                                                    <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                                    <b style="font-size:16px;font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -162,13 +155,8 @@
                     </div>
                 </div>
                 <br />
-                <div class="">
-                    <center>
-                        <i class="fas fa-book-reader"></i>
-                    </center>
-                </div>
                 <div>
-                    <h2>Câu hỏi Trả lời nhiều</h2>
+                    <h2><i class="ni ni-air-baloon mr-1" style="color:tomato"></i>Câu hỏi Trả lời nhiều</h2>
                 </div>
                 <div class="row">
                     <div ng-repeat="x in listQuestion_ManyAnswer" class="hov col-lg-12 bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
@@ -187,10 +175,10 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                <small style="font-size:13px">{{x.question_Answer}} đáp án</small>
                                             </div>
                                         </div>
                                     </center>
@@ -201,7 +189,7 @@
                                             <div class="col-lg-12">
                                                 <h2 class="w-100 text-info">
                                                     <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
-                                                    <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
+                                                    <a style="word-break:break-word" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         {{x.question_title}}
                                                     </a>
                                                 </h2>
@@ -214,14 +202,13 @@
                                             </div>
                                             <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a class="badge bg-info text-white mr-1" ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}}</a>
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 text-right">
                                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-
-                                                    <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                                    <b style="font-size:17px;font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -237,13 +224,8 @@
                     </div>
                 </div>
                 <br />
-                <div class="">
-                    <center>
-                        <i class="fas fa-book-reader"></i>
-                    </center>
-                </div>
                 <div>
-                    <h2> Câu hỏi được vote cao</h2>
+                    <h2> <i class="ni ni-air-baloon mr-1" style="color:tomato"></i>Câu hỏi được vote cao</h2>
                 </div>
                 <div class="row">
                     <div ng-repeat="x in listQuestionVote" class="hov col-lg-12 bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
@@ -262,10 +244,10 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                <small style="font-size:13px">{{x.question_Answer}} đáp án</small>
                                             </div>
                                         </div>
                                     </center>
@@ -276,7 +258,7 @@
                                             <div class="col-lg-12">
                                                 <h2 class="w-100 text-info">
                                                     <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
-                                                    <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
+                                                    <a style="word-break:break-word" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         {{x.question_title}}
                                                     </a>
                                                 </h2>
@@ -289,14 +271,13 @@
                                             </div>
                                             <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a class="badge bg-info text-white mr-1" ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}}</a>
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 text-right">
                                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-
-                                                    <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                                    <b style="font-size:16px;font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -312,13 +293,8 @@
                     </div>
                 </div>
                 <br />
-                <div class="">
-                    <center>
-                        <i class="fas fa-book-reader"></i>
-                    </center>
-                </div>
                 <div>
-                    <h2>Top điểm thưởng</h2>
+                    <h2><i class="ni ni-air-baloon mr-1" style="color:tomato"></i> Top điểm thưởng</h2>
                 </div>
                 <div class="row">
                     <div ng-repeat="x in listQuestionReward" class="hov col-lg-12 bg-white mt-3" style="box-shadow: 0 0 5px 1px lightgrey;">
@@ -337,10 +313,10 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                <small style="font-size:13px">{{x.question_Answer}} đáp án</small>
                                             </div>
                                         </div>
                                     </center>
@@ -351,7 +327,7 @@
                                             <div class="col-lg-12">
                                                 <h2 class="w-100 text-info">
                                                     <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
-                                                    <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
+                                                    <a style="word-break:break-word" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         {{x.question_title}}
                                                     </a>
                                                 </h2>
@@ -364,13 +340,13 @@
                                             </div>
                                             <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a class="badge bg-info text-white mr-1" ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 text-right">
                                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-                                                    <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                                    <b style="font-family: 'Times New Roman', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -405,7 +381,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                         <div class="h6 dropdown-header">Configuration</div>
                                         <a class="dropdown-item" href="#">Xóa</a>
-                                        <a class="dropdown-item" href="#">Sữa</a>
+                                        <a class="dropdown-item" href="#">Sửa</a>
                                         <a class="dropdown-item" href="#">Ẩn</a>
                                     </div>
                                 </div>
@@ -437,10 +413,10 @@
                     <img src="~/Image/Advertisement/TB1yBdxr9slXu8jSZFuXXXg7FXa.jpg" class="w-100 h-100" />
                 </div>
                 <div class="mt-3">
-                    <div class="fb-page" data-href="https://www.facebook.com/vuihetbiet.vn" data-tabs="timeline" data-width="" data-height="50" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vuihetbiet.vn" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vuihetbiet.vn">Giải Trí Tổng hợp</a></blockquote></div>
+                    <div class="fb-page" data-href="https://www.facebook.com/Tutsbot1-108255451006051/?ref=pages_you_manage" data-tabs="timeline" data-width="" data-height="50" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vuihetbiet.vn" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Tutsbot1-108255451006051/?ref=pages_you_manage">Trao đổi công nghệ thông tin</a></blockquote></div>
                 </div>
                 <div class="mt-3">
-                    <small>Người liên hệ <i class="fas fa-phone"></i></small>
+                    <small style="font-size:16px;font-weight:bold">Người liên hệ <i class="fas fa-phone"></i></small>
                 </div>
                 <div class="">
                     @Html.Action("FriendIndexCenterRealTime", "ShareView")
@@ -451,17 +427,17 @@
                 </div>
             </div>
             <!-- Footer -->
-            <footer class="footer pt-0">
-                <div class="row align-items-center justify-content-lg-between">
+            <footer class="footer pt-0 w-100 pt-5">
+                <div class="row align-items-center justify-content-lg-between w-100">
                     <div class="col-lg-6">
                         <div class="copyright text-center  text-lg-left  text-muted">
-                            &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                            &copy; 2022 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Create NHV</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                             <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative NHV</a>
                             </li>
                             <li class="nav-item">
                                 <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>

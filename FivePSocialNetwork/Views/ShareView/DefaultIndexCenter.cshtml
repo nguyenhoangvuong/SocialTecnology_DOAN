@@ -24,7 +24,6 @@
             <img class="rounded-circle " style="width: 38px; height: 38px;" src="~/Image/Users/Man.png" alt="">
             <a href="#" data-toggle="modal" data-target="#post">
                 <input type="text" class="form-control border-0 float-right" style="width:94%" placeholder="Bạn nghĩ gì ?" />
-
             </a>
         </div>
     </div>
@@ -172,15 +171,14 @@
 }
 
 <div class="mb-2">
-    <h4>Công nghệ phổ biến___</h4>
+    <h4>Công nghệ phổ biến</h4>
 </div>
 <div class="row">
     <div class="col-lg-2 col-3" ng-repeat="x in listTechnologyPopular">
         <a ng-href="/Center/ShowFollowTechnology?id={{x.technology_id}}" class="btn btn-outline-warning btn-round p-2 mb-3 w-100">{{x.technology_name}}</a>
     </div>
 </div>
-<br />
-<div class="row border-bottom">
+<div class="row border-bottom p-2">
     <div class="col-lg-4 col-4">
         @if (Request.Cookies["user_id"] != null)
         {
@@ -192,11 +190,11 @@
     </div>
     <div class="col-lg-8 col-8">
         <div class="text-right">
-            <span><i class="fas fa-filter"></i><u> Sắp xếp theo</u> : </span>
-            <a href="@Url.Action("FilterReward","Center")">Thưởng</a> \
-            <a href="@Url.Action("FilterQuestionNew","Center")">Mới nhất</a> \
-            <a href="@Url.Action("FilterQuestionVote","Center")">Vote</a> \
-            <a href="@Url.Action("FilterQuestionView","Center")">Xem</a> .
+            <span><i class="fas fa-filter"></i><b> Sắp xếp theo: </b></span>
+            <a href="@Url.Action("FilterReward","Center")">Thưởng</a> /
+            <a href="@Url.Action("FilterQuestionNew","Center")">Mới nhất</a> /
+            <a href="@Url.Action("FilterQuestionVote","Center")">Vote</a> /
+            <a href="@Url.Action("FilterQuestionView","Center")">Lượt xem</a> .
         </div>
     </div>
 

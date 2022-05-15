@@ -1,7 +1,8 @@
 ﻿.scroll_text {
-    height: 450px;
     overflow: auto;
     padding: 0px 15px;
+    margin-bottom:20px;
+    max-height:450px;
 }
 
     .scroll_text::-webkit-scrollbar {
