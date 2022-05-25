@@ -28,7 +28,7 @@
                 </div>
                 <div class="srch_bar">
                     <div class="stylish-input-group">
-                        <input type="text" class="search-bar" ng-model="txtSearch" placeholder="Tìm bạn ..">
+                        <input type="text" class="search-bar" ng-model="txtSearch" placeholder="Tìm bạn">
                         <span class="input-group-addon">
                             <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                         </span>
@@ -190,7 +190,7 @@
                                 '<div class="outgoing_msg">'
                                 + '<div class= "sent_msg"><p>'
                                 + model.message_content + '</p><span class="time_date"> '
-                                + model.messageRecipients_status + ' _______ ' + model.message_dateSend + ' | <a href="#" onclick="MessageRetrieval(' + model.message_id+')">Thu hồi</a>'
+                                + model.messageRecipients_status + model.message_dateSend + '   <a href="#" onclick="MessageRetrieval(' + model.message_id+')">Thu hồi</a>'
                                 + '</span></div ></div >'
                             );
                     }
@@ -252,8 +252,8 @@
                                         + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
                                         + ' <div class="chat_ib">'
                                         + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
-                                        + '  <p style="font-weight:800;color:black;font-family:Arial">'
-                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + '  <p style="color:black;font-family:Arial">'
+                                        + model.message  + '<span style="float:right">' + model.messageRecipients_status + '</span>'
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'
@@ -268,8 +268,8 @@
                                         + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
                                         + ' <div class="chat_ib">'
                                         + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
-                                        + '  <p style="font-weight:800;color:black;font-family:Arial">'
-                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.'
+                                        + '  <p style="color:black;font-family:Arial">'
+                                        + model.message + ' <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.'
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'
@@ -293,8 +293,8 @@
                                     + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
                                     + ' <div class="chat_ib">'
                                     + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '  <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
-                                    + '  <p style="font-weight:800;color:black;font-family:Arial">'
-                                    + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                    + '  <p style="color:black;font-family:Arial">'
+                                    + model.message + ' <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + '<span style="float:right">' + model.messageRecipients_status + '</span>'
                                     + '   </p>'
                                     + '  </div>'
                                     + '  </div>'
@@ -316,7 +316,7 @@
                                         + ' <div class="chat_ib">'
                                         + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
                                         + '  <p>'
-                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + model.message + ' ' + model.messageRecipients_status
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'
@@ -332,7 +332,7 @@
                                         + ' <div class="chat_ib">'
                                         + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + ' <i class="fas fa-circle" style="font-size:6px"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
                                         + '  <p>'
-                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                        + model.message + ' <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' ' + model.messageRecipients_status
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'
@@ -353,7 +353,7 @@
                                         + ' <div class="chat_ib">'
                                         + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '   <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
                                         + '  <p>'
-                                        + model.message + ' | ' + model.messageRecipients_status
+                                        + model.message + ' ' + model.messageRecipients_status
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'
@@ -364,12 +364,12 @@
                                 $tbl.append
                                     (
                                         '<div class="chat_list ">'
-                                        + '<div class= "chat_people" >'
+                                        + '<div class= "chat_people d-flex align-item-center">'
                                         + ' <div class="chat_img"> <img src="/Image/Users/' + model.user_avatar + '" alt="sunil"> </div>'
                                         + ' <div class="chat_ib">'
-                                        + ' <h5><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '   <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
+                                        + ' <h5 style="margin-bottom:0 !important;margin-top:8px"><a href="/Message/Index?id=' + model.user_id + '">' + model.user_firstName + ' ' + model.user_lastName + '   <i class="fas fa-circle" style="font-size:6px;color:#1ec72c"></i> ' + '</a> <span class="chat_date">' + model.message_dateSend + '</span></h5>'
                                         + '  <p>'
-                                        + model.message + ' --- <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + ' | ' + model.messageRecipients_status
+                                        + model.message + ' <span id="timeSendMess' + i + '">' + model.hoursSend + '</span> phút trước.' + '<span style="float:right">' + model.messageRecipients_status + '</span>'
                                         + '   </p>'
                                         + '  </div>'
                                         + '  </div>'

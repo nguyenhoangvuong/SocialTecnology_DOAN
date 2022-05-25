@@ -47,7 +47,7 @@
         <div class="col-xl-4 order-xl-2">
             <div class="card p-3">
                 <div class="">
-                    <h2>Trích.</h2>
+                    <h2>Lưu ý.</h2>
                 </div>
                 <div>
                     <i>_Câu hỏi?</i>
@@ -99,7 +99,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group field">
                                         <label class="form-control-label" for="input-address"><i class="fas fa-pen-alt"></i> Tiêu để câu hỏi?</label>
-                                        <input value="@if (Model != null) { @Model.question_title} " name="question_title" class="form-control" placeholder="................................" type="text">
+                                        <input value="@if (Model != null) { @Model.question_title} " name="question_title" class="form-control" placeholder="Tiêu đề câu hỏi" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group field">
                                         <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Chi tiết</label>
-                                        <textarea class="form-control" id="editor" name="question_content" placeholder="................................">@if (Model != null) { @Model.question_content} </textarea>
+                                        <textarea class="form-control" id="editor" name="question_content" placeholder="Chi tiết">@if (Model != null) { @Model.question_content} </textarea>
                                     </div>
                                 </div>
                             </div>

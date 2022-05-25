@@ -47,7 +47,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                                 </div>
-                                <input class="form-control" ng-model="txtSearch" placeholder="Tìm ..." type="text">
+                                <input class="form-control" ng-model="txtSearch" placeholder="Tìm kiếm" type="text">
                             </div>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
         <div class="col-xl-12 card">
             <div class="row">
 
-                <div class="col-xl-2 p-3 cardlist" ng-repeat="x in filteredTodos| filter: txtSearch">
+                <div class="col-xl-3 p-3 cardlist" ng-repeat="x in filteredTodos| filter: txtSearch">
                     <div class="row">
                         <div class="col-4">
                             <a href="cateview.php" class="w-100">
-                                <img src="~/Image/Users/{{x.user_avatar}}" class="mx-auto d-block mb-1 addcartimg" style="width:50px;height:50px" />
+                                <img src="~/Image/Users/{{x.user_avatar}}" class="mx-auto d-block mb-1 addcartimg" style="width:60px;height:60px" />
                             </a>
                         </div>
                         <div class="col-8">
@@ -73,8 +73,8 @@
                             <div class="seller d-block">
                                 <span>Nổi: {{x.user_popular}} <i class="fas fa-fire" style="color:red"></i> </span>
                             </div>
-                            <div class="cartviewprice d-block">
-                                <span ng-repeat="y in listTechnologyUser" ng-show="x.user_id == y.user_id">{{y.technology_name + ","}}</span>
+                            <div class="cartviewprice d-flex">
+                                <span style="background:#10dcc5;border-radius:5px;padding:4px 10px;color:#fff;margin-right:5px" ng-repeat="y in listTechnologyUser" ng-show="x.user_id == y.user_id">{{y.technology_name}}</span>
                             </div>
                         </div>
                     </div>

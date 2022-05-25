@@ -79,7 +79,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input class="form-control" ng-model="txtSearch" placeholder="Tìm ..." type="text">
+                            <input class="form-control" ng-model="txtSearch" placeholder="Tìm kiếm" type="text">
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
                     <div class="table-responsive">
                         <table class="w-100 mt-3">
                             <thead>
-                                <tr>
+                                <tr  style="border-bottom:1px solid #999">
                                     <th scope="col" class="text-center"> Stt</th>
                                     <th scope="col" class="sort" data-sort="name">Câu trả lời</th>
                                     <th scope="col" class="text-center">
@@ -99,21 +99,18 @@
                             <tbody class="list">
 
                                 <tr ng-repeat="x in filteredTodos| filter: txtSearch">
-                                    <td class="text-center">
-                                        {{$index}}
+                                    <td class="text-center" style="font-size:16px;padding-bottom:10px;padding-top:10px">
+                                        {{$index + 1}}
                                     </td>
                                     <td scope="row" class="w-75">
                                         <div class="media align-items-center">
-                                            <a href="@Url.Action("IndexDetailQuestion","DetailQuestion")" class="mr-2">
-
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
                                             <div class="media-body">
                                                 <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
-                                                    <span class="name mb-0 text-sm" ng-show="x.answer_content.length > 50">
+                                                    <i class="fas fa-info-circle"></i>
+                                                    <span class="name mb-0" ng-show="x.answer_content.length > 50" style="font-size:17px">
                                                         {{x.answer_content.substring(0, 50) + "..."}}
                                                     </span>
-                                                    <span class="name mb-0 text-sm" ng-show="x.answer_content.length < 50">
+                                                    <span class="name mb-0" ng-show="x.answer_content.length < 50" style="font-size:17px">
                                                         {{x.answer_content}}
                                                     </span>
                                                 </a>
@@ -136,7 +133,7 @@
             </div>
         </div>
         <div class="col-xl-4">
-            <small>Liên hệ <i class="fas fa-phone"></i></small>
+            <small style="font-size:15px">Liên hệ <i class="fas fa-phone"></i></small>
             @Html.Action("FriendIndexCenterRealTime", "ShareView")
         </div>
     </div>

@@ -3,7 +3,20 @@
     FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
     User user;
 }
-<nav class="navbar navbar-top navbar-expand navbar-dark border-bottom sticky-top" style="background-color:aliceblue">
+<style>
+    .icon-custom-before:before {
+        position: absolute;
+        right: 13px;
+        color:#fff;
+    }
+
+    .icon-custom-before::before:hover,
+    .icon-custom-before:hover {
+        background: #ff6a00;
+        color: #ff6a00;
+    }
+</style>
+<nav class="navbar navbar-top navbar-expand navbar-dark border-bottom sticky-top" style="background-color: #172b4d">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Search form -->
@@ -13,7 +26,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                         </div>
-                        <input class="form-control" name="search" placeholder="Bạn cần tìm gì ...?" type="text">
+                        <input class="form-control" name="search" placeholder="Bạn cần tìm gì ?" type="text">
                     </div>
                 </div>
                 @*<div class="">
@@ -42,15 +55,15 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-orange" href="#" id="messageNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placement="right" title="Thông báo tin nhắn">
-                            <i class="ni ni-chat-round" id="messageCount"></i>
+                            <i class="ni ni-chat-round icon-custom-before" style="color:white" id="messageCount"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                             <!-- Dropdown header -->
                             <div class="px-3 py-3">
-                                <h6 class="text-sm text-muted m-0">Hiển thị<strong class="text-primary">16</strong>  tin nhắn gần nhất.</h6>
+                                <h6 class="text-sm text-muted m-0">Hiển thị <strong class="text-primary">16</strong>  tin nhắn gần nhất.</h6>
                             </div>
                             <!-- List group -->
-                            <div class="list-group list-group-flush" id="GetMessage"  style="height: 300px;overflow: scroll;">
+                            <div class="list-group list-group-flush" id="GetMessage"  style="height: 300px;overflow-x: hidden;">
                                 
                             </div>
                             <!-- View all -->
@@ -59,7 +72,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-orange" href="#" id="notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="Thông báo">
-                            <i class="ni ni-bell-55" id="notificationCount"></i>
+                            <i class="ni ni-bell-55 icon-custom-before" style="color:white" id="notificationCount"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                             <!-- Dropdown header -->
@@ -67,7 +80,7 @@
                                 <h6 class="text-sm text-muted m-0">Hiển thị <strong class="text-primary">16</strong>  thông báo gần nhất.</h6>
                             </div>
                             <!-- List group -->
-                            <div class="list-group list-group-flush" id="GetNotification" style="height: 300px;overflow: scroll;">
+                            <div class="list-group list-group-flush" id="GetNotification" style="height: 300px; overflow-x: hidden;">
                             </div>
                             <!-- View all -->
                             <a href="@Url.Action("ManagementNotification","UserManagement")" class="dropdown-item text-center text-primary font-weight-bold py-3"><i class="ni ni-bell-55"></i>Tất cả thông báo</a>
@@ -127,7 +140,7 @@
                                     <img alt="Image placeholder" src="~/Image/Users/@user.user_avatar">
                                 </span>
                                 <div class="media-body  ml-2  d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold text-dark">@user.user_firstName @user.user_lastName</span>
+                                    <span class="mb-0 font-weight-bold text-white" style="font-size:17px">@user.user_firstName @user.user_lastName</span>
                                 </div>
                             </div>
                         </a>

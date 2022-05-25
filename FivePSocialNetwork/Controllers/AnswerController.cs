@@ -61,7 +61,7 @@ namespace FivePSocialNetwork.Controllers
             var response = await client.PostAsync("https://utc2api.azurewebsites.net/predict", data);
             var responseString = await response.Content.ReadAsStringAsync();
             var deserialized = JsonConvert.DeserializeObject<OutputFromAPI>(responseString);
-            if (deserialized.prediction == 0)
+            if (deserialized.prediction == 0 && deserialized.score[0] >= 0.7)
             {
                 return true;
             }

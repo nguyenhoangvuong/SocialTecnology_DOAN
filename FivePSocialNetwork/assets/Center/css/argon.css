@@ -18163,7 +18163,8 @@ a.text-darker:focus
 .avatar-sm
 {
     font-size: .875rem; 
-
+    border-radius:50%;
+    overflow:hidden;
     width: 36px;
     height: 36px;
 }
