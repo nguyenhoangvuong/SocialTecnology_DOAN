@@ -22,6 +22,7 @@
             }
         });
     </script>
+    @Scripts.Render("~/bundles/jquery")
     <!-- CSS Files -->
     <link rel="stylesheet" href="~/assets/Admin/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/assets/Admin/css/atlantis.min.css">
@@ -184,10 +185,10 @@
         Circles.create({
             id: 'circles-1',
             radius: 45,
-            value: 60,
+            value: @(ViewBag.Circle1 == null ? 0 : ViewBag.Circle1 == null),
             maxValue: 100,
             width: 7,
-            text: 5,
+            text: @(ViewBag.Circle1 == null ? 0 : ViewBag.Circle1 == null),
             colors: ['#f1f1f1', '#FF9E27'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -199,10 +200,10 @@
         Circles.create({
             id: 'circles-2',
             radius: 45,
-            value: 70,
+            value: @(ViewBag.Circle2 == null ? 0 : ViewBag.Circle2 == null),
             maxValue: 100,
             width: 7,
-            text: 36,
+            text: @(ViewBag.Circle2 == null ? 0 : ViewBag.Circle2 == null),
             colors: ['#f1f1f1', '#2BB930'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -214,10 +215,10 @@
         Circles.create({
             id: 'circles-3',
             radius: 45,
-            value: 40,
+            value: @(ViewBag.Circle3 == null ? 0 : ViewBag.Circle3 == null),
             maxValue: 100,
             width: 7,
-            text: 12,
+            text: @(ViewBag.Circle3 == null ? 0 : ViewBag.Circle3 == null),
             colors: ['#f1f1f1', '#F25961'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -229,10 +230,10 @@
         Circles.create({
             id: 'circles-5',
             radius: 45,
-            value: 40,
+            value: @(ViewBag.Circle4 == null ? 0 : ViewBag.Circle4 == null),
             maxValue: 100,
             width: 7,
-            text: 12,
+            text: @(ViewBag.Circle4 == null ? 0 : ViewBag.Circle4 == null),
             colors: ['#f1f1f1', '#F25961'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -244,10 +245,10 @@
         Circles.create({
             id: 'circles-4',
             radius: 45,
-            value: 40,
+            value: @(ViewBag.Circle5 == null ? 0 : ViewBag.Circle5 == null),
             maxValue: 100,
             width: 7,
-            text: 12,
+            text: @(ViewBag.Circle5 == null ? 0 : ViewBag.Circle5 == null),
             colors: ['#f1f1f1', '#F25961'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -259,10 +260,10 @@
         Circles.create({
             id: 'circles-6',
             radius: 45,
-            value: 40,
+            value: @(ViewBag.Circle6 == null ? 0 : ViewBag.Circle6 == null),
             maxValue: 100,
             width: 7,
-            text: 12,
+            text: @(ViewBag.Circle6 == null ? 0 : ViewBag.Circle6 == null),
             colors: ['#f1f1f1', '#F25961'],
             duration: 400,
             wrpClass: 'circles-wrp',
@@ -321,3 +322,4 @@
     </script>
 </body>
 </html>
+@RenderSection("scripts", required: false)

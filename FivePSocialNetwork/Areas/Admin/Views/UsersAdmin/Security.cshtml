@@ -1,0 +1,289 @@
+﻿@using FivePSocialNetwork.Models;
+@{
+    if (Request.Cookies["admin_id"] == null)
+    {
+        Response.Redirect("/Center/IndexCenter");
+    }
+    int user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+    FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
+    User user = db.Users.Find(user_id);
+    ViewBag.Title = "Security";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: #00A0C6;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .custom-toggle-slider:before {
+        bottom: 1.7px;
+        left: 2px;
+        width: 17px;
+        height: 15px;
+    }
+</style>
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="header pb-6" style="height: 600px" ng-app="myApp">
+                <div class="container-fluid" ng-controller="myCtrl">
+                    <div class="header-body">
+                        <div class="row align-items-center py-4">
+                            <div class="col-lg-12">
+                                @if (Session["checkPass"] != null)
+                                {
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+                                        <span class="alert-inner--text"><strong>Thông báo!</strong> Mật khẩu không đúng! Vui lòng nhập mật khẩu khác.</span>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    Session["checkPass"] = null;
+                                }
+                            </div>
+                            <div class="col-lg-6 col-7">
+                                <h6 class="h2 text-black d-inline-block mb-0">Bảo mật</h6>
+                                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Bảo mật</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                ...
+                            </div>
+                            <div class="col-xl-12">
+                                <u class="text-black">Bổ xung email và số điện thoại để bảo mật tài khoản của bạn ( lấy lại tài khoản khi bạn quên ).</u>
+                            </div>
+                            <div class="col-xl-9 mt-3">
+                                <div class="row text-black">
+                                    <div class="col-xl-7 text-black">
+                                        <a data-toggle="collapse" href="#collapseExampleEmail" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <i class="fas fa-envelope"></i> Email : @user.user_email -
+                                        </a>
+                                        @if (user.user_emailAuthentication == true)
+                                        {
+                                            @:Đã xác thực.
+                                        }
+                                        else
+                                        {
+                                            <a href="/Account/EmailSend" class="btn btn-link" style="color:#fb577a">* Xác thực.</a>
+                                        }
+                                        <div class="collapse" id="collapseExampleEmail">
+                                            <div class="card card-body">
+                                                <form action="/Account/Email" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="email" name="user_email" required class="form-control" placeholder="Email .." value="@user.user_email" /><br />
+                                                    <button type="button" data-toggle="modal" data-target="#staticBackdrop" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="staticBackdropLabel">Nhập mật khẩu của bạn</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu của bạn.." required />
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng yêu cầu</button>
+                                                                    <button type="submit" class="btn btn-primary">Đổi email</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-7">
+                                        <a data-toggle="collapse" href="#collapseExampleNumberPhone" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <i class="fas fa-phone"></i> Số điện thoại : @user.user_phone -
+                                        </a>
+                                        @if (user.user_verifyPhoneNumber == true)
+                                        {
+                                            @:Đã xác thực.
+                                        }
+                                        else if ((user.user_phone != null || user.user_phone != "") && user.user_verifyPhoneNumber == false)
+                                        {
+                                            <a href="/Account/NumberPhoneVerification" class="btn btn-link"><span style="color:#fb577a">* Xác thực.</span></a>
+                                        }
+
+                                        @if (Session["checkPhone"] != null)
+                                        {
+                                            <div style="color:orangered">@Session["checkPhone"].ToString()</div>
+                                            Session["checkPhone"] = null;
+                                        }
+                                        <div class="collapse" id="collapseExampleNumberPhone">
+                                            <div class="card card-body">
+                                                <form action="/Account/Numberphone" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="number" name="user_phone" required class="form-control" placeholder="Số điện thoại .." value="@user.user_phone" /><br />
+                                                    <button type="button" data-toggle="modal" data-target="#staticBackdrop2" class="btn btn-success float-right"><i class="far fa-save"></i> Lưu</button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="staticBackdropLabel">Nhập mật khẩu của bạn</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu.." required />
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng yêu cầu</button>
+                                                                    <button type="submit" class="btn btn-primary">Đổi số điện thoại</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-9">
+                                        Đăng nhập 2 lớp :&nbsp;&nbsp;&nbsp;
+
+                                        @if (user.user_loginAuthentication == true && (user.user_phone != null || user.user_phone != "" || user.user_email != null) && (user.user_verifyPhoneNumber == true || user.user_emailAuthentication == true))
+                                        {
+                                            <label class="custom-toggle">
+                                                <input type="checkbox" onclick="CheckAuthentication()" checked ng-click="changeAuthentication()" />
+                                                <span class="custom-toggle-slider rounded-circle"></span>
+                                            </label>
+                                            <span id="status">Bật.</span>
+                                        }
+                                        else if (user.user_loginAuthentication == false && (user.user_phone != null || user.user_phone != "" || user.user_email != null) && (user.user_verifyPhoneNumber == true || user.user_emailAuthentication == true))
+                                        {
+                                            <label class="custom-toggle">
+                                                <input type="checkbox" onclick="CheckAuthentication()" ng-click="changeAuthentication()" />
+                                                <span class="custom-toggle-slider rounded-circle"></span>
+                                            </label>
+                                            <span id="status">Tắt.</span>
+                                        }
+                                        else
+                                        {
+                                            <label class="custom-toggle">
+                                                <span class="custom-toggle-slider rounded-circle"></span>
+                                            </label>
+                                            <span style="color:#fb577a">* Bạn phải xác thực email hoặc số điện thoại mới sử dụng được chức năng này!</span>
+                                        }
+                                    </div>
+                                    <div class="col-xl-8 mt-2">
+                                        Bảo vệ tài khoản :&nbsp;&nbsp;&nbsp;
+                                        @if (user.user_SecurityAccount == true && (user.user_phone != null || user.user_phone != "") && user.user_verifyPhoneNumber == true)
+                                        {
+                                            <label class="custom-toggle">
+                                                <a onclick="return window.confirm('Bạn có chắc muốn thực hiện hành động này! Tắt chức năng này, tài khoản sẽ mất an toàn.')" href="@Url.Action("SecurityAccount","Account")">
+                                                    <input type="checkbox" checked onclick="CheckSecurityAccount()" />
+                                                    <span class="custom-toggle-slider rounded-circle"></span>
+                                                </a>
+                                            </label>
+                                            <span id="securityAccount">Bật.</span>
+                                        }
+                                        else if (user.user_SecurityAccount == false && (user.user_phone != null || user.user_phone != "") && user.user_verifyPhoneNumber == true)
+                                        {
+                                            <label class="custom-toggle">
+                                                <a href="/Account/SecurityAccount">
+                                                    <input type="checkbox" onclick="CheckSecurityAccount()" />
+                                                    <span class="custom-toggle-slider rounded-circle"></span>
+                                                </a>
+                                            </label>
+                                            <span id="securityAccount">Tắt.</span>
+                                        }
+                                        else
+                                        {
+                                            <label class="custom-toggle">
+                                                <span class="custom-toggle-slider rounded-circle"></span>
+                                            </label>
+                                            <span style="color:#fb577a">* Bạn phải xác thực số điện thoại mới sử dụng được chức năng này!</span>
+                                        }
+                                        <div>( Đổi mật khẩu, số điện thoại, email hệ thống sẽ gửi xác nhận về sdt của bạn.)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-12">
+                                        <a href="/UserManagement/PageUser">
+                                            <img src="~/Image/Users/security.png" class="rounded-circle w-50 h-77" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="title text-black">
+                                    <i class="fas fa-location-arrow"></i> Danh sách địa chỉ IP đăng nhập gần đây ( Xác thực email và số điện thoại để hệ thống gửi thông tin về cho bạn.)
+                                </div>
+                                @{
+                                    List<User_IP> user_IPs = db.User_IP.Where(n => n.user_id == user_id).OrderByDescending(n => n.userIP_dateLogin).ToList();
+                                }
+                                <div class="row">
+                                    <div class="col-xl-9 card" style="height: 200px;overflow: scroll;">
+                                        @foreach (var item in user_IPs)
+                                        {
+                                            <div>IP : @item.userIP_IP &nbsp;&nbsp;&nbsp;/ Ngày đăng nhập : @item.userIP_dateLogin</div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.changeAuthentication = function () {
+            $http({
+                method: "GET",
+                url: "/Account/ChangeLoginAuthentication"
+            }).then(function mySuccess(response) {
+                $scope.Welcomes = response.data;
+            });
+        }
+        $scope.changeSecurityAccount = function () {
+            $http({
+                method: "GET",
+                url: "/Account/SecurityAccount"
+            })
+        }
+    });
+    //xác thực 2 yếu tố
+    function CheckAuthentication() {
+        if (document.getElementById("status").innerHTML == 'Bật.') {
+            document.getElementById("status").innerHTML = 'Tắt.';
+        }
+        else {
+            document.getElementById("status").innerHTML = 'Bật.';
+        }
+    }
+    //Bảo vệ tài khoản
+    function CheckSecurityAccount() {
+        if (document.getElementById("securityAccount").innerHTML == 'Bật.') {
+            document.getElementById("securityAccount").innerHTML = 'Tắt.';
+        }
+        else {
+            document.getElementById("securityAccount").innerHTML = 'Bật.';
+        }
+    }
+</script>

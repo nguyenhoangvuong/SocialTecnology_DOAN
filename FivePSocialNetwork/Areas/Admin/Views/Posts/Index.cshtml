@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Role";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<script src="~/assets/ckeditor5/build/ckeditor.js"></script>
 <div class="main-panel" ng-app="myApp">
     <div class="content">
         <div class="page-inner">
@@ -13,7 +14,7 @@
                 </div>
             }
             <div class="page-header">
-                <h4 class="page-title">Database vai trò</h4>
+                <h4 class="page-title">Bài viết</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="#">
@@ -24,13 +25,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Users</a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">vai trò</a>
+                        <a href="#">Bài viết</a>
                     </li>
                 </ul>
             </div>
@@ -52,79 +47,77 @@
                                 <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#recycleBin">
                                     <i class="far fa-trash-alt"></i> Thùng rác
                                 </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <!-- Modal -->
-                            <div class="modal fade" id="recycleBin" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Danh sách các role đã xóa</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table table-striped">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">Stt</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Ngày tạo</th>
-                                                        <th scope="col">Thao tác</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="x in listRecycleBin">
-                                                        <th scope="row">{{$index + 1}}</th>
-                                                        <td>{{x.role_name}}</td>
-                                                        <td>{{x.role_dateCreate}}</td>
-                                                        <td><a href="#" ng-click="restore($index,x.role_id)"><i class="fas fa-undo-alt"></i></a> @*| <a href="#" ng-click="confirmDelete($index,x.user_id)"><i class="fas fa-times-circle"></i></a>*@</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer no-bd">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <div class="modal fade" id="recycleBin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideout modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách bài viết đã xóa</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">Stt</th>
+                                                            <th scope="col">Tiêu đề</th>
+                                                            <th scope="col">Người đăng</th>
+                                                            <th scope="col">Lượt like</th>
+                                                            <th scope="col">Thao tác</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="x in listRecycleBin">
+                                                            <th scope="row">{{$index + 1}}</th>
+                                                            <td>{{x.post_title}}</td>
+                                                            <td>{{x.user_firstName + " " + x.user_lastName}}</td>
+                                                            <td>{{x.post_totalLike}}</td>
+                                                            <td><a href="#" ng-click="restore($index,x.post_id)"><i class="fas fa-undo-alt"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
 
                             <div class="table-responsive">
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>Stt</th>
-                                            <th>Tên</th>
-                                            <th>Ngày tạo</th>
-                                            <th>Ngày sửa</th>
-                                            <th>Trạng thái</th>
-                                            <th style="width: 10%">Action</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Người đăng</th>
+                                            <th>Tùy chọn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="x in filteredTodos | filter: txtSearch">
                                             <td>{{$index + 1}}</td>
-                                            <td>{{x.role_name}}</td>
-                                            <td>{{x.role_dateCreate}}</td>
-                                            <td>{{x.role_dateEdit}}</td>
-                                            <td ng-show="x.role_activate == true">
+                                            <td>{{x.post_title}}</td>
+                                            <td>{{x.user_firstName + " " + x.user_lastName}}</td>
+                                            <td ng-show="x.provincial_activate == true">
                                                 <a href="#">
                                                     <div class="col-auto">
                                                         <label class="colorinput">
-                                                            <input name="color" type="checkbox" value="dark" checked class="colorinput-input">
+                                                            <input name="color" type="checkbox" ng-click="activateProvincial(x.provincial_id)" value="dark" checked class="colorinput-input">
                                                             <span class="colorinput-color bg-dark"></span>
                                                         </label>
                                                     </div>
                                                 </a>
                                             </td>
-                                            <td ng-show="x.role_activate == false">
+                                            <td ng-show="x.provincial_activate == false">
                                                 <a href="#">
                                                     <div class="col-auto">
                                                         <label class="colorinput">
-                                                            <input name="color" type="checkbox" value="dark" class="colorinput-input">
+                                                            <input name="color" ng-click="activateProvincial(x.provincial_id)" type="checkbox" value="dark" class="colorinput-input">
                                                             <span class="colorinput-color bg-dark"></span>
                                                         </label>
                                                     </div>
@@ -132,14 +125,15 @@
                                             </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <button type="button" data-toggle="modal" id="btnEdit" data-target="#editRowModal{{x.role_id}}" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                    <button type="button" data-toggle="modal" data-target="#editRowModal{{x.post_id}}" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button type="button" ng-click="recycleBinRole($index,x.role_id)" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                    <button type="button" ng-click="recycleBinPost($index,x.post_id)" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </div>
-                                                <div class="modal fade" id="editRowModal{{x.role_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <!--Sửa-->
+                                                <div class="modal fade" id="editRowModal{{x.post_id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header no-bd">
@@ -148,23 +142,32 @@
                                                                         Sửa
                                                                     </span>
                                                                     <span class="fw-light">
-                                                                        role
+                                                                        bài viết
                                                                     </span>
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <form action="@Url.Action("EditRole","UsersAdmin")" method="post">
+                                                            <form action="@Url.Action("EditPost","Posts")" method="post">
                                                                 @Html.AntiForgeryToken()
                                                                 <div class="modal-body">
-                                                                    <p class="small">Detail role</p>
-                                                                    <input type="hidden" name="role_id" value="{{x.role_id}}" />
+                                                                    <p class="small">Detail post</p>
+                                                                    <input type="hidden" name="post_id" value="{{x.post_id}}" />
                                                                     <div class="row">
-                                                                        <div class="col-md-6 pr-0">
+                                                                        <div class="col-md-12 pr-0">
                                                                             <div class="form-group form-group-default">
-                                                                                <label>Tên quyền</label>
-                                                                                <input name="role_name" id="addPosition" required="" value="{{x.role_name}}" type="text" class="form-control">
+                                                                                <label>Tiêu đề</label>
+                                                                                <input name="post_title" id="addPosition" required="" value="{{x.post_title}}" type="text" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 pr-0">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Nội dung</label>
+                                                                                <textarea name="post_content" id="addPosition" rows="10" required="" value="{{x.post_content}}" type="text" class="form-control">{{x.post_content}}</textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -178,6 +181,7 @@
                                                     </div>
                                                 </div>
                                             </td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -197,7 +201,7 @@
 <script>
     var app = angular.module('myApp', ["ui.bootstrap"]);
     app.controller('myCtrl', function ($scope, $http) {
-        $http.get("/Admin/UsersAdmin/RoleJson")
+        $http.get("/Admin/Posts/PostJson")
             .then(function (response) {
                 //Gia dinh
                 $scope.filteredTodos = []
@@ -223,15 +227,23 @@
                 $scope.content = "Something went wrong";
             });
 
-        $http.get("/Admin/UsersAdmin/RecycleBinRoleJson").then(function (response) {
-            $scope.listRecycleBin = response.data;
-        });
+        $scope.recycleBinPost = function (idx, id) {
+            if (confirm("Bạn chắc chắn xóa bài viết này?")) {
+                $scope.filteredTodos.splice(idx, 1);
+                $http.get("/Admin/Posts/RecycleBinPost?id=" + id).then(function (response) {
+                    // sau khi khoi phục, khôi phục lai data
+                    $http.get("/Admin/Posts/RecycleBinPostJson").then(function (response) {
+                        $scope.listRecycleBin = response.data;
+                    });
+                });
+            }
+        }
 
         $scope.restore = function (idx, id) {
             $scope.listRecycleBin.splice(idx, 1);
-            $http.get("/Admin/UsersAdmin/RecycleBinRole?id=" + id).then(function (response) {
+            $http.get("/Admin/Posts/RecycleBinPost?id=" + id).then(function (response) {
                 // sau khi khoi phục, khôi phục lai data
-                $http.get("/Admin/UsersAdmin/RoleJson")
+                $http.get("/Admin/Posts/PostJson")
                     .then(function (response) {
                         //Gia dinh
                         $scope.filteredTodos = []
@@ -259,17 +271,15 @@
             });
         }
 
-        $scope.recycleBinRole = function (idx, id) {
-            if (confirm("Bạn chắc chắn xóa role này?")) {
-                $scope.filteredTodos.splice(idx, 1);
-                $http.get("/Admin/UsersAdmin/RecycleBinRole?id=" + id).then(function (response) {
-                    // sau khi khoi phục, khôi phục lai data
-                    $http.get("/Admin/UsersAdmin/RecycleBinRoleJson").then(function (response) {
-                        $scope.listRecycleBin = response.data;
-                    });
-                });
-            }
+        $scope.activateProvincial = function (id) {
+            $http.get("/Admin/AddressAdmin/ActivateProvincail?id=" + id).then(function (response) {
+                $scope.myData = response.data.records;
+            });
+
         }
+        $http.get("/Admin/Posts/RecycleBinPostJson").then(function (response) {
+            $scope.listRecycleBin = response.data;
+        });
     });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -278,4 +288,13 @@
         $('#AlertBox').removeClass('hide');
         $('#AlertBox').delay(2000).slideUp(500);
     });
+    ClassicEditor
+        .create(document.querySelector('#editorContent'), {
+            toolbar: ['heading', '|', 'codeBlock', 'code', '|', 'bold', 'italic', 'Link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'ImageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo']
+        })
+        .catch(error => {
+            console.log(error);
+        });
 </script>
+
+

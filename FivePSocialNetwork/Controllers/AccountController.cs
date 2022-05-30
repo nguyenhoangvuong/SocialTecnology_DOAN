@@ -464,16 +464,25 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult SettingAccount(User user, string user_firstName , string user_lastName)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            bool isAdmin = false;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            } else if (Request.Cookies["admin_id"] != null)
+            {
+                isAdmin = true;
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
             user.user_firstName = user_firstName;
             user.user_lastName = user_lastName;
             db.SaveChanges();
+            if (isAdmin)
+            {
+                return Redirect("/Admin/UsersAdmin/SettingAccount");
+            }
             return View(user);
         }
         // -------------------------------------Nhận thông báo các câu hỏi liên quan đến công nghệ của bạn---
@@ -505,17 +514,21 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult SexUser(User user, int user_sex)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // user_sex == null trả về trang đó.
-            if(user_sex == 0)
+            if (user_sex == 0)
             {
                 return Redirect(Request.UrlReferrer.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
             //lưu giới tính
             user.sex_id = user_sex;
@@ -538,12 +551,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult BrithDay(User user , DateTime user_birthday)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
 
             user.user_birthday = user_birthday;
@@ -557,12 +574,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult HobbyWork(User user, string user_hobbyWork)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
 
             user.user_hobbyWork = user_hobbyWork;
@@ -576,12 +597,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult Hobby(User user, string user_hobby)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
 
             user.user_hobby = user_hobby;
@@ -597,12 +622,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult TechnologyUser(int[] technology_id)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
 
             List<Teachnology_User> steachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id).ToList();
             if(steachnology_User == null)
@@ -680,7 +709,15 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult ChangeLoginAuthentication()
         {
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+            }
             User user = db.Users.Find(user_id);
             if((user.user_phone != null || user.user_phone != "" || user.user_email != null) && (user.user_verifyPhoneNumber == true || user.user_emailAuthentication == true))
             {
@@ -755,12 +792,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult Email(User user, string user_email , string password)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
 
             //Mã hóa mật khẩu
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -831,12 +872,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult EmailSend()
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             try
             {
@@ -872,9 +917,18 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult EmailAuthentication()
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+            }
+            if (user_id == 0)
+            {
+                return View(HomeCenter);
             }
             return View();
         }
@@ -882,17 +936,29 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult EmailAuthentication(string codeAuthentication)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+            }
+            if (user_id == 0)
+            {
+                return View(HomeCenter);
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             if (Session["confirmemail"].ToString() == codeAuthentication)
             {
                 db.Users.Find(user_id).user_emailAuthentication = true;
                 db.SaveChanges();
                 Session["confirmemail"] = null;
+                if (Request.Cookies["user_id"] == null)
+                {
+                    return Redirect("/Admin/UsersAdmin/Security");
+                }
                 return RedirectToAction("SettingAccount");
             }
             else
@@ -908,12 +974,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult Numberphone(User user, string user_phone ,string password)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             //kiểm tra sdt này đã tồn tại chưa
             User checkPhone = db.Users.FirstOrDefault(n => n.user_phone == user_phone && n.user_id != user_id);
             if(checkPhone != null)
@@ -975,7 +1045,15 @@ namespace FivePSocialNetwork.Controllers
         {
             if (codeAuthentication == Session["verificationCodesPhone"].ToString())
             {
-                int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+                int user_id = 0;
+                if (Request.Cookies["user_id"] != null)
+                {
+                    user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+                }
+                else if (Request.Cookies["admin_id"] != null)
+                {
+                    user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+                }
                 User user = db.Users.Find(user_id);
                 user.user_phone = Session["phone"].ToString();
                 user.user_verifyPhoneNumber = false;
@@ -994,12 +1072,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult NumberPhoneVerification()
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             //kiểm tra đã xác thực chưa
             if (user.user_verifyPhoneNumber == true)
@@ -1026,12 +1108,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult VerificationCodesPhone()
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             //kiểm tra đã xác thực chưa
             if (user.user_verifyPhoneNumber == true)
@@ -1044,22 +1130,34 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult VerificationCodesPhone(string verificationCode)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+            }
+            if (user_id == 0)
             {
                 return Redirect(HomeCenter);
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             if (Session["verificationCodesPhone"].ToString() == verificationCode)
             {
                 db.Users.Find(user_id).user_verifyPhoneNumber = true;
                 db.SaveChanges();
                 Session["verificationCodesPhone"] = null;
+                if (Request.Cookies["user_id"] == null)
+                {
+                    return Redirect("/Admin/UsersAdmin/Security");
+                }
                 return RedirectToAction("SettingAccount");
             }
             else
             {
-                ViewBag.verificationCodesPhone = "Sai mã xác thực !";
+                ViewBag.verificationCodesPhone = "Sai mã xác thực!";
             }
             return View();
         }
@@ -1098,12 +1196,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult Address(int provincial_id, int district_id, int commune_id, string user_addressRemaining)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             user.provincial_id = provincial_id;
             user.district_id = district_id;
@@ -1120,12 +1222,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult LinkWebAnother(User user, string linkWebAnother)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
             user.user_anotherWeb = linkWebAnother;
             db.SaveChanges();
@@ -1138,12 +1244,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult LinkFacebook(User user, string linkFacebook)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
             user.user_linkFacebook = linkFacebook;
             db.SaveChanges();
@@ -1156,12 +1266,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult LinkGithub(User user, string linkGithub)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             user = db.Users.Find(user_id);
             user.user_linkGithub = linkGithub;
             db.SaveChanges();
@@ -1176,12 +1290,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult ChangePassword(string newPass, string user_pass)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             //Mã hóa mật khẩu
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -1232,7 +1350,7 @@ namespace FivePSocialNetwork.Controllers
                     return RedirectToAction("AuthenticationChangePassword");
                 }
                 user.user_pass = newPass;
-                Session["checkPass"] = null;
+                Session["checkPass"] = "Thay đổi mật khẩu thành công.";
                 db.SaveChanges();
             }
             return Redirect(Request.UrlReferrer.ToString());
@@ -1266,12 +1384,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult ChangeAvatar(HttpPostedFileBase user_avatar)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             if(user_avatar == null)
             {
@@ -1308,12 +1430,16 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult ChangeCoverImage(HttpPostedFileBase user_coverImage)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
-            if (Request.Cookies["user_id"] == null)
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
             {
-                return Redirect(HomeCenter);
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             // khi tồn tại cookies
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             if (user_coverImage == null)
             {

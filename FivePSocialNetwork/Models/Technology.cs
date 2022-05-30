@@ -30,6 +30,8 @@ namespace FivePSocialNetwork.Models
         public Nullable<System.DateTime> technology_dateEdit { get; set; }
         public string technology_note { get; set; }
         public Nullable<int> technology_totalQuestion { get; set; }
+        public string technology_img { get; set; }
+        public string technology_fullname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Teachnology_Question> Teachnology_Question { get; set; }

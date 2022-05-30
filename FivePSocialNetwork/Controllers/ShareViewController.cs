@@ -346,7 +346,15 @@ namespace FivePSocialNetwork.Controllers
         public JsonResult SuggestiotMakeFriends()
         {
             //giải pháp lấy danh sách công nghệ của user / sau đó lấy danh sách công nghệ của của các user khác / sau đó so sánh và id công nghệ giống thì thêm vào ds và thoát khỏi vòng lặp và so sánh vòng tiếp theo
-            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            int user_id = 0;
+            if (Request.Cookies["user_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            }
+            else if (Request.Cookies["admin_id"] != null)
+            {
+                user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
+            }
             List<ListUsers> listUser = new List<ListUsers>();
             List<Teachnology_User> teachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id && n.technology_recycleBin == false).ToList();
             List<Teachnology_User> teachnology_Users = db.Teachnology_User.Where(n => n.technology_recycleBin == false && n.user_id != user_id).ToList();

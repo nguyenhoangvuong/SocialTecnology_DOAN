@@ -16,15 +16,55 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
         {
             return View();
         }
-        public JsonResult QuestionJson()
+
+        //xóa tạm thời 
+        public JsonResult RecycleBinQuestion(int? id)
         {
-            List<Question> questions = db.Questions.ToList();
+            Question provincial = db.Questions.Find(id);
+            provincial.question_admin_recycleBin = !provincial.question_admin_recycleBin;
+            db.SaveChanges();
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RecycleBinQuestionJson()
+        {
+            List<Question> questions = db.Questions.Where(x=>x.question_admin_recycleBin == true).ToList();
             List<ListQuestions> listQuestions = questions.Select(n => new ListQuestions
             {
                 question_id = n.question_id,
-                user_firstName = n.User.user_firstName,
-                user_lastName = n.User.user_lastName,
+                user_firstName = db.Users.Find(n.user_id).user_firstName,
+                user_lastName = db.Users.Find(n.user_id).user_lastName,
                 question_title = n.question_title.ToString(),
+                question_popular = n.question_popular,
+            }).ToList();
+            return Json(listQuestions, JsonRequestBehavior.AllowGet);
+        }
+
+        // sửa tỉnh
+        [HttpPost, ValidateInput(false)]
+        public ActionResult EditQuestion(string question_title,
+            int question_id, string question_content, int question_popular)
+        {
+            Question provincial = db.Questions.Find(question_id);
+            provincial.question_title = question_title;
+            provincial.question_content = question_content;
+            provincial.question_popular = question_popular;
+            db.SaveChanges();
+            TempData["Message"] = "Cập nhật thành công";
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult QuestionJson()
+        {
+            List<Question> questions = db.Questions.Where(x=>x.question_admin_recycleBin == false).ToList();
+            List<ListQuestions> listQuestions = questions.Select(n => new ListQuestions
+            {
+                question_id = n.question_id,
+                user_firstName = db.Users.Find(n.user_id).user_firstName,
+                user_lastName = db.Users.Find(n.user_id).user_lastName,
+                question_title = n.question_title.ToString(),
+                question_content = n.question_content.ToString(),
+                question_popular=n.question_popular,
             }).ToList();
             return Json(listQuestions, JsonRequestBehavior.AllowGet);
         }

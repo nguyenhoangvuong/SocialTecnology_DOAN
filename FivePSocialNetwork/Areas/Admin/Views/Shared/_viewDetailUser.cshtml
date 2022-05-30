@@ -1,0 +1,14 @@
+﻿@model FivePSocialNetwork.Models.User
+@{
+    Layout = null;
+}
+<img src="~/Image/Users/@Model.user_avatar" alt="..." class="avatar-img rounded-circle">
+<label>Ho ten: @(Model.user_lastName + " " + Model.user_firstName)</label>
+<label>Email: @(Model.user_email)</label>
+<label>Address: @(Model.user_addressRemaining)</label>
+<label>Hobby: @(Model.user_hobby)</label>
+<label>Email: @(Model.user_email)</label>
+<label>Popular: @(Model.user_popular)</label>
+<label>Fb: @(Model.user_linkFacebook)</label>
+<label>Github: @(Model.user_linkGithub)</label>
+

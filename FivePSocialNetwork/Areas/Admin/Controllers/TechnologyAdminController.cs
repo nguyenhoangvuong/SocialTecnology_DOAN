@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,13 +21,23 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult AddTechnology([Bind(Include = "technology_id,technology_name,technology_popular,technology_activate,technology_recycleBin,technology_dateCreate,technology_dateEdit,technology_note,technology_totalQuestion")] Technology technology)
+        public ActionResult AddTechnology([Bind(Include = "technology_id,technology_name,technology_popular,technology_activate,technology_recycleBin,technology_dateCreate,technology_dateEdit,technology_note,technology_totalQuestion,technology_fullname")] Technology technology, HttpPostedFileBase ImageFile)
         {
             Technology checkName = db.Technologies.SingleOrDefault(n => n.technology_name == technology.technology_name);
             if(checkName != null)
             {
                 return RedirectToAction("Index");
             }
+            string fileName = null;
+            if (ImageFile != null && ImageFile.ContentLength > 0)
+            {
+                // extract only the fielname
+                fileName = Path.GetFileName(ImageFile.FileName);
+                // store the file inside ~/Assets/client/images folder
+                var path = Path.Combine(Server.MapPath("~/Image/Technology"), fileName);
+                ImageFile.SaveAs(path);
+            }
+            technology.technology_img = "/Image/Technology/" + fileName;
             technology.technology_activate = true;
             technology.technology_recycleBin = false;
             technology.technology_dateCreate = DateTime.Now;
