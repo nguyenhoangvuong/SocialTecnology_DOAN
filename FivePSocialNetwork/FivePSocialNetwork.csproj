@@ -250,6 +250,7 @@
     <Compile Include="Models\Json\ListFriend.cs" />
     <Compile Include="Models\Json\ListMessage.cs" />
     <Compile Include="Models\Json\ListNotification.cs" />
+    <Compile Include="Models\Json\ListPosts.cs" />
     <Compile Include="Models\Json\ListProvincial.cs" />
     <Compile Include="Models\Json\ListTags.cs" />
     <Compile Include="Models\Json\ListTechnology.cs" />
@@ -263,6 +264,8 @@
     <Compile Include="Models\Json\RoleAdmin.cs" />
     <Compile Include="Models\Json\SexAdmin.cs" />
     <Compile Include="Models\Json\TeachnologyAdmin.cs" />
+    <Compile Include="Models\Json\UserAdmin.cs" />
+    <Compile Include="Models\Json\UserTotal.cs" />
     <Compile Include="Models\Letter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -324,9 +327,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Show_Activate_Question.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tags_Question.cs">
@@ -4447,6 +4447,13 @@
     <Content Include="assets\TestAuthentication\scss\bootstrap\_utilities.scss" />
     <Content Include="assets\TestAuthentication\scss\bootstrap\_variables.scss" />
     <Content Include="assets\TestAuthentication\scss\style.scss" />
+    <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_viewDetailTechnology.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_viewDetailUser.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\ProfileUser.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\Security.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersAdmin\SettingAccount.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -4612,6 +4619,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Image\Technology\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>

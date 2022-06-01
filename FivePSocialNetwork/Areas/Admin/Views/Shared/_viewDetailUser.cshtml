@@ -2,13 +2,21 @@
 @{
     Layout = null;
 }
-<img src="~/Image/Users/@Model.user_avatar" alt="..." class="avatar-img rounded-circle">
-<label>Ho ten: @(Model.user_lastName + " " + Model.user_firstName)</label>
-<label>Email: @(Model.user_email)</label>
-<label>Address: @(Model.user_addressRemaining)</label>
-<label>Hobby: @(Model.user_hobby)</label>
-<label>Email: @(Model.user_email)</label>
-<label>Popular: @(Model.user_popular)</label>
-<label>Fb: @(Model.user_linkFacebook)</label>
-<label>Github: @(Model.user_linkGithub)</label>
+<style>
+    .fs-16{
+        font-size:15px !important;
+    }
+</style>
+<div class="row">
+    <img style="width:150px;height:150px" src="~/Image/Users/@Model.user_avatar" alt="..." class="avatar-img rounded-circle col-4">
+    <div class="col-8 d-flex flex-column g-2">
+        <label class="fs-16"><strong>Họ tên:</strong> @(Model.user_lastName + " " + Model.user_firstName)</label>
+        <label class="fs-16"><strong>Email:</strong> @(Model.user_email)</label>
+        <label class="fs-16"><strong>Địa chỉ:</strong> @(Model.user_addressRemaining)</label>
+        <label class="fs-16"><strong>Sở thích:</strong> @(Model.user_hobby)</label>
+        <label class="fs-16"><strong>Độ nổi tiếng:</strong> @(Model.user_popular)</label>
+        <label class="fs-16"><strong>Facebook:</strong> @(Model.user_linkFacebook)</label>
+        <label class="fs-16"><strong>Github:</strong> @(Model.user_linkGithub)</label>
+    </div>
+</div>
 
