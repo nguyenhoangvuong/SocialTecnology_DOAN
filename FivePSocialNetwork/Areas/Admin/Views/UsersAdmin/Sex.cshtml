@@ -115,7 +115,7 @@
                                                 <a href="#">
                                                     <div class="col-auto">
                                                         <label class="colorinput">
-                                                            <input name="color" type="checkbox" value="dark" checked class="colorinput-input">
+                                                            <input name="color" ng-click="activate(x.sex_id)" type="checkbox" value="dark" checked class="colorinput-input">
                                                             <span class="colorinput-color bg-dark"></span>
                                                         </label>
                                                     </div>
@@ -125,7 +125,7 @@
                                                 <a href="#">
                                                     <div class="col-auto">
                                                         <label class="colorinput">
-                                                            <input name="color" type="checkbox" value="dark" class="colorinput-input">
+                                                            <input name="color" ng-click="activate(x.sex_id)" type="checkbox" value="dark" class="colorinput-input">
                                                             <span class="colorinput-color bg-dark"></span>
                                                         </label>
                                                     </div>
@@ -258,6 +258,13 @@
                         $scope.content = "Something went wrong";
                     });
             });
+        }
+
+        $scope.activate = function (id) {
+            $http.get("/Admin/UsersAdmin/ActivateSex?id=" + id).then(function (response) {
+                $scope.myData = response.data.records;
+            });
+
         }
 
         $scope.recycleBinSex = function (idx, id) {
