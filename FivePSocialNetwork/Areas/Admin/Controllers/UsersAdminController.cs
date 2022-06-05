@@ -18,6 +18,22 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
             return View();
         }
 
+        public JsonResult ActivateSex(int? id)
+        {
+            Sex_User technology = db.Sex_User.Find(id);
+            technology.sex_activate = !technology.sex_activate;
+            db.SaveChanges();
+            return Json(technology, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Activate(int? id)
+        {
+            Role_User technology = db.Role_User.Find(id);
+            technology.role_activate = !technology.role_activate;
+            db.SaveChanges();
+            return Json(technology, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ProfileUser()
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
@@ -113,7 +129,6 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
         {
             return View();
         }
-
 
 
         public JsonResult RoleJson()

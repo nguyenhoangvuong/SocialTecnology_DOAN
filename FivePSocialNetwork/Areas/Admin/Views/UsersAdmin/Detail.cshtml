@@ -5,262 +5,98 @@
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
+<style>
+    .detailUser {
+        font-weight: 700;
+    }
+
+    .detailUser-content {
+        font-size: 16px;
+    }
+</style>
+
 <div class="main-panel">
     <div class="content">
         <div class="page-inner">
-            <h2>Detail</h2>
-            <div>
-                <h4>User</h4>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_firstName)
-                    </dt>
+            <div class="card">
+                <h2 class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">Thông tin chi tiết của user</div>
+                        <p class="card-tools">
+                            @Html.ActionLink("Back to List", "Index")
+                        </p>
+                    </div>
+                </h2>
+                <div class="card-body">
+                    <div class="d-flex g-4 flex-row">
+                        <div class='detailUser-content pr-5'>
+                            <img src="~/Image/Users/@Html.DisplayFor(model => model.user_avatar)" width="300" height="300" style="padding:10px;box-shadow:0px 0px 4px #cccccc" />
+                        </div>
+                        <div class="flex-1">
+                            <div class='detailUser-content row'>
+                                <div class="col-6 mb-1">
+                                    Họ tên: <span class='detailUser' style="color:#00b6c7">@Html.DisplayFor(model => model.user_firstName) @Html.DisplayFor(model => model.user_lastName)</span>
+                                </div>
+                                <div class="col-6 mb-1">
+                                    Email:   <span class='detailUser' style="color:#00b6c7">@Html.DisplayFor(model => model.user_email)</span>
+                                </div>
+                                <div class="col-6 mb-1">
+                                    Giới tính: <span class='detailUser'>@Html.DisplayFor(model => model.Sex_User.sex_name)</span>
+                                </div>
+                                <div class="col-6 mb-1">
+                                    Số điện thoại: <span class='detailUser'>@Html.DisplayFor(model => model.user_phone)</span>
+                                </div>
+                                <div class="col-6 mb-1">
+                                    Hoạt động: <span class='detailUser'>@(Model.user_activate == true ? "Đang hoạt động" : "Ngừng hoạt động") </span>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        Link Facebook: <span class='detailUser'>@Html.DisplayFor(model => model.user_linkFacebook)</span>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        Sở thích nghề nghiệp: <span class='detailUser'>@Html.DisplayFor(model => model.user_hobbyWork)</span>
+                                    </div>
+                                    <div class="col-6 mb-1">Sở thích: <span class='detailUser'>@Html.DisplayFor(model => model.user_hobby)</span></div>
+                                    <div class="col-6 mb-1">Ngày sinh: <span class='detailUser'>@Html.DisplayFor(model => model.user_birthday)</span></div>
+                                    <div class="col-6 mb-1">Link Github: <span class='detailUser'>@Html.DisplayFor(model => model.user_linkGithub)</span></div>
+                                    <div class="col-6 mb-1">
+                                        Xác thực Email: <span class='detailUser'>@( Model.user_emailAuthentication == true ? "Đã xác thực" : "Không xác thực")</span>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        Xác thực SĐT: <span class='detailUser'>@( Model.user_verifyPhoneNumber == true ? "Đã xác thực" : "Không xác thực")</span>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        Ngày tạo: <span class='detailUser'>@Html.DisplayFor(model => model.user_dateCreate)</span>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        Ngày sửa: <span class='detailUser'>@Html.DisplayFor(model => model.user_dateEdit)</span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class='detailUser-content row'>
+                                    <div class="col-6 mb-1">
+                                        <div>Trạng thái Online: <span class='detailUser' style="color:red"> @( Model.user_statusOnline == true ? "Online" : "Offline")</span></div>
+                                        <div>Role: <span class='detailUser' style="color:red">@Html.DisplayFor(model => model.Role_User.role_name)</span></div>
+                                    </div>
+                                    <div class="col-6 mb-1">
+                                        <div class="mb-1">Trang web khác: <span class='detailUser'>@Html.DisplayFor(model => model.user_anotherWeb)</span></div>
+                                        <div class="mb-1">Địa chỉ: <span class='detailUser'>@Html.DisplayFor(model => model.Commune.commune_name)  @Html.DisplayFor(model => model.District.district_name)  @Html.DisplayFor(model => model.Provincial.provincial_name) </span></div>
+                                        <div class="mb-1">Ngày đăng nhập: <span class='detailUser'>@Html.DisplayFor(model => model.user_dateLogin)</span></div>
+                                        <div class="mb-1">Độ nổi tiếng: <span class='detailUser'>@Html.DisplayFor(model => model.user_popular)</span></div>
+                                        <div class="mb-1">Huy chương vàng: <span class='detailUser'>@Html.DisplayFor(model => model.user_goldMedal)</span></div>
+                                        <div class="mb-1">Huy chương bạc: <span class='detailUser'>@Html.DisplayFor(model => model.user_silverMedal)</span></div>
+                                        <div class="mb-1">Huy chương đồng: <span class='detailUser'>@Html.DisplayFor(model => model.user_brozeMedal)</span></div>
+                                        <div class="mb-1">VIP: <span class='detailUser'>@Html.DisplayFor(model => model.user_vipMedal)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.user_firstName)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_lastName)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_lastName)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_email)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_email)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_avatar)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_avatar)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_coverImage)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_coverImage)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_activate)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_activate)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_dateCreate)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_dateCreate)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_dateEdit)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_dateEdit)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_dateLogin)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_dateLogin)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_emailAuthentication)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_emailAuthentication)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_verifyPhoneNumber)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_verifyPhoneNumber)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_linkFacebook)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_linkFacebook)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_linkGithub)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_linkGithub)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_anotherWeb)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_anotherWeb)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_hobbyWork)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_hobbyWork)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_hobby)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_hobby)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_birthday)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_birthday)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_popular)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_popular)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_goldMedal)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_goldMedal)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_silverMedal)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_silverMedal)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_brozeMedal)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_brozeMedal)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_vipMedal)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_vipMedal)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_phone)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_phone)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_statusOnline)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_statusOnline)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.user_SecurityAccount)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.user_SecurityAccount)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Commune.commune_name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Commune.commune_name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.District.district_name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.District.district_name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Provincial.provincial_name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Provincial.provincial_name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Role_User.role_name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Role_User.role_name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Sex_User.sex_name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Sex_User.sex_name)
-                    </dd>
-
-                </dl>
             </div>
-            <p>
-                @Html.ActionLink("Back to List", "Index")
-            </p>
         </div>
 
     </div>
-</div>
+    </div>
 
 

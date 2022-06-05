@@ -184,6 +184,7 @@
     <Compile Include="Areas\Admin\Controllers\AddressAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenounceAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShareViewAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TechnologyAdminController.cs" />
