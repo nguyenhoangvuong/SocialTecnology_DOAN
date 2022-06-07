@@ -10,6 +10,7 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=1075138046266613&autoLogAppEvents=1" nonce="minGHexe"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/stackoverflow-light.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="~/assets/ckeditor5/build/ckeditor.js"></script>
 <style>
     .scroll_text {
@@ -51,7 +52,7 @@
         color: #525f7f;
     }
 </style>
-<div class="header pb-6">
+<div class="header pb-6" style="font-family: 'Montserrat', sans-serif;">
     <div class="container-fluid">
         <div class="header-body">
             <div class="row py-4">
@@ -80,7 +81,7 @@
     </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt-sm--7" ng-app="myApp">
+<div class="container-fluid mt-sm--7" ng-app="myApp" style="font-family: 'Montserrat', sans-serif;">
 
     <div class="row" ng-controller="myCtrl">
 
@@ -106,7 +107,7 @@
                                 </center>
                                 <center>
                                     <div style="text-align: center">
-                                        <p style="margin-top:6px;font-size:15px;" id="totalRateQuestion" data-toggle="tooltip" data-placement="right" title="Điểm vote">@Model.question_totalRate</p>
+                                        <p style="font-size:18px;" id="totalRateQuestion" data-toggle="tooltip" data-placement="right" title="Điểm vote">@Model.question_totalRate</p>
                                     </div>
                                 </center>
                                 <center>
@@ -168,20 +169,7 @@
                             </center>
                         </div>
                         <div class="col-10">
-                            <div class="row m-0">
-                                <div class="">
-                                    <a class="text-decoration-none" href="@Url.Action("PageUser","UserManagement", new {id = Model.user_id })">
-                                        <img class="profile-pic" src="~/Image/Users/@Model.User.user_avatar" width="44" height="44" alt="...">
-                                    </a>
-                                </div>
-                                <div class="flex-grow-1 pl-2">
-                                    <a class="text-decoration-none" href="@Url.Action("PageUser","UserManagement", new {id = Model.user_id })">
-                                        <h2 class="text-capitalize h5 mb-0">@Model.User.user_firstName @Model.User.user_lastName @Model.User.user_popular <i class="fas fa-fire" style="color:red"></i></h2>
-                                    </a>
-                                    <p class="small text-dark m-0 mt-1">@Model.User.user_vipMedal<i class="fab fa-galactic-senate" style="color:orangered;font-size:24px"></i> @Model.User.user_goldMedal<i class="fas fa-award" style="color:yellow"></i>@Model.User.user_silverMedal<i class="fas fa-award" style="color:silver"></i> @Model.User.user_brozeMedal<i class="fas fa-award" style="color:#e88d15"></i>  </p>
-
-                                </div>
-
+                            <div class="row m-0 d-flex justify-content-end">
                                 <div class="dropdown">
                                     <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-chevron-down"></i>
@@ -223,32 +211,46 @@
 
                             </div>
                             <!-- post body -->
-                            <div class="">
-                                <p class="my-2" style="font-weight:600">
-                                    <h1>
-                                        @Model.question_title
-                                    </h1>
-                                </p>
-                            </div>
-                            <div class="">
-                                <p class="my-2">
-                                    @Html.Raw(Model.question_content)
-                                </p>
+                                <div style="padding: 10px;transform:translateY(-30px);font-weight:500">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h2 class="w-100 text-info">
+                                                <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+@Model.question_popular</small></span>
+                                                    @Model.question_title
+                                            </h2>
+                                            <p class="w-100 question fw-500" ng-show="x.question_content.length < 200">
+                                                @Html.Raw(Model.question_content)
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-7 mt-3 d-flex align-items-center">
+                                            <span class="mr-2">Công nghệ</span>
+                                            <div>
+                                                @{
+                                                    List<Teachnology_Question> teachnology_Questions = db.Teachnology_Question.Where(n => n.question_id == Model.question_id).ToList();
+                                                }
+                                                @foreach (var item in teachnology_Questions)
+                                                {
+                                                    <a href="@Url.Action("ShowFollowTechnology","Center",new {id = item.technology_id })"><span class="badge bg-info text-white">@item.Technology.technology_name</span></a>
 
-                            </div>
-                            <div class="text-right">
-                                <p>@Model.question_dateEdit <i class="far fa-calendar-alt"></i></p>
-                            </div>
-                            @{
-                                List<Teachnology_Question> teachnology_Questions = db.Teachnology_Question.Where(n => n.question_id == Model.question_id).ToList();
-                            }
-                            <div>
-                                @foreach (var item in teachnology_Questions)
-                                {
-                                    <a href="@Url.Action("ShowFollowTechnology","Center",new {id = item.technology_id })"><span class="badge badge-primary">@item.Technology.technology_name</span></a>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 text-right">
+                                            <a href="@Url.Action("PageUser","UserManagement", new {id = Model.user_id })" >
+                                                <b style="font-family: Montserrat, sans-serif">@Model.User.user_firstName @Model.User.user_lastName</b>
+                                                <span>@Model.User.user_popular <i class="fas fa-fire" style="color:red"></i></span>
+                                                <img src="~/Image/Users/@Model.User.user_avatar" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
+                                            </a>
+                                            <br />
+                                            <span class="h7 text-muted mt--2 border-bottom">@Model.User.user_vipMedal<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  @Model.User.user_goldMedal <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  @Model.User.user_silverMedal <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  @Model.User.user_brozeMedal <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
+                                            <br />
+                                            <span><i class="fa fa-calendar">&nbsp;</i>Đăng ngày:  @Model.question_dateEdit</span>
 
-                                }
-                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                            
                             <div class="mt-3">
                                 <div class="fb-like" data-href="https://localhost:44349/FunctionAtDetailQuestion/DetailQuestion?id=@Model.question_id" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                             </div>
@@ -607,7 +609,7 @@
                     </div>
                 </div>
                 <div class="">
-                    <div class="card-body">
+                    <div class="card-body" style="font-family: 'Montserrat', sans-serif;font-weight:500">
                         <h4 class="card-title">Các câu hỏi liên quan</h4>
                         <a ng-repeat="x in listQuestionRelationship" ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                             <div class="row">

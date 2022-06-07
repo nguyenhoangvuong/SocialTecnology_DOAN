@@ -40,19 +40,20 @@
     }
 </style>
 <div id="fb-root"></div>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=1075138046266613&autoLogAppEvents=1" nonce="minGHexe"></script>
 <div class="main-content" id="panel" ng-app="myApp">
     <!-- Page content -->
     <div class="container-fluid mt-2" ng-controller="myCtrl">
         <div class="row">
             <div class="col-xl-4 order-xl-2 mt-3">
-                <div class="card-profile">
-                    <img src="~/Image/Users/@Model.user_coverImage" alt="Image placeholder" class="card-img-top">
+                <div class="card-profile" style="box-shadow:0px 0px 5px silver">
+                    <img src="~/Image/Users/@Model.user_coverImage" style="max-height:400px" alt="Image placeholder" class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="~/Image/Users/@Model.user_avatar" class="rounded-circle" />
+                                    <img src="~/Image/Users/@Model.user_avatar" style="width:170px;min-width:170px;height:170px" class="rounded-circle" />
                                 </a>
                             </div>
                         </div>
@@ -61,7 +62,7 @@
                         <div class="d-flex justify-content-between">
                             @if (Request.Cookies["user_id"] == null)
                             {
-                                <a href="#" class="btn btn-sm btn-info  mr-4 "><i class="fas fa-user-plus"></i> Kết bạn.</a>
+                                <a href="#" class="btn btn-sm btn-info"><i class="fas fa-user-plus"></i> Kết bạn.</a>
                                 <a href="#" class="btn btn-sm btn-default float-right"><i class="fab fa-facebook-messenger"></i> Nhắn tin.</a>
                             }
                             else if (int.Parse(Request.Cookies["user_id"].Value.ToString()) != Model.user_id)
@@ -87,7 +88,7 @@
                                         }
                                     }
                                 </form>
-                                <a href="@Url.Action("Index","Message", new { id = Model.user_id})" class="btn btn-sm btn-default float-right"><i class="fab fa-facebook-messenger"></i> Nhắn tin</a>
+                                <a href="@Url.Action("Index","Message", new { id = Model.user_id})" class="btn btn-sm btn-default mr-4 float-right"><i class="fab fa-facebook-messenger"></i> Nhắn tin</a>
                             }
                         </div>
                     </div>
@@ -158,7 +159,7 @@
                             <div class="h7 text-muted">@Model.user_vipMedal <i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i>  &nbsp; @Model.user_goldMedal <i class="fas fa-award" style="color:yellow;font-size:11px"></i>  &nbsp; @Model.user_silverMedal <i class="fas fa-award" style="color:silver;font-size:11px"></i>&nbsp; @Model.user_brozeMedal <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </div>
                             <div class="h5 font-weight-300">
                                 <i class="ni location_pin mr-2"></i>
-                                <span style="padding:1%">@Model.user_phone</span>
+                                <span style="padding:1%;font-size:15px">@Model.user_phone</span>
                             </div>
                             <div class="h5 mt-2 mb-3" style="font-size:16px">
                                 <i class="ni business_briefcase-24 mr-2"></i><i class="fas fa-envelope-open-text"></i>&nbsp; Email : @Model.user_email
@@ -252,7 +253,7 @@
                     <hr />
                     <div class="">
                         <div class="card-body">
-                            <h4 class="card-title" style="font-size:16px">Gợi ý kết bạn</h4>
+                            <h4 class="card-title" style="font-size:16px;font-family: Montserrat, sans-serif">Gợi ý kết bạn</h4>
                             <div class="scroll_text">
                                 <div class="row" ng-repeat="x in listSuggestiotMakeFriends">
                                     <div class="col-2">
@@ -333,7 +334,7 @@
                                                         <i class="fa fa-angle-down"></i>
                                                     </div>
                                                     <div>
-                                                        <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                        <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                                     </div>
                                                     <div>
                                                         <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
@@ -366,15 +367,14 @@
                                                     </div>
                                                     <div class="col-lg-7 mt-3">
                                                         Công nghệ :
-                                                        <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id"> {{y.technology_name}} |</a>
+                                                        <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id" class="badge bg-info text-white mr-1"> {{y.technology_name}}</a>
 
                                                     </div>
-                                                    <div class="col-lg-5">
+                                                    <div class="col-lg-5 text-right">
                                                         <a ng-href="/UserManagement/PageUser?id=x.user_id">
-                                                            <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-
-                                                            <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + x.user_lastName}}</b>
+                                                            <b style="font-family: Montserrat, sans-serif">{{x.user_firstName + x.user_lastName}}</b>
                                                             <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                            <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                         </a>
                                                         <br />
                                                         <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}} <i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp; {{x.user_goldMedal}}  <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>
@@ -414,7 +414,7 @@
                                                         <i class="fa fa-angle-down"></i>
                                                     </div>
                                                     <div>
-                                                        <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                        <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                                     </div>
                                                     <div>
                                                         <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
@@ -441,15 +441,14 @@
                                                     </div>
                                                     <div class="col-lg-7 mt-3">
                                                         Công nghệ :
-                                                        <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id"> {{y.technology_name}} |</a>
+                                                        <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id" class="badge bg-info text-white"> {{y.technology_name}}</a>
 
                                                     </div>
-                                                    <div class="col-lg-5">
+                                                    <div class="col-lg-5 text-right">
                                                         <a ng-href="/UserManagement/PageUser?id={{x.user_id}}">
-                                                            <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-
                                                             <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + x.user_lastName}}</b>
                                                             <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                            <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                         </a>
                                                         <br />
                                                         <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}} <i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp; {{x.user_goldMedal}}  <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>

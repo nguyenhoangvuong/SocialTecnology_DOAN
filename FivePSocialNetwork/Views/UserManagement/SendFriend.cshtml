@@ -61,10 +61,10 @@
                     <div class="row">
                         <div class="col-4">
                             <a href="cateview.php" class="w-100">
-                                <img src="~/Image/Users/{{x.user_avatar}}" class="mx-auto d-block mb-1 addcartimg" style="width:60px;height:60px" />
+                                <img src="~/Image/Users/{{x.user_avatar}}" class="mx-auto d-block mb-1 addcartimg" style="width:60px;height:60px;border-radius:50%" />
                             </a>
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 d-flex flex-column justify-content-center">
                             <div class="d-block text-truncate mb-1">
                                 <a ng-href="/UserManagement/PageUser?id={{x.user_id}}" class="cartproname">
                                     {{x.user_firstName + " "+ x.user_lastName}}
@@ -73,9 +73,9 @@
                             <div class="seller d-block">
                                 <span>Nổi: {{x.user_popular}} <i class="fas fa-fire" style="color:red"></i> </span>
                             </div>
-                            <div class="cartviewprice d-flex">
-                                <span style="background:#10dcc5;border-radius:5px;padding:4px 10px;color:#fff;margin-right:5px" ng-repeat="y in listTechnologyUser" ng-show="x.user_id == y.user_id">{{y.technology_name}}</span>
-                            </div>
+                            @*<div class="cartviewprice d-flex" style="max-width:200px;flex-wrap:wrap;gap:5px;max-height:60px;overflow-y:scroll">
+                                <span style="background:#10dcc5;border-radius:5px;padding:4px 10px;color:#fff" ng-repeat="y in listTechnologyUser" ng-show="x.user_id == y.user_id">{{y.technology_name}}</span>
+                            </div>*@
                         </div>
                     </div>
                 </div>

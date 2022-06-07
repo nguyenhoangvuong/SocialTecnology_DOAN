@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
 }
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
     .scroll_text {
         height: 600px;
@@ -64,10 +65,10 @@
         </div>
         <div class="col-xl-8">
             <div class="">
-                <div class="card">
+                <div class="card" style="font-family: Montserrat, sans-serif">
                     <!-- Card header -->
                     <div class="card-header border-0">
-                        <h3 class="mb-0"><i class="ni ni-book-bookmark"></i> Bài viết bạn đã đánh dấu</h3>
+                        <h3 class="mb-0 d-flex align-items-center" style="font-family: Montserrat, sans-serif"><i class="ni ni-book-bookmark"></i> Bài viết bạn đã đánh dấu</h3>
                     </div>
                     @*<div class="float-right" style="padding: 10px;">
                             <a href="#" style="margin-left: 5px;">Nổi tiếng &nbsp;&nbsp;&nbsp; </a>
@@ -86,15 +87,18 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="sort" data-sort="name" style="font-size:15px;font-weight:bold">Câu hỏi</th>
-                                    <th scope="col" style="font-size:15px;font-weight:bold">
+                                    <th scope="col" class="sort bg-info text-white" style="font-size:15px;font-weight:bold"> Stt</th>
+                                    <th scope="col" class="sort bg-info text-white" data-sort="name" style="font-size:15px;font-weight:bold">Câu hỏi</th>
+                                    <th scope="col" class="sort bg-info text-white" style="font-size:15px;font-weight:bold">
                                         Bỏ đánh dấu
                                     </th>
-                                    <th scope="col" class="text-right" style="font-size:15px;font-weight:bold"> Stt</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
                                 <tr ng-repeat="x in filteredTodos| filter: txtSearch">
+                                    <td class="text-center" style="font-size:18px">
+                                        {{$index+1}}
+                                    </td>
                                     <td scope="row">
                                         <div class="media align-items-center">
                                             <a class="mr-2">
@@ -104,7 +108,7 @@
                                                 </center>
                                                 <center><i class="fa fa-chevron-down mt--3" style="font-size:200%"></i></center>
                                             </a>
-                                            <div class="media-body"  style="margin-left:20px">
+                                            <div class="media-body" style="margin-left:20px">
                                                 <div>
                                                     <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                         <p class="mb--2" ng-show="x.question_title.length > 50">
@@ -114,20 +118,15 @@
                                                             {{x.question_title}}
                                                         </p>
                                                     </a>
-
                                                 </div>
                                                 <div class="d-flex align-items-center mt-2">
                                                     <i class="fas fa-reply"></i> &nbsp;{{x.question_Answer}} &nbsp;&nbsp; <i class="far fa-comment-dots"></i>&nbsp;{{x.question_totalComment}}&nbsp;&nbsp; <i class="far fa-eye"></i>&nbsp;{{x.question_view}}
                                                 </div>
-                                            </div>
 
-                                        </div>
+                                            </div>
                                     </td>
-                                    <td class="budget">
-                                        <a href="#" onclick="return window.confirm('Bạn có chắc muốn bỏ đánh dấu bài viết này!')" ng-click="unTick(x.tickQuestion_id,$index)" data-toggle="tooltip" data-placement="top" title="Bỏ đánh dấu"><i class="far fa-check-circle" style="font-size: 23px; margin-left: 20%"></i></a>
-                                    </td>
-                                    <td class="text-right" style="font-size:18px">
-                                        {{$index+1}}
+                                    <td class="budget text-center">
+                                        <a href="#" onclick="return window.confirm('Bạn có chắc muốn bỏ đánh dấu bài viết này!')" ng-click="unTick(x.tickQuestion_id,$index)" data-toggle="tooltip" data-placement="top" title="Bỏ đánh dấu"><i class="far fa-check-circle" style="font-size: 23px;"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
