@@ -84,6 +84,47 @@ $('.ui.dropdown')
     .dropdown({
         allowAdditions: true
     })
+<<<<<<< Updated upstream
+=======
+
+$.validator.addMethod(
+    "checkContentQuestion",
+    function (value, element) {
+        $.ajax({
+            type: "POST",
+            url: "/Question/CheckQuestionContent",
+            data: "ContentQuestion=" + value,
+            dataType: "html",
+            success: function (msg) {
+                //If username exists, set response to true
+                response = (msg.data == 'true') ? true : false;
+            }
+        });
+        return response;
+    },
+    "Nội dung không được chứa từ ngữ thô tục"
+);
+
+$.fn.form.settings.rules.checkContent = function (value, fieldIdentifiers) {
+    $.ajax({
+        type: "POST",
+        url: "/Question/CheckQuestionContent",
+        data: "ContentQuestion=" + value,
+        dataType: "html",
+        success: function (msg) {
+            console.log(msg);
+            //If username exists, set response to true
+            if (msg === "yes") {
+                console.log(msg);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    });
+};
+
+>>>>>>> Stashed changes
 $('.ui.form')
     .form({
         fields: {
