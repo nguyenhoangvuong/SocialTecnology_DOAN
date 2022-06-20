@@ -37,6 +37,27 @@ namespace FivePSocialNetwork.Controllers
                 return View(question);
             }
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public string CheckQuestionContent(string ContentQuestion)
+        {
+            List<string> listTucTieu = new List<string>()
+            {
+                "cặc",
+                "mẹ",
+                "lồn"
+            };
+            foreach (var item in listTucTieu)
+            {
+                if (ContentQuestion.Contains(item))
+                {
+                    return "yes";
+                }
+            }
+            return "no";
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -217,6 +238,7 @@ namespace FivePSocialNetwork.Controllers
             }
             else if (question.question_id == 0)
             {
+
                 User user = db.Users.Find(user_id);
                 //lưu tỉm kiếm
                 question.question_keywordSearch = question.question_content + question.question_title+ user.user_firstName + user.user_lastName;
