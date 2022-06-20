@@ -339,7 +339,7 @@ namespace FivePSocialNetwork.Controllers
                     }
 
                 }
-                return View(question);
+                return RedirectToAction("IndexCenter", "Center");
             }
             else
             {

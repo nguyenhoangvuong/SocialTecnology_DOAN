@@ -14,7 +14,8 @@ using Twilio.TwiML;
 using Twilio.AspNet.Mvc;
 using System.Web.Helpers;
 using System.IO;
-
+using System.Net.Mail;
+using System.Net;
 namespace FivePSocialNetwork.Controllers
 {
     public class AccountController : Controller
@@ -22,7 +23,7 @@ namespace FivePSocialNetwork.Controllers
         private FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
         String HomeCenter = "/Center/IndexCenter";
         //------------------------------------------TEST--------------------------------
-        
+
         //----------------------------------------MAIN--------------------------------
         public ActionResult Login()
         {
@@ -47,7 +48,7 @@ namespace FivePSocialNetwork.Controllers
             user_pass = strBuilder.ToString();
             //kiểm tra tài khoản có đang bị khóa không.
             User userActivate = db.Users.Where(n => n.user_activate == false).FirstOrDefault(n => n.user_email == user_email && n.user_pass == user_pass);
-            if(userActivate != null)
+            if (userActivate != null)
             {
                 ViewBag.checkLogin = "Tài khoản đã bị khóa!";
                 return View(userActivate);
@@ -65,16 +66,16 @@ namespace FivePSocialNetwork.Controllers
             }
             //kiểm tra trong data người dùng bth và nhà văn
             User user = db.Users.Where(n => n.user_recycleBin == false).FirstOrDefault(n => (n.user_email == user_email || n.user_phone == user_email) && n.user_pass == user_pass);
-            if(user != null && user.user_loginAuthentication == true && (user.user_emailAuthentication == true || user.user_verifyPhoneNumber == true))
+            if (user != null && user.user_loginAuthentication == true && (user.user_emailAuthentication == true || user.user_verifyPhoneNumber == true))
             {
                 Session["user"] = user;
                 return RedirectToAction("AuthenticationOption");
             }
-            else if(user != null)
+            else if (user != null)
             {
                 var ipuser = Request.UserHostAddress;
                 User_IP user_IP = db.User_IP.FirstOrDefault(n => n.user_id == user.user_id && n.userIP_IP == ipuser);
-                if(user_IP == null)
+                if (user_IP == null)
                 {
                     db.User_IP.Add(new User_IP
                     {
@@ -84,28 +85,45 @@ namespace FivePSocialNetwork.Controllers
                     });
                     db.SaveChanges();
                 }
-                if(user_IP == null && user.user_emailAuthentication == true)
+                if (user_IP == null && user.user_emailAuthentication == true)
                 {
-                    WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                    WebMail.SmtpPort = 587; // Cổng
-                    WebMail.SmtpUseDefaultCredentials = true;
-                    //Gửi gmail với giao thức bảo mật.
-                    WebMail.EnableSsl = true;
-                    //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                    WebMail.UserName = "hoangvuong1225@gmail.com";
-                    WebMail.Password = "Hoangvuong1";
-                    // Nội dung gửi.
-                    WebMail.From = "hoangvuong1225@gmail.com";
+                    //WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                    //WebMail.SmtpPort = 587; // Cổng
+                    //WebMail.SmtpUseDefaultCredentials = true;
+                    ////Gửi gmail với giao thức bảo mật.
+                    //WebMail.EnableSsl = true;
+                    ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                    //WebMail.UserName = "hoangvuong1225@gmail.com";
+                    //WebMail.Password = "Hoangvuong1";
+                    //// Nội dung gửi.
+                    //WebMail.From = "hoangvuong1225@gmail.com";
                     string strTitle = "Có một địa chỉ lạ vừa đăng nhập vào tài khoản của bạn, có địa chỉ IP là : " + ipuser;
-                    //Gửi gmail.
-                    WebMail.Send(to: user.user_email, subject: "Oversea xin chào :", body: strTitle, isBodyHtml: true);
+                    ////Gửi gmail.
+                    //WebMail.Send(to: user.user_email, subject: "Oversea xin chào :", body: strTitle, isBodyHtml: true);
+
+                    //   WebMail.Send(to: user.user_email, subject: "Mã xác nhận của Five_P", body: strTitle, isBodyHtml: true);
+                    MailMessage mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                    mailMessage.To.Add(new MailAddress(user.user_email));
+
+                    mailMessage.Subject = "Oversea xin chào";
+                    mailMessage.IsBodyHtml = true;
+                    mailMessage.Body = strTitle;
+
+                    SmtpClient client = new SmtpClient();
+                    client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                    client.Host = "smtpout.secureserver.net";
+                    client.Port = 80;
+                    //   Session["confirmemail"] = code;
+                    Session.Timeout = 3;
+                    client.Send(mailMessage);
                 }
-                if(user_IP == null && user.user_verifyPhoneNumber == true)
+                if (user_IP == null && user.user_verifyPhoneNumber == true)
                 {
                     var userphone = user.user_phone;
                     var remove = userphone.ToString().Remove(0, 1);
                     var to = "+84" + remove;
-                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                     var from = new PhoneNumber("+19794065417");
                     var message = MessageResource.Create(
                         from: from,
@@ -116,7 +134,7 @@ namespace FivePSocialNetwork.Controllers
                 }
                 // đổi trạng thái tin nhắn.
                 List<Message> statusStrMess = db.Messages.Where(n => n.messageRecipients_id == user.user_id && n.messageRecipients_status == "đã gửi.").ToList();
-                foreach(var item in statusStrMess)
+                foreach (var item in statusStrMess)
                 {
                     db.Messages.Find(item.message_id).messageRecipients_status = "đã nhận.";
                     db.SaveChanges();
@@ -150,12 +168,12 @@ namespace FivePSocialNetwork.Controllers
             {
                 var userphone = user.user_phone;
                 var remove = userphone.ToString().Remove(0, 1);
-                var to = "+84"+ remove;
+                var to = "+84" + remove;
                 Random random = new Random();
                 var verificationCodesPhone = random.Next(100000, 999999).ToString();
                 Session["verificationCodesPhone"] = verificationCodesPhone;
                 Session.Timeout = 3;
-                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                 var message = MessageResource.Create(
                     body: "Five_P xin chào " + user.user_firstName + " " + user.user_lastName + " Mã xác thực của bạn là : " + verificationCodesPhone,
                     from: new Twilio.Types.PhoneNumber("+19794065417"),
@@ -164,28 +182,44 @@ namespace FivePSocialNetwork.Controllers
                 Content(message.Sid);
                 return RedirectToAction("AuthenticationLogin");
             }
-            else if(authenticationOption == "email" &&  user.user_emailAuthentication == true)
+            else if (authenticationOption == "email" && user.user_emailAuthentication == true)
             {
                 try
                 {
-                    WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                    WebMail.SmtpPort = 587; // Cổng
-                    WebMail.SmtpUseDefaultCredentials = true;
-                    //Gửi gmail với giao thức bảo mật.
-                    WebMail.EnableSsl = true;
-                    //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                    WebMail.UserName = "hoangvuong1225@gmail.com";
-                    WebMail.Password = "Hoangvuong1";
-                    // Nội dung gửi.
-                    WebMail.From = "hoangvuong1225@gmail.com";
+                    //  WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                    //WebMail.SmtpPort = 587; // Cổng
+                    //WebMail.SmtpUseDefaultCredentials = true;
+                    ////Gửi gmail với giao thức bảo mật.
+                    //WebMail.EnableSsl = true;
+                    ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                    //WebMail.UserName = "hoangvuong1225@gmail.com";
+                    //WebMail.Password = "Hoangvuong1";
+                    //// Nội dung gửi.
+                    //WebMail.From = "hoangvuong1225@gmail.com";
 
                     Random random = new Random();
                     var code = random.Next(100000, 999999).ToString();
                     string strTitle = "Mã xác nhận : " + code;
+                    //Session["confirmemail"] = code;
+                    //Session.Timeout = 3;
+                    //Gửi gmail.
+                    // WebMail.Send(to: user.user_email, subject: "Mã xác nhận của Five_P", body: strTitle, isBodyHtml: true);
+                    MailMessage mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                    mailMessage.To.Add(new MailAddress(user.user_email));
+
+                    mailMessage.Subject = "Mã xác nhận của Five_P";
+                    mailMessage.IsBodyHtml = true;
+                    mailMessage.Body = strTitle;
+
+                    SmtpClient client = new SmtpClient();
+                    client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                    client.Host = "smtpout.secureserver.net";
+                    client.Port = 80;
                     Session["confirmemail"] = code;
                     Session.Timeout = 3;
-                    //Gửi gmail.
-                    WebMail.Send(to: user.user_email, subject: "Mã xác nhận của Five_P", body: strTitle, isBodyHtml: true);
+                    client.Send(mailMessage);
+
                     return RedirectToAction("AuthenticationLogin");
                 }
                 catch (Exception)
@@ -213,9 +247,9 @@ namespace FivePSocialNetwork.Controllers
         public ActionResult AuthenticationLogin(string codeAuthentication)
         {
 
-            if(Session["confirmemail"] !=null)
+            if (Session["confirmemail"] != null)
             {
-                if(codeAuthentication == Session["confirmemail"].ToString())
+                if (codeAuthentication == Session["confirmemail"].ToString())
                 {
                     User user = (User)Session["user"];
                     user.user_dateLogin = DateTime.Now;
@@ -234,26 +268,39 @@ namespace FivePSocialNetwork.Controllers
                     }
                     if (user_IP == null && user.user_emailAuthentication == true)
                     {
-                        WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                        WebMail.SmtpPort = 587; // Cổng
-                        WebMail.SmtpUseDefaultCredentials = true;
-                        //Gửi gmail với giao thức bảo mật.
-                        WebMail.EnableSsl = true;
-                        //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                        WebMail.UserName = "hoangvuong1225@gmail.com";
-                        WebMail.Password = "Hoangvuong1";
+                        //WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                        //WebMail.SmtpPort = 587; // Cổng
+                        //WebMail.SmtpUseDefaultCredentials = true;
+                        ////Gửi gmail với giao thức bảo mật.
+                        //WebMail.EnableSsl = true;
+                        ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                        //WebMail.UserName = "hoangvuong1225@gmail.com";
+                        //WebMail.Password = "Hoangvuong1";
                         // Nội dung gửi.
-                        WebMail.From = "hoangvuong1225@gmail.com";
+                        //  WebMail.From = "hoangvuong1225@gmail.com";
                         string strTitle = "Có một địa chỉ lạ vừa đăng nhập vào tài khoản của bạn, có địa chỉ IP là : " + ipuser;
                         //Gửi gmail.
-                        WebMail.Send(to: user.user_email, subject: "Five_P xin chào :", body: strTitle, isBodyHtml: true);
+                        //  WebMail.Send(to: user.user_email, subject: "Five_P xin chào :", body: strTitle, isBodyHtml: true);
+                        MailMessage mailMessage = new MailMessage();
+                        mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                        mailMessage.To.Add(new MailAddress(user.user_email));
+
+                        mailMessage.Subject = "Five_P xin chào :";
+                        mailMessage.IsBodyHtml = true;
+                        mailMessage.Body = strTitle;
+
+                        SmtpClient client = new SmtpClient();
+                        client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                        client.Host = "smtpout.secureserver.net";
+                        client.Port = 80;
+
                     }
                     if (user_IP == null && user.user_verifyPhoneNumber == true)
                     {
                         var userphone = user.user_phone;
                         var remove = userphone.ToString().Remove(0, 1);
                         var to = "+84" + remove;
-                        TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                        TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                         var from = new PhoneNumber("+19794065417");
                         var message = MessageResource.Create(
                             from: from,
@@ -283,9 +330,9 @@ namespace FivePSocialNetwork.Controllers
                     return View();
                 }
             }
-            else if(Session["verificationCodesPhone"] != null)
+            else if (Session["verificationCodesPhone"] != null)
             {
-                if(codeAuthentication == Session["verificationCodesPhone"].ToString())
+                if (codeAuthentication == Session["verificationCodesPhone"].ToString())
                 {
                     User user = (User)Session["user"];
                     user.user_dateLogin = DateTime.Now;
@@ -304,26 +351,41 @@ namespace FivePSocialNetwork.Controllers
                     }
                     if (user_IP == null && user.user_emailAuthentication == true)
                     {
-                        WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                        WebMail.SmtpPort = 587; // Cổng
-                        WebMail.SmtpUseDefaultCredentials = true;
-                        //Gửi gmail với giao thức bảo mật.
-                        WebMail.EnableSsl = true;
-                        //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                        WebMail.UserName = "hoangvuong1225@gmail.com";
-                        WebMail.Password = "Hoangvuong1";
-                        // Nội dung gửi.
-                        WebMail.From = "hoangvuong1225@gmail.com";
+                        //WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                        //WebMail.SmtpPort = 587; // Cổng
+                        //WebMail.SmtpUseDefaultCredentials = true;
+                        ////Gửi gmail với giao thức bảo mật.
+                        //WebMail.EnableSsl = true;
+                        ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                        //WebMail.UserName = "hoangvuong1225@gmail.com";
+                        //WebMail.Password = "Hoangvuong1";
+                        //// Nội dung gửi.
+                        //WebMail.From = "hoangvuong1225@gmail.com";
                         string strTitle = "Có một địa chỉ lạ vừa đăng nhập vào tài khoản của bạn, có địa chỉ IP là : " + ipuser;
                         //Gửi gmail.
-                        WebMail.Send(to: user.user_email, subject: "Five_P xin chào :", body: strTitle, isBodyHtml: true);
+                        //   We/Mail.Send(to: user.user_email, subject: "Five_P xin chào :", body: strTitle, isBodyHtml: true);
+                        MailMessage mailMessage = new MailMessage();
+                        mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                        mailMessage.To.Add(new MailAddress(user.user_email));
+                        // string strTitle = "Mã xác nhận : " + code;
+                        mailMessage.Subject = "Five_P xin chào :";
+                        mailMessage.IsBodyHtml = true;
+                        mailMessage.Body = strTitle;
+
+                        SmtpClient client = new SmtpClient();
+                        client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                        client.Host = "smtpout.secureserver.net";
+                        client.Port = 80;
+
+                        client.Send(mailMessage);
+
                     }
                     if (user_IP == null && user.user_verifyPhoneNumber == true)
                     {
                         var userphone = user.user_phone;
                         var remove = userphone.ToString().Remove(0, 1);
                         var to = "+84" + remove;
-                        TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                        TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                         var from = new PhoneNumber("+19794065417");
                         var message = MessageResource.Create(
                             from: from,
@@ -369,7 +431,7 @@ namespace FivePSocialNetwork.Controllers
         {
             //kiểm tra email đã được đăng ký chưa
             User checkEmail = db.Users.FirstOrDefault(n => n.user_email == user.user_email);
-            if(checkEmail != null)
+            if (checkEmail != null)
             {
                 ViewBag.checkEmail = "Email đã được sử dụng, vui lòng nhập email mới!";
                 return View(user);
@@ -377,7 +439,7 @@ namespace FivePSocialNetwork.Controllers
             //random ký tự
             Random random = new Random();
             string s1 = RandomString(9, false);
-            user.user_code = "#" + s1 +"-"+ random.Next(100, 999).ToString();
+            user.user_code = "#" + s1 + "-" + random.Next(100, 999).ToString();
             //Mã hóa mật khẩu
             MD5 md5 = new MD5CryptoServiceProvider();
             md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(user.user_pass));
@@ -389,7 +451,7 @@ namespace FivePSocialNetwork.Controllers
             }
             // lưu mật khẩu đã mã hóa
             user.user_pass = strBuilder.ToString();
-            
+
             //lưu các thông tin còn lại
             user.user_token = Guid.NewGuid().ToString();
             user.role_id = 1;
@@ -410,6 +472,8 @@ namespace FivePSocialNetwork.Controllers
             user.user_silverMedal = 0;
             user.user_goldMedal = 0;
             user.user_brozeMedal = 0;
+            user.user_lastName = user.user_lastName;
+            user.user_firstName = user.user_firstName;
             db.Users.Add(user);
             db.SaveChanges();
             User sUser = db.Users.FirstOrDefault(n => n.user_email == user.user_email);
@@ -461,7 +525,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult SettingAccount(User user, string user_firstName , string user_lastName)
+        public ActionResult SettingAccount(User user, string user_firstName, string user_lastName)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             int user_id = 0;
@@ -469,7 +533,8 @@ namespace FivePSocialNetwork.Controllers
             if (Request.Cookies["user_id"] != null)
             {
                 user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
-            } else if (Request.Cookies["admin_id"] != null)
+            }
+            else if (Request.Cookies["admin_id"] != null)
             {
                 isAdmin = true;
                 user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
@@ -533,11 +598,11 @@ namespace FivePSocialNetwork.Controllers
             //lưu giới tính
             user.sex_id = user_sex;
             // lưu hình
-            if(user_sex == 1 && user.user_avatar == null)
+            if (user_sex == 1 && user.user_avatar == null)
             {
                 user.user_avatar = "Man.png";
             }
-            else if(user_sex == 2 && user.user_avatar == null)
+            else if (user_sex == 2 && user.user_avatar == null)
             {
                 user.user_avatar = "Girl.png";
             }
@@ -548,7 +613,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult BrithDay(User user , DateTime user_birthday)
+        public ActionResult BrithDay(User user, DateTime user_birthday)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             int user_id = 0;
@@ -634,7 +699,7 @@ namespace FivePSocialNetwork.Controllers
             // khi tồn tại cookies
 
             List<Teachnology_User> steachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id).ToList();
-            if(steachnology_User == null)
+            if (steachnology_User == null)
             {
                 foreach (var item in technology_id)
                 {
@@ -719,7 +784,7 @@ namespace FivePSocialNetwork.Controllers
                 user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             User user = db.Users.Find(user_id);
-            if((user.user_phone != null || user.user_phone != "" || user.user_email != null) && (user.user_verifyPhoneNumber == true || user.user_emailAuthentication == true))
+            if ((user.user_phone != null || user.user_phone != "" || user.user_email != null) && (user.user_verifyPhoneNumber == true || user.user_emailAuthentication == true))
             {
                 user.user_loginAuthentication = !user.user_loginAuthentication;
                 db.SaveChanges();
@@ -731,15 +796,15 @@ namespace FivePSocialNetwork.Controllers
         {
             // khi tồn tại cookies
             int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
-            
+
             User user = db.Users.Find(user_id);
             if ((user.user_phone != null || user.user_phone != "") && user.user_verifyPhoneNumber == true)
             {
-                if(user.user_SecurityAccount == false)
+                if (user.user_SecurityAccount == false)
                 {
                     user.user_SecurityAccount = true;
                 }
-                else if(user.user_SecurityAccount == true)
+                else if (user.user_SecurityAccount == true)
                 {
                     var userphone = user.user_phone;
                     var remove = userphone.ToString().Remove(0, 1);
@@ -748,7 +813,7 @@ namespace FivePSocialNetwork.Controllers
                     var verificationCodesPhone = random.Next(100000, 999999).ToString();
                     Session["verificationCodesPhone"] = verificationCodesPhone;
                     Session.Timeout = 3;
-                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                     var from = new PhoneNumber("+19794065417");
                     var message = MessageResource.Create(
                         from: from,
@@ -789,7 +854,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Email(User user, string user_email , string password)
+        public ActionResult Email(User user, string user_email, string password)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             int user_id = 0;
@@ -819,7 +884,7 @@ namespace FivePSocialNetwork.Controllers
                 Session["checkPass"] = "Mật khẩu không đúng! Vui lòng nhập lại mật khẩu.";
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            if(db.Users.Find(user_id).user_SecurityAccount == true)
+            if (db.Users.Find(user_id).user_SecurityAccount == true)
             {
                 Session["email"] = user_email;
                 var userphone = db.Users.Find(user_id).user_phone;
@@ -830,7 +895,7 @@ namespace FivePSocialNetwork.Controllers
                 Session["verificationCodesPhone"] = verificationCodesPhone;
                 Session.Timeout = 3;
                 var from = new PhoneNumber("+19794065417");
-                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                 var message = MessageResource.Create(
                     body: "Five_P xin chào " + user.user_firstName + " " + user.user_lastName + " Mã xác thực của bạn là : " + verificationCodesPhone,
                     from: new Twilio.Types.PhoneNumber("+19794065417"),
@@ -885,26 +950,45 @@ namespace FivePSocialNetwork.Controllers
             User user = db.Users.Find(user_id);
             try
             {
-                WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                WebMail.SmtpPort = 587; // Cổng
-                WebMail.SmtpUseDefaultCredentials = true;
-                //Gửi gmail với giao thức bảo mật.
-                //Gửi gmail với giao thức bảo mật.
-                WebMail.EnableSsl = true;
-                //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                WebMail.UserName = "hoangvuong1225@gmail.com";
-                WebMail.Password = "Hoangvuong1";
-                // Nội dung gửi.
-                WebMail.From = "hoangvuong1225@gmail.com";
-
                 Random random = new Random();
-                var code = random.Next(100000,999999).ToString();
+                var code = random.Next(100000, 999999).ToString();
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                mailMessage.To.Add(new MailAddress(user.user_email));
                 string strTitle = "Mã xác nhận : " + code;
+                mailMessage.Subject = "Mã xác nhận của Five_P";
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = strTitle;
+
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                client.Host = "smtpout.secureserver.net";
+                client.Port = 80;
+
+                client.Send(mailMessage);
+
+
+
+                //WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                //WebMail.SmtpPort = 587; // Cổng
+                //WebMail.SmtpUseDefaultCredentials = true;
+                ////Gửi gmail với giao thức bảo mật.
+                ////Gửi gmail với giao thức bảo mật.
+                //WebMail.EnableSsl = true;
+                ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                //WebMail.UserName = "hoangvuong1225@gmail.com";
+                //WebMail.Password = "Hoangvuong1";
+                //// Nội dung gửi.
+                //WebMail.From = "hoangvuong1225@gmail.com";
+
+
+
+
                 Session["confirmemail"] = code;
                 Session.Timeout = 3;
-                //Gửi gmail.
-                WebMail.Send(to: user.user_email, subject: "Mã xác nhận của Five_P", body: strTitle, isBodyHtml: true);
-                ViewBag.notification = "Không gửi được email111";
+                ////Gửi gmail.
+                //WebMail.Send(to: user.user_email, subject: "Mã xác nhận của Five_P", body: strTitle, isBodyHtml: true);
+
                 return RedirectToAction("EmailAuthentication");
             }
             catch (Exception ex)
@@ -971,7 +1055,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Numberphone(User user, string user_phone ,string password)
+        public ActionResult Numberphone(User user, string user_phone, string password)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             int user_id = 0;
@@ -986,7 +1070,7 @@ namespace FivePSocialNetwork.Controllers
             // khi tồn tại cookies
             //kiểm tra sdt này đã tồn tại chưa
             User checkPhone = db.Users.FirstOrDefault(n => n.user_phone == user_phone && n.user_id != user_id);
-            if(checkPhone != null)
+            if (checkPhone != null)
             {
                 Session["checkPhone"] = "Số điện thoại này đã được đăng ký! Vui lòng điền số khác.";
                 Session.Timeout = 3;
@@ -1019,7 +1103,7 @@ namespace FivePSocialNetwork.Controllers
                 var verificationCodesPhone = random.Next(100000, 999999).ToString();
                 Session["verificationCodesPhone"] = verificationCodesPhone;
                 Session.Timeout = 3;
-                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                 var from = new PhoneNumber("+19794065417");
                 var message = MessageResource.Create(
                     from: from,
@@ -1096,7 +1180,7 @@ namespace FivePSocialNetwork.Controllers
             Session["verificationCodesPhone"] = verificationCodesPhone;
             Session.Timeout = 3;
             var from = new PhoneNumber("+19794065417");
-            TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+            TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
             var message = MessageResource.Create(
                 body: "Five_P xin chào " + user.user_firstName + " " + user.user_lastName + " Mã xác thực của bạn là : " + verificationCodesPhone,
                 from: new Twilio.Types.PhoneNumber("+19794065417"),
@@ -1329,7 +1413,7 @@ namespace FivePSocialNetwork.Controllers
                     sstrBuilder.Append(sresult[i].ToString("x2"));
                 }
                 newPass = sstrBuilder.ToString();
-                if(user.user_SecurityAccount == true)
+                if (user.user_SecurityAccount == true)
                 {
                     Session["password"] = newPass;
                     var userphone = user.user_phone;
@@ -1339,7 +1423,7 @@ namespace FivePSocialNetwork.Controllers
                     var verificationCodesPhone = random.Next(100000, 999999).ToString();
                     Session["verificationCodesPhone"] = verificationCodesPhone;
                     Session.Timeout = 3;
-                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                    TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                     var from = new PhoneNumber("+19794065417");
                     var message = MessageResource.Create(
                         from: new Twilio.Types.PhoneNumber("++19794065417"),
@@ -1362,7 +1446,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         public ActionResult AuthenticationChangePassword(string codeAuthentication)
         {
-            if(codeAuthentication == Session["verificationCodesPhone"].ToString())
+            if (codeAuthentication == Session["verificationCodesPhone"].ToString())
             {
                 int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
                 db.Users.Find(user_id).user_pass = Session["password"].ToString();
@@ -1395,7 +1479,7 @@ namespace FivePSocialNetwork.Controllers
             }
             // khi tồn tại cookies
             User user = db.Users.Find(user_id);
-            if(user_avatar == null)
+            if (user_avatar == null)
             {
                 user.user_avatar = "user.png";
                 db.SaveChanges();
@@ -1408,14 +1492,14 @@ namespace FivePSocialNetwork.Controllers
             {
                 Random random = new Random();
                 var ram = random.Next();
-                var varFileImg2 = Path.GetFileName(ram+user_avatar.FileName);
+                var varFileImg2 = Path.GetFileName(ram + user_avatar.FileName);
                 var pa2 = Path.Combine(Server.MapPath("~/Image/Users"), varFileImg2);
-                if(System.IO.File.Exists(pa2))
+                if (System.IO.File.Exists(pa2))
                 {
                     return Redirect(Request.UrlReferrer.ToString());
                 }
                 user_avatar.SaveAs(pa2);
-                user.user_avatar = ram+user_avatar.FileName;
+                user.user_avatar = ram + user_avatar.FileName;
                 db.SaveChanges();
                 return Redirect(Request.UrlReferrer.ToString());
             }
@@ -1482,7 +1566,7 @@ namespace FivePSocialNetwork.Controllers
             String strSend = f["send"].ToString();
             User userPhone = db.Users.FirstOrDefault(n => n.user_phone == strSend && n.user_verifyPhoneNumber == true);
             User userEmail = db.Users.FirstOrDefault(n => n.user_email == strSend && n.user_emailAuthentication == true);
-            if(userPhone !=null)
+            if (userPhone != null)
             {
                 var userphone = strSend;
                 var remove = userphone.ToString().Remove(0, 1);
@@ -1503,7 +1587,7 @@ namespace FivePSocialNetwork.Controllers
                 var password = sstrBuilder.ToString();
                 userPhone.user_pass = password;
                 db.SaveChanges();
-                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "bb3954db9fd7b8ea6d4ac95156e61450");
+                TwilioClient.Init("AC575ae7d10fab1921eb5f72bbf35ce76f", "ca181f77490be0fa10dce1a6b0a1404c");
                 var from = new PhoneNumber("+19794065417");
                 var message = MessageResource.Create(
                     from: new Twilio.Types.PhoneNumber("++19794065417"),
@@ -1513,20 +1597,20 @@ namespace FivePSocialNetwork.Controllers
                 Content(message.Sid);
                 return RedirectToAction("Login");
             }
-            else if(userEmail != null)
+            else if (userEmail != null)
             {
                 try
                 {
-                    WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
-                    WebMail.SmtpPort = 587; // Cổng
-                    WebMail.SmtpUseDefaultCredentials = true;
-                    //Gửi gmail với giao thức bảo mật.
-                    WebMail.EnableSsl = true;
-                    //Tài khoản dùng để đăng nhập vào gmail để gửi.
-                    WebMail.UserName = "hoangvuong1225@gmail.com";
-                    WebMail.Password = "Hoangvuong1";
-                    // Nội dung gửi.
-                    WebMail.From = "hoangvuong1225@gmail.com";
+                    //WebMail.SmtpServer = "smtp.gmail.com";//Máy chủ gmail.
+                    //WebMail.SmtpPort = 587; // Cổng
+                    //WebMail.SmtpUseDefaultCredentials = true;
+                    ////Gửi gmail với giao thức bảo mật.
+                    //WebMail.EnableSsl = true;
+                    ////Tài khoản dùng để đăng nhập vào gmail để gửi.
+                    //WebMail.UserName = "hoangvuong1225@gmail.com";
+                    //WebMail.Password = "Hoangvuong1";
+                    //// Nội dung gửi.
+                    //WebMail.From = "hoangvuong1225@gmail.com";
 
                     Random random = new Random();
                     var code = random.Next(100000, 999999).ToString();
@@ -1545,10 +1629,27 @@ namespace FivePSocialNetwork.Controllers
                     db.SaveChanges();
 
                     string strTitle = "Mật khẩu mới của bạn là : " + code;
+
+                    //Gửi gmail.
+                    //WebMail.Send(to: userEmail.user_email, subject: "Mật khẩu mới của bạn trên Five_P", body: strTitle, isBodyHtml: true);
+
+
+                    MailMessage mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                    mailMessage.To.Add(new MailAddress(userEmail.user_email));
+
+                    mailMessage.Subject = "Mật khẩu mới của bạn trên Five_P";
+                    mailMessage.IsBodyHtml = true;
+                    mailMessage.Body = strTitle;
+
+                    SmtpClient client = new SmtpClient();
+                    client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                    client.Host = "smtpout.secureserver.net";
+                    client.Port = 80;
                     Session["confirmemail"] = code;
                     Session.Timeout = 3;
-                    //Gửi gmail.
-                    WebMail.Send(to: userEmail.user_email, subject: "Mật khẩu mới của bạn trên Five_P", body: strTitle, isBodyHtml: true);
+                    client.Send(mailMessage);
+
                     return RedirectToAction("Login");
                 }
                 catch (Exception)

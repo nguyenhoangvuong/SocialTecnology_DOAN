@@ -96,19 +96,6 @@ $('.ui.form')
                     }
                 ]
             },
-            question_content: {
-                identifier: 'question_content',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Vui lòng nhập nội dung!'
-                    },
-                    {
-                        type: 'minLength[15]',
-                        prompt: 'Tối thiểu 15 ký tự!'
-                    }
-                ]
-            },
             tagsQuestion: {
                 identifier: 'tagsQuestion',
                 rules: [

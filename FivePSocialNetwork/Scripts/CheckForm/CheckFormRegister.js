@@ -15,6 +15,25 @@
 
                 ]
             },
+            user_firstName: {
+                identifier: 'user_firstName',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng nhập thông tin'
+                    },
+
+                ]
+            },
+            user_lastName: {
+                identifier: 'user_lastName',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng nhập thông tin'
+                    },
+                ]
+            },
             user_pass: {
                 identifier: 'user_pass',
                 rules: [
@@ -52,5 +71,4 @@
         },
         inline: true,
         on: 'blur'
-    })
-;
+    });

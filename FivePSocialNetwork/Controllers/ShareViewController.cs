@@ -257,7 +257,7 @@ namespace FivePSocialNetwork.Controllers
       ,[role_id],[user_code],[user_avatar],[user_coverImage],[user_activate],[user_recycleBin],[user_dateCreate],[user_dateEdit]
       ,[user_dateLogin],[user_emailAuthentication],[user_verifyPhoneNumber],[user_loginAuthentication],[provincial_id]
       ,[district_id],[commune_id],[user_addressRemaining],[sex_id],[user_linkFacebook],[user_linkGithub],[user_anotherWeb],[user_hobbyWork],[user_hobby],[user_birthday],[user_popular],[user_goldMedal],[user_silverMedal],[user_brozeMedal]
-      ,[user_vipMedal],[user_phone],[user_statusOnline],[user_SecurityAccount]FROM [dbo].[User]", connection))
+      ,[user_vipMedal],[user_phone],[user_statusOnline],[user_SecurityAccount]FROM [dbo].[User] ", connection))
                 {
                     // Make sure the command object does not already have
                     // a notification object associated with it.
@@ -274,7 +274,9 @@ namespace FivePSocialNetwork.Controllers
                     if (Request.Cookies["user_id"] != null)
                     {
                         int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
-                        List<Friend> friends = db.Friends.Where(n => (n.userResponse_id == user_id || n.userRequest_id == user_id) && n.friend_recycleBin == false && n.friend_status == true).ToList();
+                        User user = db.Users.Find(user_id);
+                        List<Friend> friends = db.Friends.Where(n => (n.userResponse_id == user_id || n.userRequest_id == user_id) && n.friend_recycleBin == false && n.friend_status == true ).ToList();
+                       
                         List<ListUsers> fiterUsers = new List<ListUsers>();
                         foreach (var item in friends)
                         {
@@ -356,6 +358,7 @@ namespace FivePSocialNetwork.Controllers
                 user_id = int.Parse(Request.Cookies["admin_id"].Value.ToString());
             }
             List<ListUsers> listUser = new List<ListUsers>();
+            var user = db.Users.Find(user_id);
             List<Teachnology_User> teachnology_User = db.Teachnology_User.Where(n => n.user_id == user_id && n.technology_recycleBin == false).ToList();
             List<Teachnology_User> teachnology_Users = db.Teachnology_User.Where(n => n.technology_recycleBin == false && n.user_id != user_id).ToList();
             // lấy ds bạn bè
@@ -405,6 +408,8 @@ namespace FivePSocialNetwork.Controllers
                 user_silverMedal = n.user_silverMedal,
                 user_brozeMedal = n.user_brozeMedal,
                 user_avatar = n.user_avatar,
+                provincial_id = n.provincial_id,
+              
             }).ToList();
             // ^
             //lọc các user cùng công nghệ
@@ -424,15 +429,41 @@ namespace FivePSocialNetwork.Controllers
                             user_goldMedal = item2.User.user_goldMedal,
                             user_silverMedal = item2.User.user_silverMedal,
                             user_brozeMedal = item2.User.user_brozeMedal,
-                            user_avatar = item2.User.user_avatar
+                            user_avatar = item2.User.user_avatar,
+                            provincial_id=item2?.User.provincial_id,
+                            district_id = item2?.User.district_id,
+
                         });
                     }
                 }
             }
+            if (listUser.Count== 0)
+            {
+                foreach (var item2 in teachnology_Users)
+                {
+                     listUser.Add(new ListUsers
+                        {
+                            user_id = (int)item2.user_id,
+                            user_statusOnline = item2.User.user_statusOnline,
+                            user_firstName = item2.User.user_firstName,
+                            user_lastName = item2.User.user_lastName,
+                            user_vipMedal = item2.User.user_vipMedal,
+                            user_goldMedal = item2.User.user_goldMedal,
+                            user_silverMedal = item2.User.user_silverMedal,
+                            user_brozeMedal = item2.User.user_brozeMedal,
+                            user_avatar = item2.User.user_avatar,
+                            provincial_id = item2?.User.provincial_id,
+                            district_id = item2?.User.district_id,
+
+                        });
+                    
+                }
+            }
+           
             List<ListUsers> listUsers = listUser.GroupBy(n => n.user_id).Select(n => n.FirstOrDefault()).ToList();
             //lọc các user ko phải bạn bè
             List<ListUsers> listSuggestiotMakeFriends = new List<ListUsers>();
-            int temp = 0;
+            int temp = 1;
             foreach (var item in listUsers)
             {
                 foreach (var item2 in listFriend)
@@ -459,10 +490,17 @@ namespace FivePSocialNetwork.Controllers
                         user_goldMedal = item.user_goldMedal,
                         user_silverMedal = item.user_silverMedal,
                         user_brozeMedal = item.user_brozeMedal,
-                        user_avatar = item.user_avatar
+                        user_avatar = item.user_avatar,
+                        provincial_id = item?.provincial_id,
+                        district_id = item?.district_id,
+
                     });
-                    temp = 0;
+                    temp = 1;
                 }
+            }
+            if (user != null)
+            {
+                listSuggestiotMakeFriends = listSuggestiotMakeFriends.Where(x => x.provincial_id == user?.provincial_id && x.district_id == user?.district_id).ToList();
             }
             return Json(listSuggestiotMakeFriends, JsonRequestBehavior.AllowGet);
         }
