@@ -13,12 +13,9 @@
     .scroll_text {
         overflow: auto;
         padding: 0px 15px;
-<<<<<<< Updated upstream
-    }
-=======
-        max-height:450px;
+
+        max-height:450px
     }   
->>>>>>> Stashed changes
 
         .scroll_text::-webkit-scrollbar {
             width: 8px;
@@ -36,6 +33,10 @@
             .scroll_text::-webkit-scrollbar-thumb:hover {
                 background-color: #000;
             }
+
+    .w-100.question > p {
+        margin-bottom:0 !important;
+    }
 
     .custom-toggle-slider:before {
         bottom: 2.7px;
@@ -341,10 +342,10 @@
                                                                     <i class="fa fa-angle-down"></i>
                                                                 </div>
                                                                 <div>
-                                                                    <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                                    <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                                                 </div>
                                                                 <div>
-                                                                    <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                                    <small style="font-size:14px">{{x.question_Answer}} đáp án</small>
                                                                 </div>
                                                                 <div ng-show="x.question_userStatus == true" style="font-size:12px" data-toggle="tooltip" data-placement="right" title="Mọi người xem">
                                                                     <i class="fas fa-globe-europe" style="font-size:120%;"></i>
@@ -360,7 +361,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-12">
                                                                     <h2 class="w-100 text-info">
-                                                                        <span class="bg-info text-white" style="border-radius:5px "><small class="p-1">+{{x.question_popular}}</small></span>
+                                                                        <span class="bg-info text-white" style="border-radius:5px;font-size:13px;padding:5px">+{{x.question_popular}}</span>
                                                                         <a ng-href="/FunctionAtDetailQuestion/DetailQuestion?id={{x.question_id}}">
                                                                             {{x.question_title}}
                                                                         </a>
@@ -373,8 +374,8 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-lg-7 mt-3">
-                                                                    Công nghệ :
-                                                                    <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id"> {{y.technology_name}} |</a>
+                                                                    <strong>Công nghệ :</strong>
+                                                                    <a ng-repeat="y in listTechnologyQuestion" class="badge bg-info text-white text-decoration-none" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id"> {{y.technology_name}}</a>
 
                                                                 </div>
                                                                 <div class="col-lg-5">
@@ -422,10 +423,10 @@
                                                                     <i class="fa fa-angle-down"></i>
                                                                 </div>
                                                                 <div>
-                                                                    <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                                    <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                                                 </div>
                                                                 <div>
-                                                                    <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
+                                                                    <small style="font-size:14px">{{x.question_Answer}} đáp án</small>
                                                                 </div>
                                                             </div>
                                                         </center>
@@ -448,7 +449,7 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-lg-7 mt-3">
-                                                                    Công nghệ :
+                                                                    <strong>Công nghệ :</strong>
                                                                     <a ng-repeat="y in listTechnologyQuestion" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" ng-show="y.question_id == x.question_id"> {{y.technology_name}} |</a>
 
                                                                 </div>

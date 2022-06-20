@@ -8,7 +8,7 @@
     <div class="content">
         <div class="page-inner">
             <div class="page-header">
-                <h4 class="page-title">Database tỉnh</h4>
+                <h4 class="page-title">Database tố cáo</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="#">
@@ -32,36 +32,36 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="">
-                        <div>
+                        <strong>
                             Người tố
-                        </div>
+                        </strong>
                         <div>
                             @Model.User.user_firstName @Model.User.user_lastName
                         </div>
                         <hr />
-                        <div>
+                        <strong>
                             Người bị tố
-                        </div>
+                        </strong>
                         <div>
                             @Model.User1.user_firstName @Model.User1.user_lastName
 
                         </div>
                         <hr />
-                        <div>
+                        <strong>
                             Nội dung
-                        </div>
+                        </strong>
                         <div>
                             @Model.denounceUser_content
                         </div>
                         <hr />
-                        <div>
+                        <strong>
                             Ngày tố
-                        </div>
+                        </strong>
                         <div>
                             @Model.denounceUser_dateCreate
                         </div>
                         <hr />
-                        <div>
+                        <div style="color:tomato">
                             @if(Model.denounce_status == true)
                             {
                                 @:Đã duyệt

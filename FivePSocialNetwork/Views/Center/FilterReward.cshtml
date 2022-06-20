@@ -13,6 +13,7 @@
     FivePSocialNetWorkEntities db = new FivePSocialNetWorkEntities();
 }
 <link href="~/assets/Center/css/IndexCenter.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="~/assets/ckeditor5/build/ckeditor.js"></script>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=749423075946841&autoLogAppEvents=1" nonce="oDtRcKOv"></script>
@@ -41,7 +42,7 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </div>
                                             <div>
-                                                <small style="font-size:12px">{{x.question_view}} lượt xem</small>
+                                                <small style="font-size:14px">{{x.question_view}} lượt xem</small>
                                             </div>
                                             <div>
                                                 <small style="font-size:12px">{{x.question_Answer}} đáp án</small>
@@ -68,14 +69,13 @@
                                             </div>
                                             <div class="col-lg-7 mt-3">
                                                 Công nghệ :
-                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}"> {{y.technology_name}} |</a>
+                                                <a ng-repeat="y in listTechnologyQuestion" ng-show="y.question_id == x.question_id" ng-href="/Center/ShowFollowTechnology?id={{y.technology_id}}" class="badge bg-info text-white mr-1"> {{y.technology_name}}</a>
                                             </div>
-                                            <div class="col-lg-5">
-                                                <a ng-href="/UserManagement/PageUser?id=x.user_id">
-                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
-
-                                                    <b style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
+                                            <div class="col-lg-5 text-right">
+                                                <a ng-href="/UserManagement/PageUser?id=x.user_id" style="color: #5e72e4">
+                                                    <b style="font-family: Montserrat, sans-serif">{{x.user_firstName + " " + x.user_lastName}}</b>
                                                     <span>{{x.user_popular}} <i class="fas fa-fire" style="color:red"></i></span>
+                                                    <img src="~/Image/Users/{{x.user_avatar}}" style="width: 38px; height: 38px; border-radius: 50px; border: 1px solid green" />
                                                 </a>
                                                 <br />
                                                 <span class="h7 text-muted mt--2 border-bottom">{{x.user_vipMedal}}<i class="fab fa-galactic-senate" style="color:orangered;font-size:18px"></i> &nbsp;  {{x.user_goldMedal}} <i class="fas fa-award" style="color:yellow;font-size:11px"></i> &nbsp;  {{x.user_silverMedal}} <i class="fas fa-award" style="color:silver;font-size:11px"></i> &nbsp;  {{x.user_brozeMedal}} <i class="fas fa-award" style="color:#e88d15;font-size:11px"></i> </span>

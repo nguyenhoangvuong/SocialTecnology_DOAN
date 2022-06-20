@@ -20,7 +20,7 @@
                         <h5 class="text-white op-7 mb-2">Các bảng thống kê</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="#" class="btn btn-white btn-border btn-round mr-2">Quản lý người dùng</a>
+                        <p class="btn btn-white btn-border btn-round mr-2">OverSea</p>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                         <div class="card-header">
                             <div class="card-title">Top công nghệ</div>
                         </div>
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0" style="max-height:410px;overflow-y:scroll">
                             @foreach (var item in listTechnology)
                             {
                                 <div class="d-flex">
@@ -150,16 +150,17 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-body">
-                            <div class="card-title fw-mediumbold">Top user</div>
-                            <div class="card-list">
+                            <div class="card-header">
+                                <div class="card-title">Top User</div>
+                            </div>
+                            <div class="card-body pb-1" style="max-height:410px;overflow-y:scroll">
                                 @foreach (var item in listTopUser)
                                 {
-                                    <div class="item-list">
+                                    <div class="d-flex">
                                         <div class="avatar">
                                             <img src="~/Image/Users/@item.user_avatar" alt="..." class="avatar-img rounded-circle">
                                         </div>
-                                        <div class="info-user ml-3">
+                                        <div class="flex-1 pt-1 ml-2">
                                             <div class="username">@(item.user_lastName + " " + item.user_firstName)</div>
                                             <div class="status">@item.user_email</div>
                                         </div>
@@ -167,28 +168,28 @@
                                             <i class="fa fa-plus viewDetailUser" data-id="@item.user_id"></i>
                                         </button>
                                     </div>
+                                    <div class="separator-dashed"></div>
                                 }
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Top câu hỏi</div>
                         </div>
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0" style="max-height:550px;overflow-y:scroll;overflow-x:hidden;min-height:550px">
                         @{ int count = 1;}
                             @foreach (var item in listQuestionTop)
                             {
                                 <div class="d-flex">
-                                    <div>
+                                    <div style="margin-top:4px">
                                         @(count++)
                                     </div>
                                     <div class="flex-1 pt-1 ml-2">
-                                        <h6 class="fw-bold mb-1">@item.question_title</h6>
+                                        <h6 class="fw-bold mb-1 text-wrap">@item.question_title</h6>
                                         <a href="/FunctionAtDetailQuestion/DetailQuestion?id=@item.question_id"><small class="text-muted">Xem câu hỏi</small></a>
                                     </div>
                                     <div class="d-flex ml-auto align-items-center">
@@ -203,38 +204,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Top câu trả lời</div>
+                            <div class="card-title">Top user câu trả lời đúng</div>
                         </div>
-                        <div class="card-body pb-0">
-                            <div class="card-list">
-                                @foreach (var item in listAnswerTop)
-                                {
-                                    <div class="item-list">
-                                        <div class="avatar">
-                                            <img src="~/Image/Users/@item.user_avatar" alt="..." class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="info-user ml-3">
-                                            <div class="username">@(item.user_lastName + " " + item.user_firstName)</div>
-                                            <div class="status">@item.user_email</div>
-                                        </div>
-                                        <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                            <i class="fa fa-plus viewDetailUser" data-id="@item.user_id"></i>
-                                        </button>
+                        <div class="card-body pb-0" style="max-height:550px;overflow-y:scroll;overflow-x:hidden">
+                            @foreach (var item in listAnswerTop)
+                            {
+                                <div class="d-flex">
+                                    <div class="avatar">
+                                        <img src="~/Image/Users/@item.user_avatar" alt="..." class="avatar-img rounded-circle">
                                     </div>
-                                }
-                            </div>
+                                    <div class="flex-1 pt-1 ml-2">
+                                        <div class="username">@(item.user_lastName + " " + item.user_firstName)</div>
+                                        <div class="status">@item.user_email</div>
+                                    </div>
+                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                        <i class="fa fa-plus viewDetailUser" data-id="@item.user_id"></i>
+                                    </button>
+                                </div>
+                                <div class="separator-dashed"></div>
+                            }
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                @*<div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Top bài viết</div>
                         </div>
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0" style="max-height: 550px; overflow-y: scroll; overflow-x: hidden; min-height: 550px">
                             @{ count = 1;}
                             @foreach (var item in listPostTop)
                             {
@@ -257,7 +257,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -290,17 +290,17 @@
 </div>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:600px !important">
         Modal content
-        <div class="modal-content">
+        <div class="modal-content" style="width:600px">
             <div class="modal-header">
-                <h4 class="modal-title">Thong tin</h4>
+                <h4 class="modal-title">Thông tin</h4>
             </div>
             <div class="modal-body">
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>

@@ -72,7 +72,7 @@
                                                         <th scope="col">Stt</th>
                                                         <th scope="col">Name</th>
                                                         <th scope="col">Ngày tạo</th>
-                                                        <th scope="col">Thao tác</th>
+                                                        <th style="width:100px;text-align:right">Tùy chọn</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -101,7 +101,7 @@
                                             <th>Ngày tạo</th>
                                             <th>Ngày sửa</th>
                                             <th>Trạng thái</th>
-                                            <th style="width: 10%">Action</th>
+                                            <th style="width:100px;text-align:right">Tùy chọn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -132,10 +132,10 @@
                                             </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <button type="button" data-toggle="modal" id="btnEdit" data-target="#editRowModal{{x.role_id}}" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                    <button type="button" data-toggle="modal" id="btnEdit" data-target="#editRowModal{{x.role_id}}" title="" class="btn btn-link btn-primary btn-lg px-2" data-original-title="Edit Task">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button type="button" ng-click="recycleBinRole($index,x.role_id)" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                    <button type="button" ng-click="recycleBinRole($index,x.role_id)" data-toggle="tooltip" title="" class="btn btn-link btn-danger px-2" data-original-title="Remove">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </div>

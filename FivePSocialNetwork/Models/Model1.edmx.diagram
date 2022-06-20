@@ -29,7 +29,6 @@
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Search" Width="1.5" PointX="8.25" PointY="56.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Sex_User" Width="1.5" PointX="3.75" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Show_Activate_Question" Width="1.5" PointX="13.5" PointY="46.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FivePSocialNetWorkModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Tags_Question" Width="1.5" PointX="10.5" PointY="58.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Teachnology_Question" Width="1.5" PointX="10.5" PointY="52" IsExpanded="true" />
         <EntityTypeShape EntityType="FivePSocialNetWorkModel.Teachnology_User" Width="1.5" PointX="11.25" PointY="34.125" IsExpanded="true" />

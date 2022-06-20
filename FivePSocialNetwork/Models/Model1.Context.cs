@@ -50,7 +50,6 @@ namespace FivePSocialNetwork.Models
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<Sex_User> Sex_User { get; set; }
         public virtual DbSet<Show_Activate_Question> Show_Activate_Question { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tags_Question> Tags_Question { get; set; }
         public virtual DbSet<Teachnology_Question> Teachnology_Question { get; set; }
         public virtual DbSet<Teachnology_User> Teachnology_User { get; set; }
