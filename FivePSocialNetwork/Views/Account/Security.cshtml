@@ -222,7 +222,7 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <a href="@Url.Action("PageUser","UserManagement")">
-                                <img src="~/Image/Users/security.png" class="rounded-circle w-50 h-77" />
+                                <img src="https://thumbs.dreamstime.com/b/security-protection-symbol-vector-privacy-data-icon-security-protection-symbol-vector-privacy-data-icon-minimal-design-164731091.jpg" class="rounded-circle w-75 h-77" />
                             </a>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
                         List<User_IP> user_IPs = db.User_IP.Where(n => n.user_id == user_id).OrderByDescending(n=>n.userIP_dateLogin).ToList();
                     }
                     <div class="row">
-                        <div class="col-xl-9 card" style="height: 200px;overflow: scroll;">
+                        <div class="col-xl-12 card" style="height: 200px;overflow-y: scroll;">
                             @foreach(var item in user_IPs)
                             {
                                 <div>IP : @item.userIP_IP &nbsp;&nbsp;&nbsp;/ Ngày đăng nhập : @item.userIP_dateLogin</div>
