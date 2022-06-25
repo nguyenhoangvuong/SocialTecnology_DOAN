@@ -17,6 +17,90 @@ namespace FivePSocialNetwork.Controllers
         {
             return View();
         }
+        public ActionResult Like(int? id)
+        {
+            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            try
+            {
+                var Post = db.Rate_Post.Where(x => x.post_id == id && x.user_id == user_id).FirstOrDefault();
+                if (Post != null && Post.ratePost_rateStatus==true)
+                {
+                    db.Rate_Post.Remove(Post);
+                    db.SaveChanges();
+                }
+                else  
+                  if (Post != null)
+                {
+                    // db.Rate_Post.Remove(Post);
+                    Post.ratePost_rateStatus = true;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    Post = new Rate_Post()
+                    {
+                        post_id = id,
+                        user_id = user_id,
+                        ratePost_dateCreate = DateTime.Now,
+                        ratePost_rateStatus = true
+                    };
+                    db.Rate_Post.Add(Post);
+                    db.SaveChanges();
+                }
+            }
+            catch { }
+            return RedirectToAction("Post");
+        }
+
+
+        public ActionResult PostDetail(int? id)
+        {
+            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            ViewBag.UseId = user_id;
+            var Post = db.Posts.Where(x => x.post_id == id).FirstOrDefault();
+            Post.post_view++;
+            db.SaveChanges();
+            return View(Post);
+        }
+            public ActionResult DistLike(int? id)
+        {
+            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            try
+            {
+             
+               // PostD.post_totalDislike++;
+                db.SaveChanges();
+                var Post = db.Rate_Post.Where(x => x.post_id == id && x.user_id == user_id).FirstOrDefault();
+                if (Post != null && Post.ratePost_rateStatus==false)
+                {
+                    db.Rate_Post.Remove(Post);
+                   // Post.ratePost_rateStatus = false;
+                    db.SaveChanges();
+                }
+                else
+                  if (Post != null )
+                {
+                   // db.Rate_Post.Remove(Post);
+                     Post.ratePost_rateStatus = false;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    Post = new Rate_Post()
+                    {
+                        post_id = id,
+                        user_id = user_id,
+                        ratePost_dateCreate = DateTime.Now,
+                       ratePost_rateStatus = false
+
+                };
+                    db.Rate_Post.Add(Post);
+                    db.SaveChanges();
+                }
+            }
+            catch { }
+            return RedirectToAction("Post");
+        }
         // danh sách Menber
         public JsonResult ListMenber()
         {
@@ -60,7 +144,11 @@ namespace FivePSocialNetwork.Controllers
         }
         public ActionResult Post()
         {
-            return View();
+            // khi tồn tại cookies
+            // khi tồn tại cookies
+            int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+            ViewBag.UseId = user_id;
+                return View(db.Posts.Where(x=>x.post_activate!=false && x.post_admin_recycleBin!=true).OrderBy(x=>x.post_id).ToList());
         }
         // ------------------------------------------------danh sách bài viết------------------------------------------------
         public JsonResult ListPost()

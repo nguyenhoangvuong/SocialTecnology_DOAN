@@ -126,7 +126,7 @@
                 <div class="modal-body">
                     <div class="mt--6">
                         <div class="card-body">
-                            <form action="@Url.Action("AddPost","Question")" class="ui form" method="post">
+                            <form action="@Url.Action("AddPost","Question")" class="ui formpost" method="post">
                                 @Html.AntiForgeryToken()
                                 <div class="pl-lg-1">
                                     <div class="row">
@@ -136,19 +136,25 @@
                                         <div class="col-md-12">
                                             <div class="form-group field">
                                                 <label class="form-control-label" for="input-address"><i class="fas fa-pen-alt"></i> Tiêu để bài viết</label>
-                                                <input value="" name="question_title" class="form-control" placeholder="Tiêu đề" type="text">
+                                                <input value="" name="post_title" class="form-control" placeholder="Tiêu đề" type="text">
                                             </div>
                                         </div>
                                         <div class="col-md-12 mt-4">
                                             <div class="form-group field">
                                                 <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Nội dung bài viết</label>
-                                                <textarea class="form-control" id="editorPost" name="question_content1" placeholder="Nội dung"></textarea>
+                                                <textarea class="form-control" id="editorPost" name="Post_content" placeholder="Nội dung"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12 mt-4">
                                             <div class="form-group field">
-                                                <label class="form-control-label" for="input-address"><i class="far fa-edit"></i> Ảnh bài viết</label>
-                                                <input type="file" class="form-control" id="#" name="question_content1" placeholder="................................" />
+                                                <label class="form-control-label" for="input-address" onclick="$('.addImg').trigger( 'click' )" ><i class="far fa-edit"></i> Ảnh bài viết</label>
+                                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="image/*"  placeholder="................................" />
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-12 mt-4 ml-2">
+                                            <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -199,3 +205,63 @@
     </div>
 
 </div>
+    <script>
+
+ 
+
+      
+        function readURL(input) {
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var img = $('#file-upload-content');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: '/File/UploadFiles', //URL to upload files
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                data: fileData,
+                success: function (result) {
+                    console.log(result)
+                    $(img).empty();
+                    $.each(result.Img, function (k, v) {
+                        var let = ` <div class="col-2">
+                        <img src="${v}" class="img-thumbnail" alt="...">
+                    </div>`;
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+        $('.ui.formpost')
+            .form({
+                fields: {
+                    post_title: {
+                        identifier: 'post_title',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Vui lòng nhập tiêu đề!'
+                            }
+                        ]
+                    },
+                   
+                },
+                inline: true,
+                on: 'blur'
+            })
+            ;
+    </script>

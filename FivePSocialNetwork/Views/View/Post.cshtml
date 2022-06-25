@@ -1,8 +1,10 @@
-﻿
+﻿@model List<Post>
 @{
     ViewBag.Title = "Post";
     Layout = "~/Views/Shared/_LayoutCenter.cshtml";
+    var Id = ViewBag.UseId;
 }
+@using FivePSocialNetwork.Models;
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="~/Content/Add/MessGroup.css" rel="stylesheet" />
@@ -57,77 +59,94 @@
 
                 <div class="border p-2">
                     <!-- post header -->
+                    @foreach (var item in Model.ToList())
+                    {
 
-                    <div class="row">
-                        <div class="col-2">
-                            <center>
-                                <i class="far fa-thumbs-up" style="font-size:150%;">4</i>
 
-                            </center>
-                            <center class="mt-4 mb-4">
+<div class="row">
+    <div class="col-2">
+        @{
+            if (item.Rate_Post.Where(X => X.user_id == Id && X.ratePost_rateStatus == true).Count() > 0)
+            {
+                <center>
+                    <a href="/View/Like/@item.post_id"><i class="far fa-thumbs-up text-blue" style="font-size:150%;">@item.Rate_Post.Where(X => X.ratePost_rateStatus == true).Count()</i></a>
 
-                                <i class="fas fa-eye" style="font-size:150%;">6</i>
-                            </center>
-                            <center>
+                </center>
+            }
+            else
+            {
+                <center>
+                    <a class="text-dark" href="/View/Like/@item.post_id"><i class="far fa-thumbs-up " style="font-size:150%;">@item.Rate_Post.Where(X => X.ratePost_rateStatus == true).Count()</i></a>
 
-                                <i class="far fa-thumbs-down" style="font-size:150%;">3</i>
-                            </center>
+                </center>
+            }
+        }
+
+        <center class="mt-4 mb-4">
+
+            <i class="fas fa-eye" style="font-size:150%;">@item.post_view</i>
+        </center>
+        @{
+            if (item.Rate_Post.Where(X => X.user_id == Id && X.ratePost_rateStatus == false).Count() > 0)
+            {
+                <center>
+                    <a href="/View/DistLike/@item.post_id"><i class="far fa-thumbs-down text-blue" style="font-size:150%;">@item.Rate_Post.Where(X => X.ratePost_rateStatus == false).Count()</i></a>
+
+                </center>
+            }
+            else
+            {
+                <center>
+                    <a  class="text-dark" href="/View/DistLike/@item.post_id"><i class="far fa-thumbs-down" style="font-size:150%;">@item.Rate_Post.Where(X => X.ratePost_rateStatus == false).Count()</i></a>
+
+                </center>
+            }
+        }
+
+    </div>
+    <div class="col-10">
+        <div class="row m-0">
+            <div class="">
+                <a class="text-decoration-none" href="">
+                    <img class="" src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png" width="50" height="50" alt="...">
+
+                    <img class="profile-pic" src="@item.post_image" width="100" height="100" alt="...">
+
+
+                </a>
+            </div>
+            <div class="flex-grow-1 pl-2">
+                <a class="text-decoration-none" href="/View/PostDetail/@item.post_id">
+                    <h2 class="text-capitalize h5 mb-0">  @item.post_title</h2>
+                </a>
+                <a class="text-decoration-none" href="">
+                    <h2 class="text-capitalize h5 mb-0"> Người tạo: @(item?.User?.user_firstName + " " + item?.User?.user_lastName)  </h2>
+                </a>
+                <p>@item.post_dateCreate.Value.ToString("dd-MM-yyyyy") <i class="far fa-calendar-alt"></i></p>
+
+            </div>
+
+            <div class="dropdown">
+                <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item text-primary" href="#"><i class="far fa-edit"></i> Sửa câu hỏi</a>
+                    <a class="dropdown-item text-primary" href="#"><i class="fas fa-eraser"></i> Xóa câu hỏi</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- post body -->
+
+     
+
+
+    </div>
                         </div>
-                        <div class="col-10">
-                            <div class="row m-0">
-                                <div class="">
-                                    <a class="text-decoration-none" href="">
-                                        <img class="" src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png" width="50" height="50" alt="...">
+                    }
 
-                                        <img class="profile-pic" src="~/Content/LayoutCenter/ImgUser/.." width="50" height="50" alt="...">
-
-
-                                    </a>
-                                </div>
-                                <div class="flex-grow-1 pl-2">
-                                    <a class="text-decoration-none" href="">
-                                        <h2 class="text-capitalize h5 mb-0">..</h2>
-                                    </a>
-                                    <p class="small text-dark m-0 mt-1">..<i class="fab fa-galactic-senate" style="color:orangered;font-size:28px"></i> ..<i class="fas fa-medal" style="color:yellow"></i>..<i class="fas fa-medal" style="color:silver"></i>.l<i class="fas fa-medal" style="color:#e88d15"></i>  </p>
-
-                                </div>
-
-                                <div class="dropdown">
-                                    <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item text-primary" href="#"><i class="far fa-edit"></i> Sửa câu hỏi</a>
-                                        <a class="dropdown-item text-primary" href="#"><i class="fas fa-eraser"></i> Xóa câu hỏi</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- post body -->
-                            <div class="">
-                                <p class="my-2" style="font-weight:600">
-                                    <h1....</h1>
-                                </p>
-                            </div>
-                            <div class="">
-                                <p class="my-2">
-                                    ..
-                                </p>
-                            </div>
-                            <div class="text-right">
-                                <div class="fb-like" data-href="https://localhost:44351/DetailQuestion/IndexDetailQuestion/MTEwNw%3d%3d" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
-                            </div>
-                            <div class="text-right">
-                                <p>...... <i class="far fa-calendar-alt"></i></p>
-                            </div>
-
-                            <div>
-                                <span class="badge badge-primary">...</span>
-
-                            </div>
-                        </div>
-                    </div>
                     <!-- post footer begins -->
                 </div>
             </section>

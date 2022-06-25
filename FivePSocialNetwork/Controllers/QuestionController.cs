@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FivePSocialNetwork.Models;
+using FivePSocialNetwork.Models.Json;
 
 namespace FivePSocialNetwork.Controllers
 {
@@ -37,6 +38,46 @@ namespace FivePSocialNetwork.Controllers
                 return View(question);
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        [ValidateInput(false)]
+        public ActionResult AddPost(FormCollection collection) {
+
+            var Tile = collection["post_title"];
+            var Des = collection["Post_content"];
+            try
+            {
+                List<string> Img = (List<string>)Session["Img"];
+                // khi tồn tại cookies
+                int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
+                if (user_id > 0)
+                {
+                    Post post = new Post()
+                    {
+                        post_content = Des,
+                        post_title = Tile,
+                        post_image = string.Join(",", Img),
+                        post_admin_recycleBin = false,
+                        post_activate = false,
+                        post_totalLike = 0,
+                        post_userStatus = true,
+                        user_id = user_id,
+                        post_view = 0,
+                        post_dateCreate=DateTime.Now,
+                        post_recycleBin=false,
+
+                    };
+                    db.Posts.Add(post);
+                    db.SaveChanges();
+
+                }
+               
+            }
+            catch { }
+            return RedirectToAction("Post", "View");
+            } 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]

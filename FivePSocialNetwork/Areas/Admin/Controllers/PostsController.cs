@@ -14,9 +14,22 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
         // GET: Admin/Posts
         public ActionResult Index()
         {
-            return View();
+            return View(db.Posts.Where(x => x.post_recycleBin != true).OrderBy(x=>x.post_admin_recycleBin).OrderByDescending(x => x.post_id).ToList());
         }
+        // GET: Admin/Posts
+        public ActionResult Active(int ? id)
+        {
+            try {
+               var post= db.Posts.Find(id);
+                post.post_activate = !post.post_activate;
+                db.SaveChanges();
 
+
+
+            } catch { }
+            return RedirectToAction("Index");
+        }
+        
         //xóa tạm thời 
         public JsonResult RecycleBinPost(int? id)
         {
@@ -28,7 +41,7 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
 
         public JsonResult RecycleBinPostJson()
         {
-            List<Post> questions = db.Posts.Where(x => x.post_admin_recycleBin == true).ToList();
+            List<Post> questions = db.Posts.Where(x => x.post_recycleBin != true).OrderBy(x => x.post_admin_recycleBin).OrderByDescending(x => x.post_id).ToList();
             List<ListPosts> listQuestions = questions.Select(n => new ListPosts
             {
                 post_id = n.post_id,
@@ -55,7 +68,7 @@ namespace FivePSocialNetwork.Areas.Admin.Controllers
 
         public JsonResult PostJson()
         {
-            List<Post> questions = db.Posts.Where(x => x.post_admin_recycleBin == false).ToList();
+            List<Post> questions = db.Posts.Where(x => x.post_recycleBin != true).ToList();
             List<ListPosts> listQuestions = questions.Select(n => new ListPosts
             {
                 post_id = n.post_id,

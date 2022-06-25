@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("IndexCenter","Center")">
                             <i class="far fa-question-circle text-orange" style="font-size:15px"></i>
-                            <span class="nav-link-text"  style="font-size:15px">Câu hỏi</span>
+                            <span class="nav-link-text" style="font-size:15px">Câu hỏi</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -35,28 +35,33 @@
                             <span class="nav-link-text" style="font-size:15px">Công nghệ</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Post","View")">
-                            <i class="far fa-newspaper text-info" style="font-size:15px"></i>
-                            <span class="nav-link-text" style="font-size:15px">Bài viết</span>
-                        </a>
-                    </li>
+                    @if (Request.Cookies["user_id"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Post","View")">
+                                <i class="far fa-newspaper text-info" style="font-size:15px"></i>
+                                <span class="nav-link-text" style="font-size:15px">Bài viết</span>
+                            </a>
+                        </li>
+ }
+
+
                     @*<li class="nav-item">
-                        <a class="nav-link" href="examples/tables.html">
-                            <i class="far fa-newspaper text-info"></i>
-                            <span class="nav-link-text">
-                                Status
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="examples/tables.html">
-                            <i class="fas fa-briefcase text-pink"></i>
-                            <span class="nav-link-text">
-                                công việc
-                            </span>
-                        </a>
-                    </li>*@
+            <a class="nav-link" href="examples/tables.html">
+                <i class="far fa-newspaper text-info"></i>
+                <span class="nav-link-text">
+                    Status
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="examples/tables.html">
+                <i class="fas fa-briefcase text-pink"></i>
+                <span class="nav-link-text">
+                    công việc
+                </span>
+            </a>
+        </li>*@
                 </ul>
                 <!-- Divider -->
                 <hr class="my-3">

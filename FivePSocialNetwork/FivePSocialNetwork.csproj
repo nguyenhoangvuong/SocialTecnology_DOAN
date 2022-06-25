@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
     <Compile Include="Controllers\ControllerFramword\TestMessageController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FunctionAtDetailQuestionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -4354,12 +4355,16 @@
     <Content Include="Views\TestMessage\Chat.cshtml" />
     <Content Include="Views\ShareView\FriendIndexCenterRealTime.cshtml" />
     <Content Include="Views\Robot\MyRobot.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\View\PostDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Content\Img\" />
     <Folder Include="Image\Technology\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
