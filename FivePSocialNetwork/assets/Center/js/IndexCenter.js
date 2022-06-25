@@ -84,47 +84,31 @@ $('.ui.dropdown')
     .dropdown({
         allowAdditions: true
     })
-<<<<<<< Updated upstream
-=======
-
-$.validator.addMethod(
-    "checkContentQuestion",
-    function (value, element) {
-        $.ajax({
-            type: "POST",
-            url: "/Question/CheckQuestionContent",
-            data: "ContentQuestion=" + value,
-            dataType: "html",
-            success: function (msg) {
-                //If username exists, set response to true
-                response = (msg.data == 'true') ? true : false;
-            }
-        });
-        return response;
-    },
-    "Nội dung không được chứa từ ngữ thô tục"
-);
 
 $.fn.form.settings.rules.checkContent = function (value, fieldIdentifiers) {
+    let isCheck = false;
     $.ajax({
+        async: false,
         type: "POST",
         url: "/Question/CheckQuestionContent",
         data: "ContentQuestion=" + value,
         dataType: "html",
         success: function (msg) {
-            console.log(msg);
             //If username exists, set response to true
+            console.log(msg);
             if (msg === "yes") {
-                console.log(msg);
-                return false;
+                isCheck = false;
             } else {
-                return true;
+                isCheck = true;
             }
         }
     });
+    if (isCheck) {
+        return true;
+    } 
+    return false;
 };
 
->>>>>>> Stashed changes
 $('.ui.form')
     .form({
         fields: {
@@ -134,6 +118,10 @@ $('.ui.form')
                     {
                         type: 'empty',
                         prompt: 'Vui lòng nhập tiêu đề!'
+                    },
+                    {
+                        type: 'checkContent',
+                        prompt: 'Vui lòng không sử dụng những từ ngữ thô tục'
                     }
                 ]
             },
@@ -141,12 +129,8 @@ $('.ui.form')
                 identifier: 'question_content',
                 rules: [
                     {
-                        type: 'empty',
-                        prompt: 'Vui lòng nhập nội dung!'
-                    },
-                    {
-                        type: 'minLength[15]',
-                        prompt: 'Tối thiểu 15 ký tự!'
+                        type: 'checkContent',
+                        prompt: 'Vui lòng không sử dụng những từ ngữ thô tục'
                     }
                 ]
             },

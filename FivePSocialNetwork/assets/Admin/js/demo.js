@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 // Cicle Chart
 Circles.create({
     id: 'task-complete',
@@ -18,8 +18,8 @@ Circles.create({
 //Notify
 $.notify({
     icon: 'flaticon-alarm-1',
-    title: 'Atlantis Lite',
-    message: 'Free Bootstrap 4 Admin Dashboard',
+    title: 'Oversea',
+    message: '',
 }, {
     type: 'info',
     placement: {
@@ -83,7 +83,7 @@ $(document).ready(function () {
                 data: {
                     labels: getAllDaysOfMonth(),
                     datasets: [{
-                        label: "Subscribers",
+                        label: "Đăng ký",
                         borderColor: '#f3545d',
                         pointBackgroundColor: 'rgba(243, 84, 93, 0.6)',
                         pointRadius: 0,
@@ -93,7 +93,7 @@ $(document).ready(function () {
                         borderWidth: 2,
                         data: listUser
                     }, {
-                        label: "Login",
+                        label: "Đăng nhập",
                         borderColor: '#fdaf4b',
                         pointBackgroundColor: 'rgba(253, 175, 75, 0.6)',
                         pointRadius: 0,
@@ -103,7 +103,7 @@ $(document).ready(function () {
                         borderWidth: 2,
                         data: listuserlogin
                     }, {
-                        label: "Question",
+                        label: "Câu hỏi",
                         borderColor: '#177dff',
                         pointBackgroundColor: 'rgba(23, 125, 255, 0.6)',
                         pointRadius: 0,

@@ -196,7 +196,7 @@ namespace FivePSocialNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult CreateComment([Bind(Include = "commentAnswer_id,commentAnswer_content,commentAnswer_dateCreate,commentAnswer_dateEdit,user_id,answer_id,commentAnswer_recycleBin,commentAnswer_activate,commentAnswer_userStatus")] Comment_Answer comment_Answer, int? question_id, Notification notification)
+        public async Task<ActionResult> CreateComment([Bind(Include = "commentAnswer_id,commentAnswer_content,commentAnswer_dateCreate,commentAnswer_dateEdit,user_id,answer_id,commentAnswer_recycleBin,commentAnswer_activate,commentAnswer_userStatus")] Comment_Answer comment_Answer, int? question_id, Notification notification)
         {
             //nếu ko có cookies cho về trang tất cả câu hỏi.
             if (Request.Cookies["user_id"] == null)
@@ -207,6 +207,11 @@ namespace FivePSocialNetwork.Controllers
             int user_id = int.Parse(Request.Cookies["user_id"].Value.ToString());
             User user = db.Users.Find(user_id);
             //thông báo cho người hiển thị hoạt động
+            if (await checkSentiment(comment_Answer.commentAnswer_content))
+            {
+                Session["detectSentiment"] = "Phát hiện bình luận mang tính thô tục! Vui lòng thử lại";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
             List<Show_Activate_Question> show_Activate_Questions = db.Show_Activate_Question.Where(n => n.question_id == question_id).ToList();
             foreach (var item in show_Activate_Questions)
             {
